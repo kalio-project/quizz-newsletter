@@ -7,69 +7,66 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #fff; }
-        .card-shadow { transition: all 0.3s ease; }
-        .card-shadow:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+        .quiz-card:hover img { transform: scale(1.05); }
     </style>
 </head>
-<body class="p-6 md:p-12">
+<body class="p-4 md:p-10">
 
-    <header class="max-w-6xl mx-auto mb-16 flex flex-col md:flex-row justify-between items-end gap-6 border-b border-slate-100 pb-10">
+    <header class="max-w-5xl mx-auto mb-12 flex justify-between items-end">
         <div>
-            <h1 class="text-5xl font-black text-blue-600 italic tracking-tighter mb-2">ACTUQUIZ.</h1>
-            <p class="text-slate-400 font-medium">Testez votre compréhension des newsletters d'Hugo Décrypte.</p>
+            <h1 class="text-4xl font-black text-slate-900 tracking-tighter italic uppercase">ActuQuiz.</h1>
+            <p class="text-slate-500 font-medium text-sm">L'actualité décryptée par le jeu.</p>
         </div>
-        <div class="flex gap-4">
-            <a href="multiquiz.html" class="bg-slate-900 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-blue-600 transition shadow-lg">
-                Super Quiz Aléatoire ⚡
-            </a>
-        </div>
+        <a href="multiquiz.html" class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg hover:bg-slate-900 transition-all">
+            Super Quiz ⚡
+        </a>
     </header>
 
-    <main id="grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <main id="quiz-grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         </main>
 
     <script>
-        async function init() {
+        async function loadDashboard() {
             try {
                 const res = await fetch('manifest.json');
-                if (!res.ok) throw new Error("Manifest introuvable");
-                const data = await res.json();
-                const grid = document.getElementById('grid');
-                
-                // On inverse pour avoir le plus récent en premier
-                grid.innerHTML = data.reverse().map(i => `
-                    <div class="cursor-pointer group card-shadow rounded-3xl overflow-hidden bg-white border border-slate-50" 
-                         onclick="location.href='quiz.html?file=${i.file}'">
+                const manifest = await res.json();
+                const grid = document.getElementById('quiz-grid');
+                grid.innerHTML = '';
+
+                // On parcourt le manifest
+                for (const item of manifest.reverse()) {
+                    try {
+                        // COMME DANS QUIZ : On ouvre le fichier JSON pour l'image
+                        const detailRes = await fetch(item.file);
+                        const detailData = await detailRes.json();
                         
-                        <div class="relative aspect-video overflow-hidden bg-slate-100">
-                            <img src="${i.image}" 
-                                 onerror="this.src='https://via.placeholder.com/600x337?text=ActuQuiz+Hugo'"
-                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                            <div class="absolute top-4 left-4 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
-                                ${i.theme || 'ACTU'}
-                            </div>
-                        </div>
+                        const imageUrl = detailData.image || 'https://images.unsplash.com/photo-1504711432869-efd5971ee142?auto=format&fit=crop&q=80&w=1000';
 
-                        <div class="p-6">
-                            <div class="text-slate-400 text-[11px] font-bold mb-3 uppercase tracking-widest">
-                                ${i.date} • 5 MIN DE LECTURE
+                        const card = document.createElement('a');
+                        card.href = `quiz.html?file=${item.file}`;
+                        card.className = "quiz-card group bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 flex flex-col";
+
+                        card.innerHTML = `
+                            <div class="relative h-48 overflow-hidden bg-slate-100">
+                                <img src="${imageUrl}" class="w-full h-full object-cover transition-transform duration-500">
                             </div>
-                            <h2 class="text-xl font-extrabold leading-tight text-slate-900 group-hover:text-blue-600 transition-colors">
-                                ${i.titre}
-                            </h2>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (e) {
-                console.error("Erreur d'initialisation :", e);
-                document.getElementById('grid').innerHTML = `<p class="text-slate-400">Aucun quiz disponible pour le moment.</p>`;
-            }
+                            <div class="p-6">
+                                <h2 class="text-lg font-black text-slate-900 leading-tight mb-2 group-hover:text-blue-600 transition-colors">
+                                    ${item.title}
+                                </h2>
+                                <p class="text-slate-400 text-[10px] font-black uppercase tracking-widest">
+                                    ${item.date || 'Édition Spéciale'}
+                                </p>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    } catch (err) { console.error("Erreur sur un fichier:", item.file); }
+                }
+            } catch (e) { console.error("Erreur manifest"); }
         }
-        
-        // Lancement au chargement de la page
-        init();
-    </script>
 
+        loadDashboard();
+    </script>
 </body>
 </html>
