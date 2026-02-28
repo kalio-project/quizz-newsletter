@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; -webkit-tap-highlight-color: transparent; }
         .quiz-card:hover img { transform: scale(1.05); }
     </style>
 </head>
@@ -28,44 +28,52 @@
 
     <script>
         async function loadDashboard() {
+            const grid = document.getElementById('quiz-grid');
             try {
                 const res = await fetch('manifest.json');
                 const manifest = await res.json();
-                const grid = document.getElementById('quiz-grid');
                 grid.innerHTML = '';
 
-                // On boucle sur chaque item du manifest
                 for (const item of [...manifest].reverse()) {
                     try {
                         const detailRes = await fetch(item.file);
                         const data = await detailRes.json();
                         
-                        // --- LOGIQUE D'EXTRACTION DE L'IMAGE ---
-                        let foundImage = data.image; // D'abord la clé directe
+                        let html = data.html_affichage || data.contenu_html || "";
+                        let foundImg = data.image;
 
-                        if (!foundImage) {
-                            const htmlContent = data.html_affichage || data.contenu_html || "";
+                        if (!foundImg) {
+                            // STRATÉGIE LIEN FIXE : 
+                            // On cherche uniquement des URLs qui se terminent par des extensions d'images réelles
+                            const fixedImageRegex = /https?:\/\/[^"'>\s]+\.(?:jpg|jpeg|png|webp|gif)/i;
+                            const match = html.match(fixedImageRegex);
                             
-                            // On cherche l'URL de l'image dans le texte brut avec une REGEX 
-                            // C'est beaucoup plus puissant que de chercher une balise <img>
-                            const imgRegex = /(https?:\/\/[\w\-\.]+\/c\/[^\s"'>]+|https?:\/\/[^"'>]+\.(?:png|jpg|jpeg|gif|webp))/gi;
-                            const matches = htmlContent.match(imgRegex);
-                            
-                            if (matches && matches.length > 0) {
-                                // On prend le premier lien qui ressemble à une image ou au lien Kessel
-                                foundImage = matches[0];
+                            if (match) {
+                                foundImg = match[0];
+                            } else {
+                                // Secours : On cherche une balise img qui aurait un src fixe
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+                                const allImgs = doc.querySelectorAll('img');
+                                for(let img of allImgs) {
+                                    if(img.src && !img.src.includes('avatar') && !img.src.includes('icon')) {
+                                        foundImg = img.src;
+                                        break;
+                                    }
+                                }
                             }
                         }
 
-                        const finalImg = foundImage || 'https://images.unsplash.com/photo-1504711432869-efd5971ee142?auto=format&fit=crop&q=80&w=1000';
+                        const finalImg = foundImg || 'https://images.unsplash.com/photo-1504711432869-efd5971ee142?auto=format&fit=crop&q=80&w=1000';
 
                         const card = document.createElement('a');
                         card.href = `quiz.html?file=${item.file}`;
                         card.className = "group block";
 
                         card.innerHTML = `
-                            <div id="cover-container" class="mb-5 overflow-hidden rounded-[2rem] shadow-sm border border-slate-100 group-hover:shadow-xl transition-all duration-300">
-                                <img src="${finalImg}" class="w-full h-52 object-cover bg-slate-100 transition-transform duration-500">
+                            <div class="mb-5 overflow-hidden rounded-[2rem] shadow-sm border border-slate-100 group-hover:shadow-xl transition-all duration-300 bg-white">
+                                <img src="${finalImg}" class="w-full h-52 object-cover transition-transform duration-500" 
+                                     onerror="this.src='https://images.unsplash.com/photo-1504711432869-efd5971ee142?auto=format&fit=crop&q=80&w=1000'">
                             </div>
                             <div class="px-2">
                                 <div class="flex justify-between items-center mb-2">
@@ -73,7 +81,7 @@
                                         ⏱️ ${data.temps_lecture || '3 min'}
                                     </span>
                                     <span class="text-slate-300 text-[10px] font-bold uppercase">
-                                        🗓️ ${item.date || 'Récent'}
+                                        🗓️ ${item.date || ''}
                                     </span>
                                 </div>
                                 <h2 class="text-xl font-black text-slate-900 leading-tight group-hover:text-blue-600 transition-colors">
@@ -82,11 +90,10 @@
                             </div>
                         `;
                         grid.appendChild(card);
-                    } catch (err) { console.error("Erreur sur :", item.file); }
+                    } catch (err) { console.warn("Erreur", item.file); }
                 }
             } catch (e) { console.error("Erreur manifest"); }
         }
-
         loadDashboard();
     </script>
 </body>
