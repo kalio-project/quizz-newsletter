@@ -43,7 +43,6 @@ def get_newsletter():
         subject = "".join([part.decode(enc or 'utf-8') if isinstance(part, bytes) else part for part, enc in subject_parts])
 
         if any(addr.lower() in sender for addr in AUTORISES):
-            print(f"✅ MAIL DÉTECTÉ : {subject[:40]}...")
             dt = parsedate_to_datetime(msg.get("Date"))
             
             html_content = ""
@@ -83,15 +82,15 @@ if newsletters:
             print(f"⏩ Déjà traité : {nl['subject']}")
             continue
 
-        print(f"🤖 IA en cours (Gemini 2.5 Flash)...")
+        print(f"🤖 IA en cours (Gemini 2.5 Flash) sur : {nl['subject'][:30]}...")
         
-        prompt = """Tu es un expert. Analyse la newsletter et génère en JSON :
-        1. titre accrocheur.
-        2. image (URL src trouvée ou vide).
-        3. theme (Politique, Économie, Technologie, Écologie, Société, Culture, Sport, Géopolitique, Science, Insolite).
-        4. contenu_html (Garde uniquement <p>, <b>, <ul>, <li>).
-        5. questions (10 QCM avec q, options, correct (0-3), explication).
-        JSON STRICT UNIQUEMENT."""
+        prompt = """Tu es un expert. Analyse la newsletter et génère en JSON STRICT :
+        - titre: un titre accrocheur.
+        - image: URL src trouvée ou chaîne vide.
+        - theme: un seul mot (Politique, Économie, Technologie, Écologie, Société, Culture, Sport, Géopolitique, Science ou Insolite).
+        - contenu_html: résumé avec balises <p>, <b>, <ul>, <li>.
+        - questions: 10 QCM avec q, options, correct (0-3), explication.
+        JSON UNIQUEMENT."""
         
         try:
             response = client.models.generate_content(
@@ -102,6 +101,11 @@ if newsletters:
             json_match = re.search(r'\{.*\}', response.text, re.DOTALL)
             if json_match:
                 data = json.loads(json_match.group())
+                
+                # SÉCURITÉ : On gère les majuscules/minuscules des clés JSON
+                final_titre = data.get('titre') or data.get('Titre') or "Sans titre"
+                final_theme = data.get('theme') or data.get('Theme') or data.get('Thème') or "Actu"
+                
                 file_name = f"quiz-{nl['id_unique']}.json"
                 os.makedirs('data', exist_ok=True)
                 with open(f"data/{file_name}", 'w', encoding='utf-8') as f:
@@ -110,14 +114,14 @@ if newsletters:
                 manifest.append({
                     "date": nl['date'],
                     "file": f"data/{file_name}",
-                    "titre": data['titre'],
+                    "titre": final_titre,
                     "titre_original": nl['subject'],
-                    "image": data.get('image') or 'https://images.unsplash.com/photo-1504711434969-e33886168f5c',
-                    "theme": data['theme']
+                    "image": data.get('image') or data.get('Image') or 'https://images.unsplash.com/photo-1504711434969-e33886168f5c',
+                    "theme": final_theme
                 })
                 print(f"   💾 Fichier créé : {file_name}")
         except Exception as e:
-            print(f"❌ Erreur IA : {e}")
+            print(f"❌ Erreur IA détaillée : {e}")
 
     with open('manifest.json', 'w', encoding='utf-8') as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
