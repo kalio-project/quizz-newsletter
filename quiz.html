@@ -11,15 +11,19 @@
         .option-btn { transition: all 0.2s; border: 2px solid #f1f5f9; }
         .option-btn.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
         .option-btn.wrong { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
-        #q-display-zone { min-height: 100px; }
-        /* Style pour les images à l'intérieur de l'article */
-        #hugo-content img { max-width: 100%; height: auto; border-radius: 1rem; margin: 1.5rem 0; }
+        
+        /* Nettoyage forcé des styles de la newsletter */
+        #hugo-content img { max-width: 100%; height: auto; border-radius: 1.5rem; margin: 1.5rem 0; }
+        #hugo-content table { width: 100% !important; border-collapse: collapse; }
+        
+        /* Cache les éléments vides ou de structure inutiles */
+        .prose :empty { display: none !important; }
     </style>
 </head>
 <body class="bg-white">
 
     <nav class="sticky top-0 bg-white/95 backdrop-blur-md border-b z-50 p-4">
-        <div class="max-w-3xl mx-auto flex justify-between items-center">
+        <div class="max-w-3xl mx-auto">
             <a href="index.html" class="text-blue-600 font-black italic tracking-tighter text-xl uppercase">ActuQuiz.</a>
         </div>
     </nav>
@@ -31,36 +35,31 @@
         </div>
 
         <article id="hugo-content" class="prose prose-slate max-w-none mb-12 border-b pb-12">
-            <p class="text-center text-slate-400 italic py-10">Chargement de l'édition...</p>
-        </article>
+            </article>
 
         <section id="quiz-block" class="bg-slate-50 rounded-[2.5rem] p-6 md:p-10 border border-slate-100 shadow-xl mb-24">
-            
             <div id="q-container">
                 <div class="flex justify-between items-center mb-6">
                     <span id="q-category" class="text-[10px] font-black px-2 py-1 border border-blue-600 text-blue-600 rounded uppercase tracking-widest">INFO</span>
                     <span id="q-counter" class="text-slate-400 font-bold text-[10px] tracking-widest uppercase">01 / 10</span>
                 </div>
-
                 <div id="q-display-zone" class="mb-8">
                     <h2 id="q-text" class="text-xl md:text-2xl font-bold text-slate-900 leading-tight"></h2>
-                    
                     <div id="explanation-box" class="hidden">
                         <div class="p-5 bg-white rounded-2xl border-2 border-blue-50 text-slate-700 text-sm leading-relaxed shadow-sm mb-4">
                             <p id="expl-text"></p>
                         </div>
-                        <button onclick="nextQuestion()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">
-                            Question Suivante →
+                        <button onclick="nextQuestion()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest active:scale-95">
+                            Suivant →
                         </button>
                     </div>
                 </div>
-                
                 <div id="options-grid" class="space-y-3"></div>
             </div>
 
             <div id="end-screen" class="hidden text-center py-10">
                 <div class="text-5xl mb-6">🎯</div>
-                <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase tracking-tighter">Fini !</h2>
+                <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase">Score Final</h2>
                 <div class="text-7xl font-black text-blue-600 mb-10" id="final-score">0 / 0</div>
                 <a href="index.html" class="inline-block bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest">Retour</a>
             </div>
@@ -79,204 +78,52 @@
             try {
                 const res = await fetch(file);
                 const data = await res.json();
+                let rawHtml = data.html_affichage || data.contenu_html || "";
 
-                const content = data.html_affichage || data.contenu_html;
-                
-                // 1. EXTRACTION DE LA PHOTO (On fouille dans le HTML brut)
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = content;
-                const firstImg = tempDiv.querySelector('img');
+                // 1. EXTRACTION IMAGE (Méthode DOMParser robuste)
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(rawHtml, 'text/html');
+                const firstImg = doc.querySelector('img');
                 const coverImg = document.getElementById('main-cover');
 
                 if (data.image) {
                     coverImg.src = data.image;
                 } else if (firstImg) {
                     coverImg.src = firstImg.src;
+                    firstImg.remove(); // On enlève la première image du texte pour éviter le doublon
                 } else {
                     document.getElementById('cover-container').style.display = 'none';
                 }
 
-                // 2. AFFICHAGE (Zéro modification, zéro cut)
-                document.getElementById('hugo-content').innerHTML = content;
-                
-                questions = data.questions || [];
-                renderQuestion();
-            } catch (err) {
-                console.error("Erreur de chargement:", err);
-            }
-        }
-
-        function renderQuestion() {
-            if (questions.length === 0) return;
-            const q = questions[currentIdx];
-            
-            document.getElementById('q-counter').innerText = `${String(currentIdx + 1).padStart(2, '0')} / ${String(questions.length).padStart(2, '0')}`;
-            document.getElementById('q-category').innerText = q.categorie || "INFO";
-            document.getElementById('q-text').innerText = q.q;
-            document.getElementById('q-text').classList.remove('hidden');
-            document.getElementById('explanation-box').classList.add('hidden');
-            
-            const grid = document.getElementById('options-grid');
-            grid.innerHTML = "";
-            
-            q.options.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = "option-btn w-full p-5 rounded-2xl text-left font-bold text-slate-700 bg-white shadow-sm";
-                btn.innerText = opt;
-                btn.onclick = () => {
-                    const btns = grid.querySelectorAll('button');
-                    btns.forEach(b => b.disabled = true);
-                    
-                    document.getElementById('q-text').classList.add('hidden');
-                    document.getElementById('expl-text').innerHTML = `
-                        <span class="font-black ${i === q.correct ? 'text-green-600' : 'text-red-600'} uppercase text-[10px] tracking-widest mb-1 block">
-                            ${i === q.correct ? '✅ Bravo' : '❌ Erreur'}
-                        </span>
-                        ${q.explication}
-                    `;
-                    document.getElementById('explanation-box').classList.remove('hidden');
-
-                    if(i === q.correct) {
-                        btn.classList.add('correct');
-                        score++;
-                    } else {
-                        btn.classList.add('wrong');
-                        btns[q.correct].classList.add('correct');
-                    }
-                };
-                grid.appendChild(btn);
-            });
-        }
-
-        function nextQuestion() {
-            currentIdx++;
-            if (currentIdx < questions.length) {
-                renderQuestion();
-                document.getElementById('quiz-block').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                document.getElementById('q-container').classList.add('hidden');
-                document.getElementById('end-screen').classList.remove('hidden');
-                document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
-            }
-        }
-
-        loadQuiz();
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz - Lecture</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #fff; -webkit-tap-highlight-color: transparent; }
-        .option-btn { transition: all 0.2s; border: 2px solid #f1f5f9; }
-        .option-btn.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
-        .option-btn.wrong { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
-        #q-display-zone { min-height: 100px; }
-        img { max-width: 100%; height: auto; border-radius: 1.5rem; }
-    </style>
-</head>
-<body class="bg-white">
-
-    <nav class="sticky top-0 bg-white/95 backdrop-blur-md border-b z-50 p-4">
-        <div class="max-w-3xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-blue-600 font-black italic tracking-tighter text-xl uppercase">ActuQuiz.</a>
-        </div>
-    </nav>
-
-    <main class="max-w-3xl mx-auto p-4 md:p-6">
-        
-        <div id="cover-container" class="mb-8">
-            <img id="main-cover" src="" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-lg bg-slate-100">
-        </div>
-
-        <article id="hugo-content" class="prose prose-slate max-w-none mb-12 border-b pb-12">
-            <p class="text-center text-slate-400 italic py-10">Préparation de votre édition...</p>
-        </article>
-
-        <section id="quiz-block" class="bg-slate-50 rounded-[2.5rem] p-6 md:p-10 border border-slate-100 shadow-xl mb-24">
-            
-            <div id="q-container">
-                <div class="flex justify-between items-center mb-6">
-                    <span id="q-category" class="text-[10px] font-black px-2 py-1 border border-blue-600 text-blue-600 rounded uppercase tracking-widest">INFO</span>
-                    <span id="q-counter" class="text-slate-400 font-bold text-[10px] tracking-widest uppercase">01 / 10</span>
-                </div>
-
-                <div id="q-display-zone" class="mb-8">
-                    <h2 id="q-text" class="text-xl md:text-2xl font-bold text-slate-900 leading-tight"></h2>
-                    
-                    <div id="explanation-box" class="hidden">
-                        <div class="p-5 bg-white rounded-2xl border-2 border-blue-50 text-slate-700 text-sm leading-relaxed shadow-sm mb-4">
-                            <p id="expl-text"></p>
-                        </div>
-                        <button onclick="nextQuestion()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">
-                            Question Suivante →
-                        </button>
-                    </div>
-                </div>
-                
-                <div id="options-grid" class="space-y-3"></div>
-            </div>
-
-            <div id="end-screen" class="hidden text-center py-10">
-                <div class="text-5xl mb-6">🎯</div>
-                <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase">Score Final</h2>
-                <div class="text-7xl font-black text-blue-600 mb-10" id="final-score">0 / 0</div>
-                <a href="index.html" class="inline-block bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest">Quitter</a>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        let questions = [];
-        let currentIdx = 0;
-        let score = 0;
-
-        const params = new URLSearchParams(window.location.search);
-        const file = params.get('file');
-
-        async function loadQuiz() {
-            try {
-                const res = await fetch(file);
-                const data = await res.json();
-
-                // 1. EXTRACTION DE L'IMAGE (Avant tout nettoyage)
-                const coverImg = document.getElementById('main-cover');
-                let foundImage = data.image;
-
-                if (!foundImage) {
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = data.html_affichage || data.contenu_html;
-                    const firstImg = tempDiv.querySelector('img');
-                    if (firstImg) foundImage = firstImg.src;
-                }
-
-                if (foundImage) {
-                    coverImg.src = foundImage;
-                } else {
-                    document.getElementById('cover-container').style.display = 'none';
-                }
-
-                // 2. NETTOYAGE DU TEXTE
-                let cleanHtml = data.html_affichage || data.contenu_html;
-                cleanHtml = cleanHtml.replace(/.*Ouvrir dans le navigateur.*/i, "");
-                
+                // 2. NETTOYAGE CHIRURGICAL DU CONTENU
+                // On coupe après la fin de la news
                 const splitKey = "Vous avez aimé cette newsletter ?";
+                let cleanHtml = doc.body.innerHTML;
                 if (cleanHtml.includes(splitKey)) {
                     cleanHtml = cleanHtml.split(splitKey)[0];
                 }
 
-                document.getElementById('hugo-content').innerHTML = cleanHtml;
+                const finalDiv = document.createElement('div');
+                finalDiv.innerHTML = cleanHtml;
+
+                // On supprime les liens "Ouvrir dans le navigateur" et les blocs vides
+                const elements = finalDiv.querySelectorAll('a, div, p, center, table');
+                elements.forEach(el => {
+                    // Si c'est le lien navigateur, on dégage
+                    if (el.innerText.includes("navigateur") || el.innerText.includes("view in browser")) {
+                        el.remove();
+                    }
+                    // Si c'est un bloc de structure vide (plusieurs espaces ou rien)
+                    if (el.tagName !== 'IMG' && el.innerText.trim().length === 0 && !el.querySelector('img')) {
+                        el.remove();
+                    }
+                });
+
+                document.getElementById('hugo-content').innerHTML = finalDiv.innerHTML;
                 
-                questions = data.questions;
+                questions = data.questions || [];
                 renderQuestion();
-            } catch (err) {
-                console.error("Erreur:", err);
-            }
+            } catch (err) { console.error(err); }
         }
 
         function renderQuestion() {
@@ -295,9 +142,7 @@
                 btn.className = "option-btn w-full p-5 rounded-2xl text-left font-bold text-slate-700 bg-white shadow-sm";
                 btn.innerText = opt;
                 btn.onclick = () => {
-                    const btns = grid.querySelectorAll('button');
-                    btns.forEach(b => b.disabled = true);
-                    
+                    document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
                     document.getElementById('q-text').classList.add('hidden');
                     document.getElementById('expl-text').innerHTML = `
                         <span class="font-black ${i === q.correct ? 'text-green-600' : 'text-red-600'} uppercase text-[10px] tracking-widest mb-1 block">
@@ -306,14 +151,8 @@
                         ${q.explication}
                     `;
                     document.getElementById('explanation-box').classList.remove('hidden');
-
-                    if(i === q.correct) {
-                        btn.classList.add('correct');
-                        score++;
-                    } else {
-                        btn.classList.add('wrong');
-                        btns[q.correct].classList.add('correct');
-                    }
+                    if(i === q.correct) { btn.classList.add('correct'); score++; }
+                    else { btn.classList.add('wrong'); grid.querySelectorAll('button')[q.correct].classList.add('correct'); }
                 };
                 grid.appendChild(btn);
             });
@@ -330,7 +169,6 @@
                 document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
             }
         }
-
         loadQuiz();
     </script>
 </body>
