@@ -3,6 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActuQuiz - Hugo Décrypte</title>
+    <style>
+        :root { --hugo-red: #e63946; --navy: #151a2e; --gray: #f4f7f6; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #fff; margin: 0; color: var(--navy); }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header Professionnel */
+        header { padding: 40px 0; border-bottom: 1px solid #eee; margin-bottom: 40px; }
+        .logo { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 10px; }
+        .logo span { color: var(--hugo-red); }
+        .description { color: #666; max-width: 600px; line-height: 1.5; font-size: 15px; }
+
+        /* Navigation / Bonus */
+        .nav-tools { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .btn-config { background: var(--gray); color: var(--navy); padding: 10px 20px; border-radius: 30px; text-decoration: none; font-size: 14px; font-weight: 600; border: 1px solid #ddd; transition: 0.2s; }
+        .btn-config:hover { background: #eee; }
+
+        /* Grille Newsletters */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 35px; }
+        .card { text-decoration: none; color: inherit; display: block; group; }
+        
+        /* Image avec fallback si erreur */
+        .card-img { width: 100%; aspect-ratio: 16/9; background: var(--gray); border-radius: 15px; object-fit: cover; margin-bottom: 18px; transition: transform 0.3s; }
+        .card:hover .card-img { transform: translateY(-5px); }
+
+        .card-meta { font-size: 12px; font-weight: bold; color: var(--hugo-red); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+        .card-title { font-size: 19px; font-weight: 800; line-height: 1.3; margin: 0; color: var(--navy); }
+        .card-date { font-size: 13px; color: #888; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">ACTU<span>QUIZ</span></div>
+            <p class="description">
+                L'actualité d'<strong>Hugo Décrypte</strong> transformée en exercices. 
+                Lisez la newsletter quotidienne et testez immédiatement votre compréhension avec nos quiz générés par IA.
+            </p>
+        </header>
+
+        <div class="nav-tools">
+            <h2 style="font-size: 20px; margin: 0;">Dernières éditions</h2>
+            <a href="multiquiz.html" class="btn-config">⚙️ Personnaliser un Super Quiz</a>
+        </div>
+
+        <div id="quiz-list" class="grid">
+            </div>
+    </div>
+
+    <script>
+        async function loadNewsletters() {
+            try {
+                const response = await fetch('manifest.json');
+                const data = await response.json();
+                const list = document.getElementById('quiz-list');
+
+                for (const item of data.reverse()) {
+                    // On récupère le contenu pour extraire la photo
+                    const res = await fetch(item.file);
+                    const quizData = await res.json();
+                    
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = quizData.html_affichage;
+                    const firstImg = tempDiv.querySelector('img')?.src || 'https://via.placeholder.com/600x337?text=ActuQuiz';
+
+                    list.innerHTML += `
+                        <a href="quiz.html?file=${item.file}" class="card">
+                            <img src="${firstImg}" class="card-img" onerror="this.src='https://via.placeholder.com/600x337?text=Image+Non+Disponible'">
+                            <div class="card-meta">${item.theme || 'ACTUALITÉ'}</div>
+                            <h3 class="card-title">🚨 ${item.titre}</h3>
+                            <div class="card-date">Publié le ${item.date} • Lecture 5 min</div>
+                        </a>`;
+                }
+            } catch (e) {
+                console.error("Erreur chargement :", e);
+            }
+        }
+        loadNewsletters();
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hugo Décrypte - Quiz</title>
     <style>
         body { font-family: -apple-system, system-ui, sans-serif; background: #fff; margin: 0; color: #1a1a1a; }
