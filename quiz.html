@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture & Quiz - ActuQuiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .prose p { margin-bottom: 1.5rem; line-height: 1.8; font-size: 1.1rem; color: #334155; }
+        .prose b { color: #0f172a; font-weight: 800; }
+        .option-btn:disabled { cursor: not-allowed; }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+
+    <nav class="border-b sticky top-0 bg-white/80 backdrop-blur-md z-50">
+        <div class="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="index.html" class="font-black text-2xl tracking-tighter hover:text-blue-600 transition">
+                <i class="fas fa-arrow-left mr-3 text-sm text-slate-400"></i><span class="text-blue-600">ACTU</span>QUIZ
+            </a>
+            <div id="progress-container" class="hidden flex items-center gap-3">
+                <span id="q-count-nav" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1/10</span>
+                <div class="w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div id="progress-fill" class="h-full bg-blue-600 w-0 transition-all duration-500"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <article class="max-w-3xl mx-auto px-4 py-12">
+        <header class="mb-10">
+            <div id="badge-theme" class="inline-block px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest text-white mb-4">Thème</div>
+            <h1 id="title" class="text-4xl md:text-5xl font-black leading-tight text-slate-900">Chargement...</h1>
+        </header>
+
+        <div id="content" class="prose max-w-none border-b border-slate-100 pb-16 mb-16">
+            </div>
+
+        <section id="quiz-box" class="bg-slate-900 rounded-[40px] p-8 md:p-12 text-white shadow-2xl shadow-blue-200">
+            <div id="quiz-intro" class="text-center mb-10">
+                <div class="inline-block bg-blue-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-4">Challenge</div>
+                <h2 class="text-3xl font-black">As-tu bien tout retenu ?</h2>
+                <p class="text-slate-400 mt-2">Réponds aux 10 questions basées sur l'article ci-dessus.</p>
+            </div>
+
+            <div id="question-area">
+                <h3 id="q-text" class="text-2xl font-bold mb-8 leading-snug">Question ?</h3>
+                <div id="options-grid" class="grid gap-3">
+                    </div>
+                <div id="explanation" class="hidden mt-8 p-6 rounded-3xl border border-white/10 bg-white/5 transition-all">
+                    </div>
+                <button id="next-btn" class="hidden mt-8 w-full bg-blue-600 py-5 rounded-2xl font-black text-lg hover:bg-blue-500 transition shadow-xl shadow-blue-900/20">
+                    QUESTION SUIVANTE <i class="fas fa-chevron-right ml-2 text-sm"></i>
+                </button>
+            </div>
+
+            <div id="score-area" class="hidden text-center py-10">
+                <div class="text-7xl mb-6">🎯</div>
+                <h2 class="text-4xl font-black mb-2">Quiz Terminé !</h2>
+                <p id="final-score" class="text-2xl font-bold text-blue-400 mb-8">Score : 0/10</p>
+                <div class="flex flex-col gap-3">
+                    <a href="index.html" class="bg-white text-slate-900 py-4 rounded-2xl font-black hover:bg-slate-100 transition">RETOUR À L'ACCUEIL</a>
+                    <button onclick="location.reload()" class="text-slate-400 font-bold hover:text-white transition">RECOMMENCER</button>
+                </div>
+            </div>
+        </section>
+    </article>
+
+    <footer class="py-20 text-center text-slate-300 font-bold uppercase tracking-widest text-[10px]">
+        Propulsé par Gemini 2.5 & GitHub Actions
+    </footer>
+
+    <script>
+        let quizData = null;
+        let index = 0;
+        let score = 0;
+
+        const params = new URLSearchParams(window.location.search);
+        const file = params.get('file');
+
+        async function load() {
+            if(!file) return;
+            try {
+                const res = await fetch(file);
+                quizData = await res.json();
+
+                // Remplissage Article
+                document.getElementById('title').textContent = quizData.titre;
+                document.getElementById('badge-theme').textContent = quizData.theme || 'ACTU';
+                document.getElementById('badge-theme').style.background = '#3b82f6'; // Bleu par défaut
+                document.getElementById('content').innerHTML = quizData.contenu_html || "<p>L'IA n'a pas pu extraire le texte complet, mais voici le quiz !</p>";
+                
+                renderQuestion();
+            } catch(e) { console.error(e); }
+        }
+
+        function renderQuestion() {
+            const q = quizData.questions[index];
+            document.getElementById('q-text').textContent = q.q;
+            document.getElementById('progress-container').classList.remove('hidden');
+            document.getElementById('q-count-nav').textContent = `Question ${index + 1}/${quizData.questions.length}`;
+            document.getElementById('progress-fill').style.width = ((index + 1) / quizData.questions.length * 100) + "%";
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            document.getElementById('explanation').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            q.options.forEach((opt, i) => {
+                const b = document.createElement('button');
+                b.className = "option-btn text-left p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold hover:bg-white/10 transition-all";
+                b.textContent = opt;
+                b.onclick = () => verify(i);
+                grid.appendChild(b);
+            });
+        }
+
+        function verify(choice) {
+            const q = quizData.questions[index];
+            const btns = document.querySelectorAll('.option-btn');
+            const exp = document.getElementById('explanation');
+            btns.forEach(b => b.disabled = true);
+
+            if(choice === q.correct) {
+                score++;
+                btns[choice].classList.add('bg-green-500', 'border-green-500', 'text-white');
+                exp.innerHTML = `<span class="text-green-400 font-black tracking-widest uppercase text-[10px] block mb-2">Excellent !</span> ${q.explication}`;
+            } else {
+                btns[choice].classList.add('bg-red-500', 'border-red-500', 'text-white');
+                btns[q.correct].classList.add('bg-green-500/20', 'border-green-500', 'text-green-400');
+                exp.innerHTML = `<span class="text-red-400 font-black tracking-widest uppercase text-[10px] block mb-2">Dommage...</span> ${q.explication}`;
+            }
+            exp.classList.remove('hidden');
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        document.getElementById('next-btn').onclick = () => {
+            index++;
+            if(index < quizData.questions.length) renderQuestion();
+            else {
+                document.getElementById('question-area').classList.add('hidden');
+                document.getElementById('quiz-intro').classList.add('hidden');
+                document.getElementById('score-area').classList.remove('hidden');
+                document.getElementById('final-score').textContent = `Score : ${score} / ${quizData.questions.length}`;
+            }
+        };
+
+        load();
+    </script>
+</body>
+</html>
