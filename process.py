@@ -1,22 +1,22 @@
 import os, imaplib, email, json, re, time
-from google import genai
+import google.generativeai as genai  # On revient à l'ancienne bibliothèque stable
 from bs4 import BeautifulSoup
 from datetime import datetime
 from email.header import decode_header
 
 # --- CONFIGURATION ---
-client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+model = genai.GenerativeModel('gemini-1.5-flash') # Ce nom fonctionne avec cette lib
+
 SOURCE_FOLDER = "newsletters_html"
 EMAIL_USER = os.environ.get("EMAIL_USER")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
 def clean_html_for_ia(raw_html):
-    """Extrait le texte pur pour l'IA"""
     soup = BeautifulSoup(raw_html, 'html.parser')
     for tag in soup(["script", "style", "nav", "footer"]):
         tag.decompose()
-    text = ' '.join(soup.get_text(separator=' ').split())
-    return text[:10000] # Sécurité quota gratuit
+    return ' '.join(soup.get_text(separator=' ').split())[:10000]
 
 def fetch_emails():
     if not EMAIL_USER or not EMAIL_PASSWORD:
@@ -73,27 +73,19 @@ def run():
     print(f"🤖 Analyse de : {item['title']}")
     texte_ia = clean_html_for_ia(item["html"])
     
-    prompt = """Génère un quiz JSON de 10 questions. 
-    Format strictement attendu :
-    {
-      "theme_global": "Thème",
-      "titre": "Titre",
-      "questions": [
-        {"q": "Question ?", "options": ["A", "B", "C", "D"], "correct": 0, "explication": "Détails"}
-      ]
-    }"""
+    prompt = """Tu es un expert en quiz. Génère un quiz JSON de 10 questions sur le texte fourni.
+    Réponds UNIQUEMENT avec le JSON, pas de texte avant ou après.
+    Structure : {"theme_global": "", "titre": "", "questions": [{"q": "", "options": ["", "", "", ""], "correct": 0, "explication": ""}]}"""
 
     try:
-        # CHANGEMENT ICI : Nom de modèle simplifié pour éviter le 404
-        response = client.models.generate_content(
-            model='gemini-1.5-flash', 
-            contents=f"{prompt}\n\nTexte :\n{texte_ia}"
-        )
+        # La syntaxe de l'ancienne lib est différente
+        response = model.generate_content(f"{prompt}\n\nTexte :\n{texte_ia}")
         
         json_match = re.search(r'\{.*\}', response.text, re.DOTALL)
         if json_match:
             quiz_data = json.loads(json_match.group())
-            quiz_data['html_affichage'] = item["html"] # On garde TOUT le HTML pour ton site
+            # ON GARDE BIEN LE HTML COMPLET ICI
+            quiz_data['html_affichage'] = item["html"] 
             
             quiz_id = datetime.now().strftime("%Y%m%d-%H%M")
             file_name = f"quiz-{quiz_id}.json"
@@ -110,7 +102,7 @@ def run():
             with open('manifest.json', 'w', encoding='utf-8') as f:
                 json.dump(manifest, f, ensure_ascii=False, indent=2)
             
-            print(f"🚀 Succès ! Quiz et HTML enregistrés.")
+            print(f"🚀 Succès ! Fichier data/{file_name} créé.")
     except Exception as e:
         print(f"💥 Erreur IA : {e}")
 
