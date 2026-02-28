@@ -9,15 +9,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background: #fff; }
 
-        /* MASQUAGE IMMÉDIAT DU COEUR ET DES BOUTONS DE PLATEFORME */
-        #hugo-content svg, 
-        #hugo-content .newsletter-header,
-        #hugo-content .preheader,
-        #hugo-content [class*="like"], 
-        #hugo-content [class*="share"] { 
-            display: none !important; 
-        }
-
+        /* Nettoyage visuel des éléments restants */
+        #hugo-content center, #hugo-content .preheader, #hugo-content svg { display: none !important; }
         #hugo-content img { max-width: 100%; height: auto; border-radius: 1.5rem; margin: 1.5rem 0; }
         
         .option-btn { transition: all 0.2s; border: 2px solid #f1f5f9; }
@@ -50,7 +43,7 @@
                 </div>
                 <div id="q-display-zone" class="mb-8">
                     <h2 id="q-text" class="text-xl md:text-2xl font-bold text-slate-900 leading-tight"></h2>
-                    <div id="explanation-box" class="hidden">
+                    <div id="explanation-box" class="hidden mt-4">
                         <div class="p-5 bg-white rounded-2xl border-2 border-blue-50 text-slate-700 text-sm mb-4">
                             <p id="expl-text"></p>
                         </div>
@@ -79,27 +72,27 @@
                 const data = await res.json();
                 let html = data.html_affichage || data.contenu_html;
 
-                // 1. IMAGE COUVERTURE
-                const imgMatch = html.match(/https?:\/\/[^"'>\s]+\.(?:png|jpg|jpeg|gif|webp|c\/[^\s"'>]+)/i);
-                if (imgMatch) {
-                    document.getElementById('main-cover').src = imgMatch[0].replace(/&amp;/g, '&');
+                // 1. EXTRACTION IMAGE COUVERTURE (Regex large pour tout type d'image)
+                const imgRegex = /https?:\/\/[^"'>\s]+\.(?:png|jpg|jpeg|gif|webp)|https?:\/\/email\.kessel\.media\/c\/[^"'>\s]+/i;
+                const match = html.match(imgRegex);
+                if (match) {
+                    document.getElementById('main-cover').src = match[0].replace(/&amp;/g, '&');
                 }
 
-                // 2. NETTOYAGE CHIRURGICAL
-                const temp = document.createElement('div');
-                temp.innerHTML = html;
-                
-                // On vire tout ce qui n'a pas de texte ou qui est un SVG (le coeur)
-                const junk = temp.querySelectorAll('svg, table:empty, div:empty, center:empty');
-                junk.forEach(el => el.remove());
+                // 2. NETTOYAGE HAUT DE PAGE (Coupe après "Ouvrir dans le navigateur")
+                const startKey = "Ouvrir dans le navigateur";
+                if (html.includes(startKey)) {
+                    // On garde ce qui vient après la phrase
+                    html = html.split(startKey)[1]; 
+                }
 
-                let cleaned = temp.innerHTML;
+                // 3. NETTOYAGE BAS DE PAGE
                 const stopKey = "Vous avez aimé cette newsletter ?";
-                if (cleaned.includes(stopKey)) {
-                    cleaned = cleaned.split(stopKey)[0];
+                if (html.includes(stopKey)) {
+                    html = html.split(stopKey)[0];
                 }
 
-                document.getElementById('hugo-content').innerHTML = cleaned;
+                document.getElementById('hugo-content').innerHTML = html;
                 questions = data.questions || [];
                 renderQuestion();
             } catch (err) { console.error(err); }
@@ -107,6 +100,7 @@
 
         function renderQuestion() {
             const q = questions[currentIdx];
+            if(!q) return;
             document.getElementById('q-counter').innerText = `${currentIdx + 1} / ${questions.length}`;
             document.getElementById('q-text').innerText = q.q;
             document.getElementById('q-text').classList.remove('hidden');
