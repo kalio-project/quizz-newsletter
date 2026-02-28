@@ -3,140 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz - Hugo Décrypte !! </title>
+    <title>ActuQuiz - Accueil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --hugo-red: #e63946; --navy: #151a2e; --gray: #f4f7f6; }
-        body { font-family: -apple-system, system-ui, sans-serif; background: #fff; margin: 0; color: var(--navy); }
-        
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-
-        /* Header Professionnel */
-        header { padding: 40px 0; border-bottom: 1px solid #eee; margin-bottom: 40px; }
-        .logo { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 10px; }
-        .logo span { color: var(--hugo-red); }
-        .description { color: #666; max-width: 600px; line-height: 1.5; font-size: 15px; }
-
-        /* Navigation / Bonus */
-        .nav-tools { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .btn-config { background: var(--gray); color: var(--navy); padding: 10px 20px; border-radius: 30px; text-decoration: none; font-size: 14px; font-weight: 600; border: 1px solid #ddd; transition: 0.2s; }
-        .btn-config:hover { background: #eee; }
-
-        /* Grille Newsletters */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 35px; }
-        .card { text-decoration: none; color: inherit; display: block; group; }
-        
-        /* Image avec fallback si erreur */
-        .card-img { width: 100%; aspect-ratio: 16/9; background: var(--gray); border-radius: 15px; object-fit: cover; margin-bottom: 18px; transition: transform 0.3s; }
-        .card:hover .card-img { transform: translateY(-5px); }
-
-        .card-meta { font-size: 12px; font-weight: bold; color: var(--hugo-red); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
-        .card-title { font-size: 19px; font-weight: 800; line-height: 1.3; margin: 0; color: var(--navy); }
-        .card-date { font-size: 13px; color: #888; margin-top: 10px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 p-6">
 
-    <div class="container">
-        <header>
-            <div class="logo">ACTU<span>QUIZ</span></div>
-            <p class="description">
-                L'actualité d'<strong>Hugo Décrypte</strong> transformée en exercices. 
-                Lisez la newsletter quotidienne et testez immédiatement votre compréhension avec nos quiz générés par IA.
-            </p>
-        </header>
-
-        <div class="nav-tools">
-            <h2 style="font-size: 20px; margin: 0;">Dernières éditions</h2>
-            <a href="multiquiz.html" class="btn-config">⚙️ Personnaliser un Super Quiz</a>
+    <header class="max-w-6xl mx-auto mb-10 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+            <h1 class="text-4xl font-black italic text-blue-600">ACTUQUIZ.</h1>
+            <p class="text-slate-500 font-medium">L'actu d'HugoDécrypte décortiquée en tests de lecture.</p>
         </div>
+        <a href="multiquiz.html" class="bg-slate-900 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:scale-105 transition">
+            Lancer un Test Aléatoire ⚡
+        </a>
+    </header>
 
-        <div id="quiz-list" class="grid">
-            </div>
-    </div>
+    <main id="grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8"></main>
 
     <script>
-        async function loadNewsletters() {
-            try {
-                const response = await fetch('manifest.json');
-                const data = await response.json();
-                const list = document.getElementById('quiz-list');
-
-                for (const item of data.reverse()) {
-                    // On récupère le contenu pour extraire la photo
-                    const res = await fetch(item.file);
-                    const quizData = await res.json();
-                    
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = quizData.html_affichage;
-                    const firstImg = tempDiv.querySelector('img')?.src || 'https://via.placeholder.com/600x337?text=ActuQuiz';
-
-                    list.innerHTML += `
-                        <a href="quiz.html?file=${item.file}" class="card">
-                            <img src="${firstImg}" class="card-img" onerror="this.src='https://via.placeholder.com/600x337?text=Image+Non+Disponible'">
-                            <div class="card-meta">${item.theme || 'ACTUALITÉ'}</div>
-                            <h3 class="card-title">🚨 ${item.titre}</h3>
-                            <div class="card-date">Publié le ${item.date} • Lecture 5 min</div>
-                        </a>`;
-                }
-            } catch (e) {
-                console.error("Erreur chargement :", e);
-            }
+        async function init() {
+            const res = await fetch('manifest.json');
+            const data = await res.json();
+            const grid = document.getElementById('grid');
+            
+            // On inverse pour avoir le plus récent en premier
+            grid.innerHTML = data.reverse().map(i => `
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition cursor-pointer group" onclick="location.href='quiz.html?file=${i.file}'">
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="${i.image || 'https://via.placeholder.com/400x225?text=ActuQuiz'}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase">
+                            ${i.theme}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-slate-400 text-[11px] font-bold mb-2 uppercase">${i.date} • 5 MIN</div>
+                        <h2 class="text-xl font-bold leading-tight text-slate-800">${i.titre}</h2>
+                    </div>
+                </div>
+            `).join('');
         }
-        loadNewsletters();
-    </script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hugo Décrypte - Quiz</title>
-    <style>
-        body { font-family: -apple-system, system-ui, sans-serif; background: #fff; margin: 0; color: #1a1a1a; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        
-        /* En-tête simple */
-        header { padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
-        h1 { font-size: 24px; margin: 0; color: #151a2e; }
-
-        /* Super Quiz en Bonus discret sur le côté */
-        .bonus-quiz { font-size: 14px; background: #f8f9fa; padding: 10px 20px; border-radius: 20px; text-decoration: none; color: #e63946; font-weight: bold; border: 1px solid #e63946; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-        .card { text-decoration: none; color: inherit; transition: opacity 0.2s; }
-        .card:hover { opacity: 0.8; }
-        
-        /* Style des images comme sur l'exemple */
-        .card-img { width: 100%; aspect-ratio: 16/9; background: #eee; border-radius: 12px; object-fit: cover; margin-bottom: 15px; }
-        
-        .card-meta { font-size: 13px; color: #666; margin-bottom: 8px; display: flex; gap: 10px; }
-        .card-title { font-size: 18px; font-weight: 800; line-height: 1.3; margin: 0; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Les derniers <strong>articles</strong></h1>
-            <a href="multiquiz.html" class="bonus-quiz">🎁 Bonus : Super Quiz (50 Qs)</a>
-        </header>
-
-        <div id="quiz-list" class="grid"></div>
-    </div>
-
-    <script>
-        fetch('manifest.json').then(r => r.json()).then(data => {
-            const list = document.getElementById('quiz-list');
-            data.reverse().forEach(item => {
-                // On essaie de récupérer une image si elle existe, sinon fond gris
-                list.innerHTML += `
-                    <a href="quiz.html?file=${item.file}" class="card">
-                        <div class="card-img" style="background: #f0f0f0 url('https://raw.githubusercontent.com/kalio-project/quiz-newsletter/main/thumb.jpg') center/cover"></div>
-                        <div class="card-meta"><span>${item.date}</span> <span>• 5 min</span></div>
-                        <h3 class="card-title">🚨 ${item.titre}</h3>
-                    </a>`;
-            });
-        });
+        init();
     </script>
 </body>
 </html>
