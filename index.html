@@ -3,96 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz - Accueil</title>
+    <title>ActuQuiz - Lecture</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
-        .quiz-card:hover img { transform: scale(1.05); }
+        body { font-family: 'Inter', sans-serif; background: #fff; -webkit-tap-highlight-color: transparent; }
+        .option-btn { transition: all 0.2s; border: 2px solid #f1f5f9; }
+        .option-btn.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .option-btn.wrong { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        #q-display-zone { min-height: 100px; }
+        
+        /* Nettoyage visuel des éléments inutiles injectés par le HTML de la newsletter */
+        #hugo-content img { max-width: 100%; height: auto; border-radius: 1.5rem; margin: 1.5rem 0; }
+        #hugo-content table { width: 100% !important; } /* Ajuste les tableaux mobiles */
+        .hub-footer, .newsletter-footer, #view-in-browser { display: none !important; }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="bg-white">
 
-    <header class="max-w-5xl mx-auto mb-12 flex justify-between items-end">
-        <div>
-            <h1 class="text-4xl font-black text-slate-900 tracking-tighter italic uppercase">ActuQuiz.</h1>
-            <p class="text-slate-500 font-medium text-sm">L'actualité décryptée par le jeu.</p>
+    <nav class="sticky top-0 bg-white/95 backdrop-blur-md border-b z-50 p-4">
+        <div class="max-w-3xl mx-auto">
+            <a href="index.html" class="text-blue-600 font-black italic tracking-tighter text-xl uppercase">ActuQuiz.</a>
         </div>
-        <a href="multiquiz.html" class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg hover:bg-slate-900 transition-all">
-            Super Quiz ⚡
-        </a>
-    </header>
+    </nav>
 
-    <main id="quiz-grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="col-span-full text-center py-20 text-slate-300 font-bold italic">
-            Chargement des éditions...
+    <main class="max-w-3xl mx-auto p-4 md:p-6">
+        
+        <div id="cover-container" class="mb-8">
+            <img id="main-cover" src="" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-lg bg-slate-100">
         </div>
+
+        <article id="hugo-content" class="prose prose-slate max-w-none mb-12 border-b pb-12">
+            <p class="text-center text-slate-400 italic py-10">Chargement de l'édition...</p>
+        </article>
+
+        <section id="quiz-block" class="bg-slate-50 rounded-[2.5rem] p-6 md:p-10 border border-slate-100 shadow-xl mb-24">
+            <div id="q-container">
+                <div class="flex justify-between items-center mb-6">
+                    <span id="q-category" class="text-[10px] font-black px-2 py-1 border border-blue-600 text-blue-600 rounded uppercase tracking-widest">INFO</span>
+                    <span id="q-counter" class="text-slate-400 font-bold text-[10px] tracking-widest uppercase">01 / 10</span>
+                </div>
+                <div id="q-display-zone" class="mb-8">
+                    <h2 id="q-text" class="text-xl md:text-2xl font-bold text-slate-900 leading-tight"></h2>
+                    <div id="explanation-box" class="hidden">
+                        <div class="p-5 bg-white rounded-2xl border-2 border-blue-50 text-slate-700 text-sm leading-relaxed shadow-sm mb-4">
+                            <p id="expl-text"></p>
+                        </div>
+                        <button onclick="nextQuestion()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest active:scale-95 transition-all">
+                            Suivant →
+                        </button>
+                    </div>
+                </div>
+                <div id="options-grid" class="space-y-3"></div>
+            </div>
+
+            <div id="end-screen" class="hidden text-center py-10">
+                <div class="text-5xl mb-6">🎯</div>
+                <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase">Score Final</h2>
+                <div class="text-7xl font-black text-blue-600 mb-10" id="final-score">0 / 0</div>
+                <a href="index.html" class="inline-block bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest">Retour</a>
+            </div>
+        </section>
     </main>
 
     <script>
-        async function loadDashboard() {
+        let questions = [];
+        let currentIdx = 0;
+        let score = 0;
+
+        const params = new URLSearchParams(window.location.search);
+        const file = params.get('file');
+
+        async function loadQuiz() {
             try {
-                const res = await fetch('manifest.json');
-                const manifest = await res.json();
-                const grid = document.getElementById('quiz-grid');
-                grid.innerHTML = '';
+                const res = await fetch(file);
+                const data = await res.json();
+                let html = data.html_affichage || data.contenu_html;
 
-                // On parcourt le manifest (plus récent en premier)
-                for (const item of [...manifest].reverse()) {
-                    try {
-                        // On ouvre le fichier JSON pour récupérer l'image et les métadonnées
-                        const detailRes = await fetch(item.file);
-                        const detailData = await detailRes.json();
-                        
-                        // LOGIQUE D'EXTRACTION DE L'IMAGE (Même que dans quiz.html)
-                        let imageUrl = detailData.image;
-                        if (!imageUrl) {
-                            const tempDiv = document.createElement('div');
-                            tempDiv.innerHTML = detailData.html_affichage || detailData.contenu_html;
-                            const firstImg = tempDiv.querySelector('img');
-                            imageUrl = firstImg ? firstImg.src : 'https://images.unsplash.com/photo-1504711432869-efd5971ee142?auto=format&fit=crop&q=80&w=1000';
-                        }
+                // 1. RÉCUPÉRATION DE L'IMAGE AVANT TOUTE COUPE
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                const firstImg = tempDiv.querySelector('img');
+                const coverImg = document.getElementById('main-cover');
 
-                        // Récupération des infos (Titre, Date, Temps)
-                        const title = item.title || detailData.titre || "Édition sans titre";
-                        const date = item.date || "Date inconnue";
-                        const readTime = detailData.temps_lecture || "3 min";
-
-                        const card = document.createElement('a');
-                        card.href = `quiz.html?file=${item.file}`;
-                        card.className = "quiz-card group bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 flex flex-col";
-
-                        card.innerHTML = `
-                            <div class="relative h-48 overflow-hidden bg-slate-100">
-                                <img src="${imageUrl}" class="w-full h-full object-cover transition-transform duration-500">
-                                <div class="absolute bottom-4 right-4">
-                                    <span class="bg-black/50 backdrop-blur-md text-white text-[9px] font-bold px-2 py-1 rounded-lg uppercase">
-                                        ⏱️ ${readTime}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <div class="flex justify-between items-center mb-3">
-                                    <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Newsletter</span>
-                                    <span class="text-slate-300 text-[10px] font-bold uppercase">${date}</span>
-                                </div>
-                                <h2 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-600 transition-colors">
-                                    ${title}
-                                </h2>
-                            </div>
-                        `;
-                        grid.appendChild(card);
-                    } catch (err) { 
-                        console.error("Erreur sur le fichier:", item.file, err); 
-                    }
+                if (data.image) {
+                    coverImg.src = data.image;
+                } else if (firstImg) {
+                    coverImg.src = firstImg.src;
+                } else {
+                    document.getElementById('cover-container').style.display = 'none';
                 }
-            } catch (e) { 
-                console.error("Erreur manifest:", e); 
-                document.getElementById('quiz-grid').innerHTML = "<p class='col-span-full text-center text-slate-400'>Aucun quiz disponible pour le moment.</p>";
-            }
+
+                // 2. NETTOYAGE CHIRURGICAL
+                // Coupe après la phrase de fin
+                const stopKey = "Vous avez aimé cette newsletter ?";
+                if (html.includes(stopKey)) {
+                    html = html.split(stopKey)[0];
+                }
+
+                // Suppression des blocs parasites (balises vides ou scripts résiduels)
+                // On injecte dans le DOM temporaire pour nettoyer les balises bizarres en haut/bas
+                const cleanDiv = document.createElement('div');
+                cleanDiv.innerHTML = html;
+                
+                // On vire les <a> "Ouvrir dans le navigateur"
+                const links = cleanDiv.querySelectorAll('a');
+                links.forEach(a => { if(a.innerText.includes("navigateur")) a.remove(); });
+
+                document.getElementById('hugo-content').innerHTML = cleanDiv.innerHTML;
+                
+                questions = data.questions || [];
+                renderQuestion();
+            } catch (err) { console.error(err); }
         }
 
-        loadDashboard();
+        function renderQuestion() {
+            const q = questions[currentIdx];
+            document.getElementById('q-counter').innerText = `${String(currentIdx + 1).padStart(2, '0')} / ${String(questions.length).padStart(2, '0')}`;
+            document.getElementById('q-category').innerText = q.categorie || "INFO";
+            document.getElementById('q-text').innerText = q.q;
+            document.getElementById('q-text').classList.remove('hidden');
+            document.getElementById('explanation-box').classList.add('hidden');
+            
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = "";
+            
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-5 rounded-2xl text-left font-bold text-slate-700 bg-white shadow-sm";
+                btn.innerText = opt;
+                btn.onclick = () => {
+                    document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+                    document.getElementById('q-text').classList.add('hidden');
+                    document.getElementById('expl-text').innerHTML = `
+                        <span class="font-black ${i === q.correct ? 'text-green-600' : 'text-red-600'} uppercase text-[10px] tracking-widest mb-1 block">
+                            ${i === q.correct ? '✅ Bravo' : '❌ Erreur'}
+                        </span>
+                        ${q.explication}
+                    `;
+                    document.getElementById('explanation-box').classList.remove('hidden');
+                    if(i === q.correct) { btn.classList.add('correct'); score++; }
+                    else { btn.classList.add('wrong'); grid.querySelectorAll('button')[q.correct].classList.add('correct'); }
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < questions.length) {
+                renderQuestion();
+                document.getElementById('quiz-block').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                document.getElementById('q-container').classList.add('hidden');
+                document.getElementById('end-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
+            }
+        }
+        loadQuiz();
     </script>
 </body>
 </html>
