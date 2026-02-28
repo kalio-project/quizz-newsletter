@@ -3,6 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActuQuiz - Accueil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-6">
+    <header class="max-w-6xl mx-auto mb-10 flex justify-between items-center">
+        <h1 class="text-4xl font-black italic text-blue-600">ACTUQUIZ.</h1>
+        <a href="multi-quiz.html" class="bg-slate-900 text-white px-6 py-3 rounded-full font-bold">Lancer un Quiz Aléatoire ⚡</a>
+    </header>
+
+    <div id="filters" class="max-w-6xl mx-auto mb-8 flex gap-2 overflow-x-auto pb-4">
+        <button onclick="filter('Tous')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-bold">Tous</button>
+    </div>
+
+    <main id="grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8"></main>
+
+    <script>
+        async function init() {
+            const res = await fetch('manifest.json');
+            const data = await res.json();
+            const themes = [...new Set(data.map(i => i.theme))];
+            const filterDiv = document.getElementById('filters');
+            themes.forEach(t => {
+                filterDiv.innerHTML += `<button onclick="filter('${t}')" class="bg-white border px-4 py-2 rounded-xl text-sm font-bold hover:bg-slate-100">${t}</button>`;
+            });
+            window.allData = data;
+            render(data);
+        }
+
+        function render(list) {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = list.reverse().map(i => `
+                <div class="bg-white rounded-3xl shadow-sm border overflow-hidden hover:shadow-xl transition cursor-pointer" onclick="location.href='quiz.html?file=${i.file}'">
+                    <img src="${i.image}" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-[10px] font-black uppercase text-blue-500">${i.theme} • ${i.date}</span>
+                        <h2 class="text-xl font-bold mt-2 leading-tight">${i.titre}</h2>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filter(t) {
+            render(t === 'Tous' ? window.allData : window.allData.filter(i => i.theme === t));
+        }
+        init();
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecture & Quiz - ActuQuiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
