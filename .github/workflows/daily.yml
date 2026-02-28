@@ -1,67 +1,40 @@
 name: Update ActuQuiz
+
 on:
   schedule:
-    - cron: '0 18 * * *'  # 18h tous les jours UTC
-  workflow_dispatch:  # Bouton manuel
+    - cron: '0 8 * * *' # Se lance tous les jours à 8h (UTC)
+  workflow_dispatch: # Te permet de lancer le script à la main (bouton Run)
 
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-      
-    - name: Setup Python 3.11
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-        
-    - name: Cache pip
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-          
-    - name: Install dependencies
-      run: |
-        pip install --upgrade pip
-        pip install google-genai beautifulsoup4 requests
-        
-    - name: Run scraper & generator
-      env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      run: python process.py
-      
-    - name: Verify files created
-      run: |
-        ls -la *.json
-        test -f manifest.json || exit 1
-        test -f quiz_*.json || exit 1
-        
-    - name: Commit & Push updates
-      run: |
-        git config --local user.email "actuquiz@github.com"
-        git config --local user.name "ActuQuiz Bot"
-        git add .
-        git diff --staged --quiet && echo "No changes" || git commit -m "🤖 Auto-update quizzes $(date +%Y-%m-%d)"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  deploy-pages:
-    needs: update
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - uses: actions/checkout@v4
-      
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
-        force_orphan: true
-        user_name: 'github-actions[bot]'
-        user_email: '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install google-genai requests
+
+      - name: Run script
+        # C'EST ICI QUE TOUT SE JOUE :
+        # On injecte les secrets GitHub dans les variables d'environnement de Python
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+        run: python process.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add .
+          # On commit seulement s'il y a des nouveaux fichiers (sinon ça crash)
+          git commit -m "Nouveau quiz ajouté le $(date)" || echo "Rien à committer"
+          git push
