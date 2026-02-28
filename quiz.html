@@ -3,31 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecture & Quiz</title>
+    <title>ActuQuiz - Lecture</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-100">
-    <nav class="p-4 bg-white border-b sticky top-0 z-50">
-        <a href="index.html" class="font-black text-blue-600">← RETOUR</a>
+<body class="bg-slate-50 min-h-screen pb-20">
+    <nav class="p-4 bg-white border-b sticky top-0 z-50 flex justify-between items-center shadow-sm">
+        <a href="index.html" class="font-black text-blue-600 flex items-center gap-2"><span>←</span> ACCUEIL</a>
+        <div id="progression" class="font-bold text-slate-400 bg-slate-100 px-4 py-1 rounded-full text-sm">Chargement...</div>
     </nav>
 
-    <main class="max-w-4xl mx-auto py-10 px-4">
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-12">
-            <iframe id="news-frame" class="w-full border-none" style="min-height: 600px;"></iframe>
+    <main class="max-w-4xl mx-auto py-8 px-4">
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-10 border border-slate-200">
+            <iframe id="news-frame" class="w-full border-none" style="min-height: 500px;"></iframe>
         </div>
 
-        <div id="quiz-box" class="bg-slate-900 text-white rounded-[40px] p-8 md:p-12 shadow-2xl">
+        <div id="quiz-box" class="bg-slate-900 text-white rounded-[40px] p-8 md:p-12 shadow-2xl relative overflow-hidden">
             <div id="q-area">
-                <h2 id="q-text" class="text-2xl font-bold mb-8 italic">Chargement du quiz...</h2>
-                <div id="options" class="grid gap-3"></div>
-                <div id="feedback" class="hidden mt-8 p-6 rounded-2xl bg-white/10 border border-white/20"></div>
-                <button id="next-btn" class="hidden mt-8 w-full bg-blue-600 py-4 rounded-2xl font-black">QUESTION SUIVANTE</button>
+                <div id="q-category" class="text-blue-400 text-xs font-black uppercase mb-3 tracking-widest">Thème</div>
+                <h2 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 leading-tight italic">Préparation du quiz...</h2>
+                <div id="options" class="grid gap-4"></div>
+                
+                <div id="feedback" class="hidden mt-10 p-6 rounded-3xl bg-white/10 border border-white/20 animate-pulse"></div>
+                
+                <button id="next-btn" class="hidden mt-10 w-full bg-blue-600 py-5 rounded-3xl font-black text-lg hover:bg-blue-500 transition-all active:scale-95 shadow-lg shadow-blue-900/50">
+                    CONTINUER →
+                </button>
             </div>
-            <div id="result" class="hidden text-center">
-                <h2 class="text-5xl mb-4">🎯</h2>
-                <h3 class="text-3xl font-black">Quiz terminé !</h3>
-                <p id="score-text" class="text-xl mt-4 opacity-70"></p>
-                <button onclick="location.href='index.html'" class="mt-8 bg-white text-slate-900 px-8 py-3 rounded-full font-black">RETOUR À L'ACCUEIL</button>
+
+            <div id="result" class="hidden text-center py-10">
+                <div class="text-7xl mb-6">🎯</div>
+                <h3 class="text-4xl font-black mb-2">Bien joué !</h3>
+                <p id="score-text" class="text-2xl mt-4 text-blue-300 font-bold"></p>
+                <button onclick="location.href='index.html'" class="mt-12 bg-white text-slate-900 px-12 py-5 rounded-full font-black text-xl hover:scale-105 transition-transform">RETOUR ACCUEIL</button>
             </div>
         </div>
     </main>
@@ -41,18 +48,26 @@
             const data = await res.json();
             quiz = data.questions;
 
-            // Injection Newsletter Originale
+            // Injection Newsletter
             const frame = document.getElementById('news-frame');
             const doc = frame.contentWindow.document;
-            doc.open(); doc.write(data.contenu_html); doc.close();
-            frame.onload = () => frame.style.height = frame.contentWindow.document.body.scrollHeight + 'px';
+            doc.open(); 
+            doc.write(`<style>body{font-family:-apple-system,sans-serif;padding:30px;line-height:1.7;color:#222;background:#fff}img{max-width:100%;height:auto;border-radius:20px;margin:20px 0;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)}a{color:#2563eb;text-decoration:none;font-weight:600}h1,h2,h3{color:#111;margin-top:1.5em}</style>` + data.contenu_html); 
+            doc.close();
+            
+            frame.onload = () => {
+                setTimeout(() => { frame.style.height = (frame.contentWindow.document.body.scrollHeight + 50) + 'px'; }, 500);
+            };
 
             showQ();
         }
 
         function showQ() {
             const q = quiz[currentQ];
+            document.getElementById('progression').textContent = `QUESTION ${currentQ + 1} / ${quiz.length}`;
+            document.getElementById('q-category').textContent = q.theme || "ACTUALITÉ";
             document.getElementById('q-text').textContent = q.q;
+            
             const optDiv = document.getElementById('options');
             optDiv.innerHTML = '';
             document.getElementById('feedback').classList.add('hidden');
@@ -60,7 +75,7 @@
 
             q.options.forEach((o, i) => {
                 const btn = document.createElement('button');
-                btn.className = "text-left p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold hover:bg-white/10 transition";
+                btn.className = "text-left p-6 rounded-2xl border-2 border-white/5 bg-white/5 font-bold hover:bg-white/10 hover:border-white/20 transition-all";
                 btn.textContent = o;
                 btn.onclick = () => check(i);
                 optDiv.appendChild(btn);
@@ -76,230 +91,28 @@
 
             if(i === q.correct) {
                 score++;
-                btns[i].classList.add('bg-green-600', 'border-green-600');
-                feedback.innerHTML = `<b class="text-green-400 text-sm uppercase">Correct !</b><br>${q.explication}`;
+                btns[i].classList.add('bg-green-500/20', 'border-green-500', 'text-green-400');
+                feedback.innerHTML = `<span class="text-green-400 font-black">✓ CORRECT</span><p class="mt-2 text-sm opacity-80">${q.explication}</p>`;
             } else {
-                btns[i].classList.add('bg-red-600', 'border-red-600');
-                btns[q.correct].classList.add('border-green-600', 'text-green-400');
-                feedback.innerHTML = `<b class="text-red-400 text-sm uppercase">Mauvaise réponse</b><br>${q.explication}`;
+                btns[i].classList.add('bg-red-500/20', 'border-red-500', 'text-red-400');
+                btns[q.correct].classList.add('border-green-500', 'text-green-400');
+                feedback.innerHTML = `<span class="text-red-400 font-black">✕ MAUVAIS</span><p class="mt-2 text-sm opacity-80">${q.explication}</p>`;
             }
             document.getElementById('next-btn').classList.remove('hidden');
         }
 
         document.getElementById('next-btn').onclick = () => {
             currentQ++;
-            if(currentQ < quiz.length) showQ();
-            else {
-                document.getElementById('q-area').classList.add('hidden');
-                document.getElementById('result').classList.remove('hidden');
-                document.getElementById('score-text').textContent = `Tu as obtenu ${score} / ${quiz.length}`;
-            }
-        }
-        load();
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz - Accueil</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-50 p-6">
-    <header class="max-w-6xl mx-auto mb-10 flex justify-between items-center">
-        <h1 class="text-4xl font-black italic text-blue-600">ACTUQUIZ.</h1>
-        <a href="multi-quiz.html" class="bg-slate-900 text-white px-6 py-3 rounded-full font-bold">Lancer un Quiz Aléatoire ⚡</a>
-    </header>
-
-    <div id="filters" class="max-w-6xl mx-auto mb-8 flex gap-2 overflow-x-auto pb-4">
-        <button onclick="filter('Tous')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-bold">Tous</button>
-    </div>
-
-    <main id="grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8"></main>
-
-    <script>
-        async function init() {
-            const res = await fetch('manifest.json');
-            const data = await res.json();
-            const themes = [...new Set(data.map(i => i.theme))];
-            const filterDiv = document.getElementById('filters');
-            themes.forEach(t => {
-                filterDiv.innerHTML += `<button onclick="filter('${t}')" class="bg-white border px-4 py-2 rounded-xl text-sm font-bold hover:bg-slate-100">${t}</button>`;
-            });
-            window.allData = data;
-            render(data);
-        }
-
-        function render(list) {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = list.reverse().map(i => `
-                <div class="bg-white rounded-3xl shadow-sm border overflow-hidden hover:shadow-xl transition cursor-pointer" onclick="location.href='quiz.html?file=${i.file}'">
-                    <img src="${i.image}" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <span class="text-[10px] font-black uppercase text-blue-500">${i.theme} • ${i.date}</span>
-                        <h2 class="text-xl font-bold mt-2 leading-tight">${i.titre}</h2>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function filter(t) {
-            render(t === 'Tous' ? window.allData : window.allData.filter(i => i.theme === t));
-        }
-        init();
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecture & Quiz - ActuQuiz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .prose p { margin-bottom: 1.5rem; line-height: 1.8; font-size: 1.1rem; color: #334155; }
-        .prose b { color: #0f172a; font-weight: 800; }
-        .option-btn:disabled { cursor: not-allowed; }
-    </style>
-</head>
-<body class="bg-white text-slate-900">
-
-    <nav class="border-b sticky top-0 bg-white/80 backdrop-blur-md z-50">
-        <div class="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="index.html" class="font-black text-2xl tracking-tighter hover:text-blue-600 transition">
-                <i class="fas fa-arrow-left mr-3 text-sm text-slate-400"></i><span class="text-blue-600">ACTU</span>QUIZ
-            </a>
-            <div id="progress-container" class="hidden flex items-center gap-3">
-                <span id="q-count-nav" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1/10</span>
-                <div class="w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                    <div id="progress-fill" class="h-full bg-blue-600 w-0 transition-all duration-500"></div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <article class="max-w-3xl mx-auto px-4 py-12">
-        <header class="mb-10">
-            <div id="badge-theme" class="inline-block px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest text-white mb-4">Thème</div>
-            <h1 id="title" class="text-4xl md:text-5xl font-black leading-tight text-slate-900">Chargement...</h1>
-        </header>
-
-        <div id="content" class="prose max-w-none border-b border-slate-100 pb-16 mb-16">
-            </div>
-
-        <section id="quiz-box" class="bg-slate-900 rounded-[40px] p-8 md:p-12 text-white shadow-2xl shadow-blue-200">
-            <div id="quiz-intro" class="text-center mb-10">
-                <div class="inline-block bg-blue-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-4">Challenge</div>
-                <h2 class="text-3xl font-black">As-tu bien tout retenu ?</h2>
-                <p class="text-slate-400 mt-2">Réponds aux 10 questions basées sur l'article ci-dessus.</p>
-            </div>
-
-            <div id="question-area">
-                <h3 id="q-text" class="text-2xl font-bold mb-8 leading-snug">Question ?</h3>
-                <div id="options-grid" class="grid gap-3">
-                    </div>
-                <div id="explanation" class="hidden mt-8 p-6 rounded-3xl border border-white/10 bg-white/5 transition-all">
-                    </div>
-                <button id="next-btn" class="hidden mt-8 w-full bg-blue-600 py-5 rounded-2xl font-black text-lg hover:bg-blue-500 transition shadow-xl shadow-blue-900/20">
-                    QUESTION SUIVANTE <i class="fas fa-chevron-right ml-2 text-sm"></i>
-                </button>
-            </div>
-
-            <div id="score-area" class="hidden text-center py-10">
-                <div class="text-7xl mb-6">🎯</div>
-                <h2 class="text-4xl font-black mb-2">Quiz Terminé !</h2>
-                <p id="final-score" class="text-2xl font-bold text-blue-400 mb-8">Score : 0/10</p>
-                <div class="flex flex-col gap-3">
-                    <a href="index.html" class="bg-white text-slate-900 py-4 rounded-2xl font-black hover:bg-slate-100 transition">RETOUR À L'ACCUEIL</a>
-                    <button onclick="location.reload()" class="text-slate-400 font-bold hover:text-white transition">RECOMMENCER</button>
-                </div>
-            </div>
-        </section>
-    </article>
-
-    <footer class="py-20 text-center text-slate-300 font-bold uppercase tracking-widest text-[10px]">
-        Propulsé par Gemini 2.5 & GitHub Actions
-    </footer>
-
-    <script>
-        let quizData = null;
-        let index = 0;
-        let score = 0;
-
-        const params = new URLSearchParams(window.location.search);
-        const file = params.get('file');
-
-        async function load() {
-            if(!file) return;
-            try {
-                const res = await fetch(file);
-                quizData = await res.json();
-
-                // Remplissage Article
-                document.getElementById('title').textContent = quizData.titre;
-                document.getElementById('badge-theme').textContent = quizData.theme || 'ACTU';
-                document.getElementById('badge-theme').style.background = '#3b82f6'; // Bleu par défaut
-                document.getElementById('content').innerHTML = quizData.contenu_html || "<p>L'IA n'a pas pu extraire le texte complet, mais voici le quiz !</p>";
-                
-                renderQuestion();
-            } catch(e) { console.error(e); }
-        }
-
-        function renderQuestion() {
-            const q = quizData.questions[index];
-            document.getElementById('q-text').textContent = q.q;
-            document.getElementById('progress-container').classList.remove('hidden');
-            document.getElementById('q-count-nav').textContent = `Question ${index + 1}/${quizData.questions.length}`;
-            document.getElementById('progress-fill').style.width = ((index + 1) / quizData.questions.length * 100) + "%";
-
-            const grid = document.getElementById('options-grid');
-            grid.innerHTML = '';
-            document.getElementById('explanation').classList.add('hidden');
-            document.getElementById('next-btn').classList.add('hidden');
-
-            q.options.forEach((opt, i) => {
-                const b = document.createElement('button');
-                b.className = "option-btn text-left p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold hover:bg-white/10 transition-all";
-                b.textContent = opt;
-                b.onclick = () => verify(i);
-                grid.appendChild(b);
-            });
-        }
-
-        function verify(choice) {
-            const q = quizData.questions[index];
-            const btns = document.querySelectorAll('.option-btn');
-            const exp = document.getElementById('explanation');
-            btns.forEach(b => b.disabled = true);
-
-            if(choice === q.correct) {
-                score++;
-                btns[choice].classList.add('bg-green-500', 'border-green-500', 'text-white');
-                exp.innerHTML = `<span class="text-green-400 font-black tracking-widest uppercase text-[10px] block mb-2">Excellent !</span> ${q.explication}`;
+            if(currentQ < quiz.length) {
+                showQ();
+                document.getElementById('quiz-box').scrollIntoView({behavior: 'smooth', block: 'center'});
             } else {
-                btns[choice].classList.add('bg-red-500', 'border-red-500', 'text-white');
-                btns[q.correct].classList.add('bg-green-500/20', 'border-green-500', 'text-green-400');
-                exp.innerHTML = `<span class="text-red-400 font-black tracking-widest uppercase text-[10px] block mb-2">Dommage...</span> ${q.explication}`;
+                document.getElementById('q-area').classList.add('hidden');
+                document.getElementById('progression').classList.add('hidden');
+                document.getElementById('result').classList.remove('hidden');
+                document.getElementById('score-text').textContent = `Score : ${score} / ${quiz.length}`;
             }
-            exp.classList.remove('hidden');
-            document.getElementById('next-btn').classList.remove('hidden');
         }
-
-        document.getElementById('next-btn').onclick = () => {
-            index++;
-            if(index < quizData.questions.length) renderQuestion();
-            else {
-                document.getElementById('question-area').classList.add('hidden');
-                document.getElementById('quiz-intro').classList.add('hidden');
-                document.getElementById('score-area').classList.remove('hidden');
-                document.getElementById('final-score').textContent = `Score : ${score} / ${quizData.questions.length}`;
-            }
-        };
-
         load();
     </script>
 </body>
