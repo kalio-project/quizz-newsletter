@@ -2,47 +2,60 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz - HugoDécrypte</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
-        header { text-align: center; color: white; margin-bottom: 40px; }
-        h1 { font-size: 3em; font-weight: 800; }
-        .challenge-btn { background: #ff6b6b; color: white; border: none; padding: 15px 30px; font-size: 1.2em; border-radius: 50px; cursor: pointer; transition: transform 0.3s; margin-top: 20px; }
-        .challenge-btn:hover { transform: scale(1.05); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s; }
-        .card:hover { transform: translateY(-10px); }
-        .card img { width: 100%; height: 200px; object-fit: cover; }
-        .card-content { padding: 20px; }
-        .card h3 { font-size: 1.3em; margin-bottom: 10px; }
-        .card date { color: #666; }
-    </style>
+    <title>ActuQuiz - Le Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        <h1>📖 ActuQuiz</h1>
-        <button class="challenge-btn" onclick="window.location.href='superquiz.html'">MODE CHALLENGE ⚡</button>
+<body class="bg-slate-50 p-6">
+    <header class="max-w-4xl mx-auto flex justify-between items-center mb-10">
+        <h1 class="text-3xl font-black italic text-slate-900 underline decoration-blue-500">ActuQuiz.</h1>
+        <button onclick="openSuperQuiz()" class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg hover:scale-105 transition">SUPER QUIZ ⚡</button>
     </header>
-    <div class="grid" id="grid"></div>
+
+    <div id="grid" class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+
+    <div id="modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white p-8 rounded-3xl max-w-md w-full">
+            <h2 class="text-2xl font-black mb-4 text-center">Configurer le Challenge</h2>
+            <div id="themes-list" class="space-y-2 mb-6"></div>
+            <label class="block text-sm font-bold mb-2">Nombre de questions : <span id="val">20</span></label>
+            <input type="range" id="qty" min="5" max="50" value="20" class="w-full mb-6" oninput="document.getElementById('val').innerText=this.value">
+            <button onclick="launch()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black">LANCER LE DÉFI</button>
+        </div>
+    </div>
+
     <script>
-        fetch('manifest.json').then(r=>r.json()).then(data => {
+        const themes = ["POLITIQUE EN FRANCE", "POLITIQUE INTERNATIONALE ET CONFLITS", "SOCIÉTÉ / FAITS DE SOCIÉTÉ", "ÉCONOMIE ET EMPLOI", "ENVIRONNEMENT ET CLIMAT", "SCIENCE, SANTÉ ET TECHNOLOGIE", "CULTURE ET MÉDIAS", "SPORT"];
+        
+        async function load() {
+            const res = await fetch('manifest.json');
+            const data = await res.json();
             const grid = document.getElementById('grid');
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.onclick = () => window.location.href = `quiz.html?file=${item.file}`;
-                card.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}">
-                    <div class="card-content">
-                        <h3>${item.title}</h3>
-                        <date>${item.date}</date>
+            data.reverse().forEach(item => {
+                grid.innerHTML += `
+                <a href="quiz.html?file=${item.file}" class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                    <img src="${item.img}" class="h-56 w-full object-cover group-hover:scale-105 transition">
+                    <div class="p-6">
+                        <p class="text-xs font-bold text-blue-500 mb-2">${item.date}</p>
+                        <h2 class="text-xl font-bold leading-tight">${item.titre}</h2>
                     </div>
-                `;
-                grid.appendChild(card);
+                </a>`;
             });
-        });
+
+            const tList = document.getElementById('themes-list');
+            themes.forEach(t => {
+                tList.innerHTML += `<label class="flex items-center gap-3 p-2 bg-slate-50 rounded-xl cursor-pointer">
+                    <input type="checkbox" name="theme" value="${t}" checked> <span class="text-xs font-bold">${t}</span>
+                </label>`;
+            });
+        }
+
+        function openSuperQuiz() { document.getElementById('modal').classList.remove('hidden'); }
+        function launch() {
+            const selected = Array.from(document.querySelectorAll('input[name="theme"]:checked')).map(i => i.value);
+            const qty = document.getElementById('qty').value;
+            window.location.href = `superquiz.html?qty=${qty}&themes=${encodeURIComponent(selected.join(','))}`;
+        }
+        load();
     </script>
 </body>
 </html>
