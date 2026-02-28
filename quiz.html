@@ -3,234 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz - Lecture</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Hugo Décrypte - Quiz</title>
+    <style>
+        :root { --navy: #151a2e; --red: #e63946; --bg: #f4f7f6; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 0; }
+        
+        /* Header Hugo */
+        .hugo-header { background: var(--navy); color: white; padding: 20px; text-align: center; border-bottom: 4px solid var(--red); }
+        
+        /* Contenu Newsletter */
+        #hugo-view { background: white; max-width: 800px; margin: 0 auto; padding: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        #hugo-view img { max-width: 100%; height: auto; border-radius: 8px; }
+
+        /* Section Quiz */
+        .quiz-container { max-width: 760px; margin: 40px auto; padding: 20px; }
+        .quiz-title { border-left: 5px solid var(--red); padding-left: 15px; color: var(--navy); margin-bottom: 30px; }
+        
+        .q-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        
+        button { 
+            display: block; width: 100%; text-align: left; padding: 15px; margin: 10px 0; 
+            border: 1px solid #eee; border-radius: 8px; background: #fff; cursor: pointer; font-size: 1em; transition: 0.2s;
+        }
+        button:hover { border-color: var(--navy); background: #f8f9ff; }
+        
+        .result { display: none; margin-top: 15px; padding: 15px; border-radius: 8px; font-weight: 500; line-height: 1.5; }
+        .correct { background: #d4edda; color: #155724; border-left: 5px solid #28a745; }
+        .wrong { background: #f8d7da; color: #721c24; border-left: 5px solid var(--red); }
+    </style>
 </head>
-<body class="bg-slate-50 min-h-screen pb-20">
-    <nav class="p-4 bg-white border-b sticky top-0 z-50 flex justify-between items-center">
-        <a href="index.html" class="font-black text-blue-600">← ACCUEIL</a>
-        <div id="progression" class="font-bold text-slate-400 text-sm italic">Question 1/10</div>
-    </nav>
+<body>
+    <div class="hugo-header"><h2>HUGO DÉCRYPTE</h2></div>
 
-    <main class="max-w-4xl mx-auto py-8 px-4">
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-10 border border-slate-200">
-            <iframe id="news-frame" class="w-full border-none" style="min-height: 500px;"></iframe>
-        </div>
+    <div id="hugo-view"></div>
 
-        <div id="quiz-box" class="bg-slate-900 text-white rounded-[40px] p-8 md:p-12 shadow-2xl">
-            <div id="q-area">
-                <div id="q-category" class="text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] mb-4">CHARGEMENT...</div>
-                <h2 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 leading-snug italic">Chargement de la question...</h2>
-                
-                <div id="options" class="grid gap-4"></div>
-                
-                <div id="feedback" class="hidden mt-8 p-6 rounded-2xl bg-white/10 border border-white/20 text-sm leading-relaxed">
-                    </div>
-                
-                <button id="next-btn" class="hidden mt-8 w-full bg-blue-600 py-5 rounded-2xl font-black text-lg hover:bg-blue-500 transition shadow-lg shadow-blue-900/40">
-                    CONTINUER →
-                </button>
-            </div>
-
-            <div id="result" class="hidden text-center py-10">
-                <div class="text-7xl mb-6">🎯</div>
-                <h3 class="text-4xl font-black mb-2 italic">Terminé !</h3>
-                <p id="score-text" class="text-2xl mt-4 text-blue-400 font-bold"></p>
-                <button onclick="location.href='index.html'" class="mt-12 bg-white text-slate-900 px-12 py-4 rounded-full font-black text-xl hover:scale-105 transition">RETOUR ACCUEIL</button>
-            </div>
-        </div>
-    </main>
+    <div class="quiz-container">
+        <h2 class="quiz-title">LE QUIZ DU JOUR</h2>
+        <div id="quiz-content"></div>
+    </div>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        let currentQ = 0, score = 0, quiz = [];
-
-        async function load() {
-            const res = await fetch(params.get('file'));
-            const data = await res.json();
-            quiz = data.questions;
-
-            const frame = document.getElementById('news-frame');
-            const doc = frame.contentWindow.document;
-            doc.open(); 
-            doc.write(`<style>body{font-family:sans-serif;padding:30px;line-height:1.7;color:#333}img{max-width:100%;height:auto;border-radius:15px;margin:15px 0}</style>` + data.contenu_html); 
-            doc.close();
+        const file = new URLSearchParams(window.location.search).get('file');
+        fetch(file).then(r => r.json()).then(data => {
+            document.getElementById('hugo-view').innerHTML = data.html_affichage;
             
-            frame.onload = () => {
-                frame.style.height = (frame.contentWindow.document.body.scrollHeight + 50) + 'px';
-            };
-
-            showQ();
-        }
-
-        function showQ() {
-            const q = quiz[currentQ];
-            document.getElementById('progression').textContent = `QUESTION ${currentQ + 1} / ${quiz.length}`;
-            document.getElementById('q-category').textContent = q.theme || "ACTUALITÉ";
-            document.getElementById('q-text').textContent = q.q;
-            
-            const optDiv = document.getElementById('options');
-            optDiv.innerHTML = '';
-            document.getElementById('feedback').classList.add('hidden');
-            document.getElementById('next-btn').classList.add('hidden');
-
-            q.options.forEach((o, i) => {
-                const btn = document.createElement('button');
-                btn.className = "text-left p-6 rounded-2xl border-2 border-white/5 bg-white/5 font-bold hover:bg-white/10 transition text-lg";
-                btn.textContent = o;
-                btn.onclick = () => check(i);
-                optDiv.appendChild(btn);
+            const container = document.getElementById('quiz-content');
+            data.questions.forEach((q, i) => {
+                const div = document.createElement('div');
+                div.className = 'q-card';
+                div.innerHTML = `
+                    <p><strong>${i+1}. ${q.q}</strong></p>
+                    ${q.options.map((opt, idx) => `<button onclick="answer(${i}, ${idx}, ${q.correct})">${opt}</button>`).join('')}
+                    <div id="res-${i}" class="result"><strong>Explication :</strong> ${q.explication}</div>
+                `;
+                container.appendChild(div);
             });
+        });
+
+        function answer(qIdx, choice, correct) {
+            const res = document.getElementById(`res-${qIdx}`);
+            res.style.display = "block";
+            res.className = "result " + (choice === correct ? "correct" : "wrong");
         }
-
-        function check(i) {
-            const q = quiz[currentQ];
-            const btns = document.querySelectorAll('#options button');
-            btns.forEach(b => b.disabled = true);
-            const feedback = document.getElementById('feedback');
-            feedback.classList.remove('hidden');
-
-            if(i === q.correct) {
-                score++;
-                btns[i].classList.add('bg-green-600', 'border-green-600');
-                feedback.innerHTML = `<b class="text-green-400 text-xs uppercase tracking-widest">✓ Correct</b><p class="mt-2">${q.explication}</p>`;
-            } else {
-                btns[i].classList.add('bg-red-600', 'border-red-600');
-                btns[q.correct].classList.add('border-green-600', 'text-green-400');
-                feedback.innerHTML = `<b class="text-red-400 text-xs uppercase tracking-widest">✕ Erreur</b><p class="mt-2">${q.explication}</p>`;
-            }
-            document.getElementById('next-btn').classList.remove('hidden');
-        }
-
-        document.getElementById('next-btn').onclick = () => {
-            currentQ++;
-            if(currentQ < quiz.length) showQ();
-            else {
-                document.getElementById('q-area').classList.add('hidden');
-                document.getElementById('progression').classList.add('hidden');
-                document.getElementById('result').classList.remove('hidden');
-                document.getElementById('score-text').textContent = `Tu as eu ${score} / ${quiz.length}`;
-            }
-        }
-        load();
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz - Lecture</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-50 min-h-screen pb-20">
-    <nav class="p-4 bg-white border-b sticky top-0 z-50 flex justify-between items-center shadow-sm">
-        <a href="index.html" class="font-black text-blue-600 flex items-center gap-2"><span>←</span> ACCUEIL</a>
-        <div id="progression" class="font-bold text-slate-400 bg-slate-100 px-4 py-1 rounded-full text-sm">Chargement...</div>
-    </nav>
-
-    <main class="max-w-4xl mx-auto py-8 px-4">
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-10 border border-slate-200">
-            <iframe id="news-frame" class="w-full border-none" style="min-height: 500px;"></iframe>
-        </div>
-
-        <div id="quiz-box" class="bg-slate-900 text-white rounded-[40px] p-8 md:p-12 shadow-2xl relative overflow-hidden">
-            <div id="q-area">
-                <div id="q-category" class="text-blue-400 text-xs font-black uppercase mb-3 tracking-widest">Thème</div>
-                <h2 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 leading-tight italic">Préparation du quiz...</h2>
-                <div id="options" class="grid gap-4"></div>
-                
-                <div id="feedback" class="hidden mt-10 p-6 rounded-3xl bg-white/10 border border-white/20 animate-pulse"></div>
-                
-                <button id="next-btn" class="hidden mt-10 w-full bg-blue-600 py-5 rounded-3xl font-black text-lg hover:bg-blue-500 transition-all active:scale-95 shadow-lg shadow-blue-900/50">
-                    CONTINUER →
-                </button>
-            </div>
-
-            <div id="result" class="hidden text-center py-10">
-                <div class="text-7xl mb-6">🎯</div>
-                <h3 class="text-4xl font-black mb-2">Bien joué !</h3>
-                <p id="score-text" class="text-2xl mt-4 text-blue-300 font-bold"></p>
-                <button onclick="location.href='index.html'" class="mt-12 bg-white text-slate-900 px-12 py-5 rounded-full font-black text-xl hover:scale-105 transition-transform">RETOUR ACCUEIL</button>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        let currentQ = 0, score = 0, quiz = [];
-
-        async function load() {
-            const res = await fetch(params.get('file'));
-            const data = await res.json();
-            quiz = data.questions;
-
-            // Injection Newsletter
-            const frame = document.getElementById('news-frame');
-            const doc = frame.contentWindow.document;
-            doc.open(); 
-            doc.write(`<style>body{font-family:-apple-system,sans-serif;padding:30px;line-height:1.7;color:#222;background:#fff}img{max-width:100%;height:auto;border-radius:20px;margin:20px 0;box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)}a{color:#2563eb;text-decoration:none;font-weight:600}h1,h2,h3{color:#111;margin-top:1.5em}</style>` + data.contenu_html); 
-            doc.close();
-            
-            frame.onload = () => {
-                setTimeout(() => { frame.style.height = (frame.contentWindow.document.body.scrollHeight + 50) + 'px'; }, 500);
-            };
-
-            showQ();
-        }
-
-        function showQ() {
-            const q = quiz[currentQ];
-            document.getElementById('progression').textContent = `QUESTION ${currentQ + 1} / ${quiz.length}`;
-            document.getElementById('q-category').textContent = q.theme || "ACTUALITÉ";
-            document.getElementById('q-text').textContent = q.q;
-            
-            const optDiv = document.getElementById('options');
-            optDiv.innerHTML = '';
-            document.getElementById('feedback').classList.add('hidden');
-            document.getElementById('next-btn').classList.add('hidden');
-
-            q.options.forEach((o, i) => {
-                const btn = document.createElement('button');
-                btn.className = "text-left p-6 rounded-2xl border-2 border-white/5 bg-white/5 font-bold hover:bg-white/10 hover:border-white/20 transition-all";
-                btn.textContent = o;
-                btn.onclick = () => check(i);
-                optDiv.appendChild(btn);
-            });
-        }
-
-        function check(i) {
-            const q = quiz[currentQ];
-            const btns = document.querySelectorAll('#options button');
-            btns.forEach(b => b.disabled = true);
-            const feedback = document.getElementById('feedback');
-            feedback.classList.remove('hidden');
-
-            if(i === q.correct) {
-                score++;
-                btns[i].classList.add('bg-green-500/20', 'border-green-500', 'text-green-400');
-                feedback.innerHTML = `<span class="text-green-400 font-black">✓ CORRECT</span><p class="mt-2 text-sm opacity-80">${q.explication}</p>`;
-            } else {
-                btns[i].classList.add('bg-red-500/20', 'border-red-500', 'text-red-400');
-                btns[q.correct].classList.add('border-green-500', 'text-green-400');
-                feedback.innerHTML = `<span class="text-red-400 font-black">✕ MAUVAIS</span><p class="mt-2 text-sm opacity-80">${q.explication}</p>`;
-            }
-            document.getElementById('next-btn').classList.remove('hidden');
-        }
-
-        document.getElementById('next-btn').onclick = () => {
-            currentQ++;
-            if(currentQ < quiz.length) {
-                showQ();
-                document.getElementById('quiz-box').scrollIntoView({behavior: 'smooth', block: 'center'});
-            } else {
-                document.getElementById('q-area').classList.add('hidden');
-                document.getElementById('progression').classList.add('hidden');
-                document.getElementById('result').classList.remove('hidden');
-                document.getElementById('score-text').textContent = `Score : ${score} / ${quiz.length}`;
-            }
-        }
-        load();
     </script>
 </body>
 </html>
