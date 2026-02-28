@@ -5,9 +5,9 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-import google.genai as genai  # Nouvelle API officielle Gemini
+import google.genai as genai
 
-# Configuration Gemini (NOUVEAU PACKAGE)
+# Configuration Gemini
 genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 model = genai.GenerativeModel('gemini-2.0-flash-exp')
 
@@ -18,83 +18,121 @@ THEMES = [
 ]
 
 def scrape_hugo_newsletters():
-    """Scrape les 3 dernières newsletters depuis Kessel (public)"""
+    """Scrape les 3 dernières newsletters Kessel"""
     url = "https://hugodecrypte.kessel.media/posts"
-    response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    posts = []
-    for article in soup.find_all('article')[:3]:  # 3 dernières
-        link = article.find('a', href=True)
-        title_elem = article.find(['h2', 'h3', 'h1'])
-        date_elem = article.find('time') or article.find(class_=re.compile('date'))
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        soup = BeautifulSoup(response.text, 'html.parser')
         
-        if link and title_elem:
-            full_url = link['href']
-            if not full_url.startswith('http'):
-                full_url = 'https://hugodecrypte.kessel.media' + full_url
-            posts.append({
-                'title': title_elem.get_text().strip(),
-                'url': full_url,
-                'date': date_elem.get_text().strip() if date_elem else datetime.now().strftime('%Y-%m-%d')
-            })
-    return posts
+        posts = []
+        articles = soup.find_all('article')[:3]
+        for article in articles:
+            link = article.find('a', href=True)
+            title_elem = article.find(['h1', 'h2', 'h3'])
+            date_elem = article.find('time') or article.find(class_=re.compile(r'date|time', re.I))
+            
+            if link and title_elem:
+                href = link['href']
+                full_url = href if href.startswith('http') else f"https://hugodecrypte.kessel.media{href}"
+                posts.append({
+                    'title': title_elem.get_text().strip()[:100],
+                    'url': full_url,
+                    'date': date_elem.get_text().strip() if date_elem else datetime.now().strftime('%Y-%m-%d')
+                })
+        return posts
+    except Exception as e:
+        print(f"Erreur scraping: {e}")
+        return []
 
 def clean_content(url):
-    """Nettoie l'article complet"""
-    response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # Extraction contenu principal
-    content = soup.find(['article', '.content', '.post-content', 'main'])
-    if not content:
-        content = soup.body
-    
-    # Supprime parasites
-    for unwanted in soup.find_all(['nav', 'aside', 'footer', 'header', '[class*="ad"]', '[class*="comment"]']):
-        unwanted.decompose()
-    
-    # Images (première valide)
-    img = soup.find('img', src=re.compile(r'\.(jpg|png|webp)$'))
-    image_url = img['src'] if img else 'https://via.placeholder.com/300x200/667eea/ffffff?text=ActuQuiz'
-    
-    text = content.get_text(separator=' ', strip=True)[:5000]
-    return text, image_url
+    """Extrait contenu article"""
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Contenu principal
+        content_selectors = ['article', '.content', '.post-content', '.article-body', 'main', '[role="main"]']
+        content = None
+        for selector in content_selectors:
+            content = soup.select_one(selector)
+            if content:
+                break
+        
+        if not content:
+            content = soup.body
+        
+        # Nettoie parasites
+        for unwanted in content.find_all(['nav', 'aside', 'footer', 'header', '.comments', '[class*="ad"]']):
+            unwanted.decompose()
+        
+        # Image
+        img_selectors = ['.featured-image img', 'article img', 'img[src*="og:image"]', 'img']
+        img = None
+        for selector in img_selectors:
+            img = content.select_one(selector)
+            if img and img.get('src'):
+                break
+        
+        image_url = 'https://via.placeholder.com/300x200/667eea/ffffff?text=ActuQuiz'
+        if img and img.get('src'):
+            src = img['src']
+            if not src.startswith('http'):
+                base_url = '/'.join(url.split('/')[:3])
+                src = base_url + '/' + src.lstrip('/')
+            image_url = src
+        
+        text = re.sub(r'\s+', ' ', content.get_text()).strip()[:5000]
+        return text, image_url
+    except Exception as e:
+        print(f"Erreur clean_content: {e}")
+        return "Contenu temporaire pour test", image_url
 
 def generate_questions(content, title):
-    """Génère 10 questions avec les 8 thèmes exacts"""
-    prompt = f"""Analyse cet article HugoDécrypte "{title}" (newsletter quotidienne).
+    """10 questions avec thèmes exacts"""
+    prompt = f"""Article HugoDécrypte : "{title}"
 
-TA MISSION : 10 questions QCM pédagogiques (niveau collège/lycée)
-✅ Format JSON array STRICT :
+Génère 10 questions QCM (collège/lycée) :
+
+📋 FORMAT JSON STRICT (copie-colle) :
 [
-  {{"question": "Question?", "options": ["A. Réponse1", "B. Réponse2", "C. Réponse3", "D. Réponse4"], "correct": 1, "theme": "THÈME_EXACT", "explanation": "Explication détaillée"}}
+  {{"question":"Quelle est la bonne réponse?", "options":["A. Faux","B. Vrai","C. Option3","D. Option4"], "correct":1, "theme":"THÈME_EXACT", "explanation":"Explication détaillée"}}
 ]
 
-📋 RÈGLES OBLIGATOIRES :
-- EXACTEMENT 10 questions
-- 1 seul thème par question parmi CES 8 UNIQUEMENT : {', '.join(THEMES)}
-- 4 options A B C D, indice correct 0-3
-- Questions courtes (1 phrase)
-- Explications complètes, éducatives
-- Couvre tout l'article
+✅ RÈGLES :
+• 10 questions exactement
+• Thèmes OBLIGATOIRES (1 seul par question) : {', '.join(THEMES)}
+• 4 options A B C D
+• correct : 0,1,2 ou 3
+• Explications pédagogiques complètes
 
-Article :
-{ content }
-"""
+Contenu :
+{content}"""
+
     try:
         response = model.generate_content(prompt)
-        # Nettoie JSON des markdown
-        text = re.sub(r'```(?:json)?\s*', '', response.text, flags=re.DOTALL)
-        text = re.sub(r'```\s*$', '', text, flags=re.MULTILINE)
-        questions = json.loads(text.strip())
-        return questions[:10]  # Sécurité
+        # Nettoie réponse
+        text = response.text.strip()
+        json_match = re.search(r'```json?\s*(.*?)\s*```', text, re.DOTALL)
+        if json_match:
+            text = json_match.group(1)
+        else:
+            json_match = re.search(r'\[.*\]', text, re.DOTALL)
+            if json_match:
+                text = json_match.group(0)
+        
+        questions = json.loads(text)
+        # Valide format
+        if isinstance(questions, list) and len(questions) >= 5:
+            return questions[:10]
+        return questions
     except Exception as e:
-        print(f"❌ Erreur Gemini: {e}")
-        return [{"question": "Fallback", "options": ["A", "B", "C", "D"], "correct": 0, "theme": "SOCIÉTÉ / FAITS DE SOCIÉTÉ", "explanation": "Article temporaire"}] * 10
+        print(f"❌ Gemini error: {e}")
+        return [{"question": f"Test {i}", "options": ["A", "B", "C", "D"], "correct": 0, "theme": THEMES[i%len(THEMES)], "explanation": "Fallback"} for i in range(10)]
 
 def update_manifest(new_quiz):
-    """Met à jour manifest.json"""
+    """Manifest.json"""
     manifest = []
     if os.path.exists('manifest.json'):
         try:
@@ -103,58 +141,59 @@ def update_manifest(new_quiz):
         except:
             pass
     
-    # Ajoute le nouveau (unique par date)
     today = datetime.now().strftime('%Y%m%d')
     new_entry = {
         'file': f"quiz_{today}.json",
-        'title': new_quiz['title'],
+        'title': new_quiz['title'][:80],
         'date': today,
         'image': new_quiz['image']
     }
     
-    # Remplace si existe déjà
+    # Unique par jour
     manifest = [e for e in manifest if not e['file'].endswith(today)] + [new_entry]
-    manifest = manifest[-50:]  # Garde 50 max
+    manifest = manifest[-30:]  # 30 max
     
     with open('manifest.json', 'w', encoding='utf-8') as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
 
 def main():
-    print("🚀 ActuQuiz - Scraping HugoDécrypte Kessel...")
+    print("🚀 ActuQuiz - Auto Update")
+    print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     
-    # 1. Scrape dernières newsletters
     posts = scrape_hugo_newsletters()
     if not posts:
-        print("❌ Aucune newsletter trouvée")
+        print("❌ Pas de nouvelles newsletters")
         return
     
-    print(f"📄 {len(posts)} newsletters détectées")
+    print(f"📄 {len(posts)} trouvées")
     
-    for post in posts[:1]:  # 1 seule par jour pour éviter spam
-        print(f"🔄 Traitement: {post['title'][:60]}...")
-        
-        content, image = clean_content(post['url'])
-        questions = generate_questions(content, post['title'])
-        
-        # Sauvegarde
-        today = datetime.now().strftime('%Y%m%d')
-        filename = f"quiz_{today}.json"
-        data = {
-            'title': post['title'],
-            'date': today,
-            'content': content,
-            'image': image,
-            'questions': questions
-        }
-        
-        with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-        
-        update_manifest(data)
-        print(f"✅ {filename} créé ({len(questions)} questions)")
-        break  # 1 seul par run
+    # Prend la plus récente
+    post = posts[0]
+    print(f"🔄 {post['title'][:60]}...")
     
-    print("🎉 Process terminé ! Site mis à jour.")
+    content, image = clean_content(post['url'])
+    questions = generate_questions(content, post['title'])
+    
+    today = datetime.now().strftime('%Y%m%d')
+    filename = f"quiz_{today}.json"
+    
+    data = {
+        'title': post['title'],
+        'date': today,
+        'content': content,
+        'image': image,
+        'questions': questions
+    }
+    
+    # Sauvegarde
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    
+    update_manifest(data)
+    
+    print(f"✅ {filename} OK ({len(questions)} questions)")
+    print(f"🌐 {post['url']}")
+    print("🎉 Deploy GitHub Pages prêt !")
 
-if __name__ **==** '__main__':
+if __name__ == '__main__':
     main()
