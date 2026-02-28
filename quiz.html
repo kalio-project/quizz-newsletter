@@ -1,4 +1,149 @@
-<style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActuQuiz - Lecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #fff; }
+        .option-btn { transition: all 0.2s; border: 2px solid #f1f5f9; }
+        .option-btn.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
+        .option-btn.wrong { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
+        /* Empêche les sauts de hauteur entre question et explication */
+        #q-display-zone { min-height: 120px; }
+    </style>
+</head>
+<body class="bg-white">
+
+    <nav class="sticky top-0 bg-white/95 backdrop-blur-md border-b z-50 p-4">
+        <div class="max-w-3xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-blue-600 font-black italic tracking-tighter">ACTUQUIZ.</a>
+            <button id="next-btn-nav" onclick="nextQuestion()" class="hidden bg-blue-600 text-white px-5 py-2 rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">
+                Suivant →
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto p-6">
+        <article id="hugo-content" class="prose prose-slate max-w-none mb-12 border-b pb-12">
+            <p class="text-center text-slate-400">Chargement de l'édition...</p>
+        </article>
+
+        <section id="quiz-block" class="bg-slate-50 rounded-[2.5rem] p-6 md:p-10 border border-slate-100 shadow-xl mb-24">
+            
+            <div id="q-container">
+                <div class="flex justify-between items-center mb-6">
+                    <span id="q-category" class="text-[10px] font-black px-2 py-1 border border-blue-600 text-blue-600 rounded uppercase tracking-widest">INFO</span>
+                    <span id="q-counter" class="text-slate-400 font-bold text-[10px] tracking-widest uppercase">01 / 10</span>
+                </div>
+
+                <div id="q-display-zone" class="mb-8">
+                    <h2 id="q-text" class="text-xl md:text-2xl font-bold text-slate-900 leading-tight"></h2>
+                    <div id="explanation-box" class="hidden p-5 bg-white rounded-2xl border-2 border-blue-50 text-slate-700 text-sm leading-relaxed shadow-sm">
+                        <p id="expl-text"></p>
+                    </div>
+                </div>
+                
+                <div id="options-grid" class="space-y-3"></div>
+            </div>
+
+            <div id="end-screen" class="hidden text-center py-10">
+                <div class="text-5xl mb-6">🎯</div>
+                <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase tracking-tighter">Terminé</h2>
+                <div class="text-7xl font-black text-blue-600 mb-10" id="final-score">0 / 0</div>
+                <a href="index.html" class="inline-block bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest">Retour à l'accueil</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let questions = [];
+        let currentIdx = 0;
+        let score = 0;
+
+        const params = new URLSearchParams(window.location.search);
+        const file = params.get('file');
+
+        async function loadQuiz() {
+            const res = await fetch(file);
+            const data = await res.json();
+
+            // Restauration de l'affichage de la newsletter
+            let cleanHtml = data.html_affichage || data.contenu_html;
+            cleanHtml = cleanHtml.replace(/.*Ouvrir dans le navigateur.*/i, "");
+            const splitKey = "Vous avez aimé cette newsletter ?";
+            if (cleanHtml.includes(splitKey)) cleanHtml = cleanHtml.split(splitKey)[0];
+            document.getElementById('hugo-content').innerHTML = cleanHtml;
+            
+            questions = data.questions;
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = questions[currentIdx];
+            
+            // Reset de l'interface pour la nouvelle question
+            document.getElementById('q-counter').innerText = `${String(currentIdx + 1).padStart(2, '0')} / ${String(questions.length).padStart(2, '0')}`;
+            document.getElementById('q-category').innerText = q.categorie || "INFO";
+            document.getElementById('q-text').innerText = q.q;
+            
+            document.getElementById('q-text').classList.remove('hidden');
+            document.getElementById('explanation-box').classList.add('hidden');
+            document.getElementById('next-btn-nav').classList.add('hidden');
+            
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = "";
+            
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-5 rounded-2xl text-left font-bold text-slate-700 bg-white shadow-sm hover:border-blue-300 transition-all";
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(i, q.correct, btn);
+                grid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(idx, correct, btn) {
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(b => b.disabled = true);
+
+            // Ergonomie : On remplace le texte de la question par l'explication
+            document.getElementById('q-text').classList.add('hidden');
+            document.getElementById('expl-text').innerHTML = `<span class="font-black text-blue-600 uppercase text-[10px] tracking-widest mb-1 block">${idx === correct ? '✅ Correct' : '❌ Incorrect'}</span>${questions[currentIdx].explication}`;
+            document.getElementById('explanation-box').classList.remove('hidden');
+
+            if (idx === correct) {
+                btn.classList.add('correct');
+                score++;
+            } else {
+                btn.classList.add('wrong');
+                btns[correct].classList.add('correct');
+            }
+            
+            // Faire apparaître le bouton Suivant en haut (proche du pouce/regard)
+            document.getElementById('next-btn-nav').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < questions.length) {
+                renderQuestion();
+                // On s'assure que le bloc quiz est bien au milieu de l'écran
+                document.getElementById('quiz-block').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                document.getElementById('q-container').classList.add('hidden');
+                document.getElementById('end-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
+                document.getElementById('next-btn-nav').classList.add('hidden');
+            }
+        }
+
+        loadQuiz();
+    </script>
+</body>
+</html><style>
     /* On force une hauteur minimale pour éviter les sauts de mise en page */
     #q-container { min-height: 500px; display: flex; flex-direction: column; }
     .option-btn { transition: all 0.2s; border: 2px solid #f1f5f9; }
