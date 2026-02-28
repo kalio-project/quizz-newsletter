@@ -2,80 +2,80 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz HugoDécrypte</title>
+    <title>Lecture ActuQuiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; line-height: 1.7; max-width: 800px; margin: 0 auto; padding: 40px 20px; background: #f8fafc; }
-        article { font-size: 1.1em; color: #334155; margin-bottom: 100px; }
-        article img { max-width: 100%; border-radius: 20px; margin: 20px 0; }
-        .quiz-box { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top-left-radius: 30px; border-top-right-radius: 30px; box-shadow: 0 -20px 40px rgba(0,0,0,0.1); padding: 30px; transform: translateY(100%); transition: transform 0.5s ease; z-index: 1000; }
-        .quiz-box.active { transform: translateY(0); }
-        .question { font-size: 1.3em; font-weight: 600; margin-bottom: 20px; }
-        .options { display: flex; flex-direction: column; gap: 15px; }
-        .option { padding: 15px; background: #f1f5f9; border-radius: 15px; cursor: pointer; transition: all 0.3s; }
-        .option:hover { background: #e2e8f0; }
-        .option.correct { background: #10b981; color: white; }
-        .option.wrong { background: #ef4444; color: white; }
-        .explanation { margin-top: 15px; padding: 15px; background: #dbeafe; border-radius: 15px; display: none; }
-        .next-btn { background: #3b82f6; color: white; border: none; padding: 15px 30px; border-radius: 50px; cursor: pointer; margin-top: 20px; }
+        .quiz-box { position: fixed; bottom: -100%; left: 0; right: 0; background: white; border-top: 4px solid #3b82f6; transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1); z-index: 100; box-shadow: 0 -20px 50px rgba(0,0,0,0.1); }
+        .quiz-box.active { bottom: 0; }
+        #hugo-content img { width: 100%; border-radius: 2rem; margin: 2rem 0; }
+        body { padding-bottom: 400px; }
     </style>
 </head>
-<body>
-    <article id="content"></article>
-    <div class="quiz-box" id="quizBox">
-        <div class="question" id="question"></div>
-        <div class="options" id="options"></div>
-        <div class="explanation" id="explanation"></div>
-        <button class="next-btn" onclick="nextQuestion()" id="nextBtn" style="display:none;">Question suivante</button>
+<body class="bg-white">
+    <article id="hugo-content" class="max-w-2xl mx-auto p-6 md:p-12 prose prose-slate prose-lg"></article>
+
+    <div id="quiz-box" class="quiz-box p-6 md:p-10">
+        <div class="max-w-xl mx-auto">
+            <div id="q-header" class="flex justify-between mb-4 items-center">
+                <span id="t-badge" class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[10px] font-black uppercase"></span>
+                <span id="counter" class="font-black text-blue-600">01 / 10</span>
+            </div>
+            <div id="game-zone">
+                <h2 id="q-text" class="text-xl font-bold mb-6"></h2>
+                <div id="opts" class="grid grid-cols-2 gap-3"></div>
+            </div>
+            <div id="feedback-zone" class="hidden">
+                <div id="fb-status" class="font-black mb-2 uppercase italic text-sm"></div>
+                <p id="expl" class="text-slate-600 text-sm mb-6"></p>
+                <button onclick="next()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase text-xs">Suivant →</button>
+            </div>
+        </div>
     </div>
+
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const file = urlParams.get('file');
-        fetch(`${file}`).then(r=>r.json()).then(data => {
-            document.getElementById('content').innerHTML = data.content; // Nettoyage HTML déjà fait par process.py
-            let currentQ = 0;
-            const quizBox = document.getElementById('quizBox');
-            
-            // Déclenche quiz à la fin de lecture (scroll ou timeout)
-            setTimeout(() => quizBox.classList.add('active'), 5000); // Simule fin lecture
-            
-            function showQuestion() {
-                const q = data.questions[currentQ];
-                document.getElementById('question').textContent = q.question;
-                const options = document.getElementById('options');
-                options.innerHTML = '';
-                q.options.forEach((opt, i) => {
-                    const btn = document.createElement('div');
-                    btn.className = 'option';
-                    btn.textContent = opt;
-                    btn.onclick = () => selectAnswer(i === q.correct);
-                    options.appendChild(btn);
-                });
-            }
-            
-            function selectAnswer(isCorrect) {
-                document.querySelectorAll('.option').forEach((opt, i) => {
-                    opt.classList.add(i === data.questions[currentQ].correct ? 'correct' : 'wrong');
-                });
-                document.getElementById('explanation').textContent = data.questions[currentQ].explanation;
-                document.getElementById('explanation').style.display = 'block';
-                document.getElementById('nextBtn').style.display = 'block';
-            }
-            
-            function nextQuestion() {
-                currentQ++;
-                if (currentQ < data.questions.length) {
-                    showQuestion();
-                    document.getElementById('nextBtn').style.display = 'none';
-                    document.getElementById('explanation').style.display = 'none';
-                } else {
-                    quizBox.innerHTML = '<h2>Quiz terminé ! 🎉</h2><p>Reviens demain pour plus.</p>';
-                }
-            }
-            
-            showQuestion();
-        });
+        let quiz, current = 0, score = 0;
+
+        window.onscroll = () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 150) 
+                document.getElementById('quiz-box').classList.add('active');
+        };
+
+        async function init() {
+            const res = await fetch(new URLSearchParams(window.location.search).get('file'));
+            quiz = await res.json();
+            document.getElementById('hugo-content').innerHTML = quiz.html_article;
+            render();
+        }
+
+        function render() {
+            const q = quiz.questions[current];
+            document.getElementById('t-badge').innerText = q.theme;
+            document.getElementById('counter').innerText = `${current + 1} / 10`;
+            document.getElementById('q-text').innerText = q.q;
+            document.getElementById('game-zone').classList.remove('hidden');
+            document.getElementById('feedback-zone').classList.add('hidden');
+
+            const div = document.getElementById('opts'); div.innerHTML = "";
+            q.options.forEach((o, i) => {
+                const b = document.createElement('button');
+                b.className = "p-4 border-2 rounded-2xl text-xs font-bold bg-slate-50 hover:border-blue-500 transition";
+                b.innerText = o;
+                b.onclick = () => {
+                    const ok = i === q.correct; if(ok) score++;
+                    b.style.borderColor = ok ? '#22c55e' : '#ef4444';
+                    setTimeout(() => {
+                        document.getElementById('game-zone').classList.add('hidden');
+                        document.getElementById('feedback-zone').classList.remove('hidden');
+                        document.getElementById('fb-status').innerText = ok ? "✅ Bien joué !" : "❌ Oups...";
+                        document.getElementById('expl').innerText = q.explication;
+                    }, 500);
+                };
+                div.appendChild(b);
+            });
+        }
+
+        function next() { current++; if(current < 10) render(); else alert("Score final: " + score + "/10"); }
+        init();
     </script>
 </body>
 </html>
