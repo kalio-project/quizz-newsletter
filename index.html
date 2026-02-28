@@ -3,392 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz | Ton actualité en Quiz</title>
-    
+    <title>ActuQuiz - Accueil</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .active-theme { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
-        /* Style pour le texte de l'article */
-        .prose b { color: #ef4444; font-weight: 800; }
-        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
-        .prose li { margin-bottom: 0.5rem; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
     </style>
 </head>
+<body class="p-4 md:p-10">
 
-<body class="bg-slate-50 text-slate-900">
-
-    <header class="p-6 max-w-7xl mx-auto flex justify-between items-center sticky top-0 bg-slate-50/80 backdrop-blur-md z-50">
-        <h1 class="text-3xl font-800 tracking-tighter italic">ACTU<span class="text-red-600">QUIZ</span></h1>
-        <div id="global-score" class="bg-white px-6 py-2 rounded-full shadow-md font-bold text-red-600 border border-red-50 transition-all scale-110">
-            Score : 0 pts
+    <header class="max-w-6xl mx-auto mb-10">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+                <h1 class="text-5xl font-black text-slate-900 leading-none"><span class="text-blue-600">ACTU</span>QUIZ</h1>
+                <p class="text-slate-500 mt-2 font-medium">L'essentiel de l'info d'HugoDécrypte en quiz.</p>
+            </div>
+            <div class="bg-blue-600 p-6 rounded-3xl text-white shadow-xl shadow-blue-200">
+                <h3 class="font-bold mb-2">Envie d'un défi ?</h3>
+                <p class="text-sm opacity-90 mb-4">Génère un quiz de 5 à 30 questions sur tes thèmes préférés.</p>
+                <a href="multi-quiz.html" class="inline-block bg-white text-blue-600 px-6 py-2 rounded-xl font-bold hover:scale-105 transition">Lancer le Super Quiz <i class="fas fa-bolt ml-2"></i></a>
+            </div>
         </div>
+
+        <div id="filter-bar" class="flex flex-wrap gap-2 mt-10">
+            <button onclick="filterBy('Tous')" class="filter-btn bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-bold shadow-md transition">Tous</button>
+            </div>
     </header>
 
-    <div class="max-w-7xl mx-auto px-6">
-        
-        <div id="theme-tags" class="flex gap-2 mb-8 overflow-x-auto scrollbar-hide py-2">
-            <button id="btn-all" onclick="filterBy('all')" class="active-theme px-6 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold whitespace-nowrap transition shadow-sm hover:shadow-md">
-                Tous les flux
-            </button>
-            <script>
-                const themes = ["Politique", "Économie", "Technologie", "Écologie", "Société", "Culture", "Sport", "Géopolitique", "Science", "Insolite"];
-                themes.forEach(t => {
-                    document.write(`
-                        <button id="btn-${t}" onclick="filterBy('${t}')" class="px-5 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-500 hover:border-red-400 hover:text-red-600 transition whitespace-nowrap shadow-sm">
-                            ${t}
-                        </button>
-                    `);
-                });
-            </script>
-        </div>
-
-        <section class="mb-12">
-            <div class="flex justify-between items-end mb-6">
-                <h2 class="text-sm font-800 uppercase tracking-widest text-slate-400">
-                    Les dernières <span class="text-red-600 underline">éditions</span>
-                </h2>
-                <span class="text-[10px] font-bold text-slate-400">FAITES DÉFILER →</span>
-            </div>
-            
-            <div id="carousel" class="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x">
-                <div class="text-slate-400 italic p-10">Chargement des newsletters...</div>
-            </div>
-        </section>
-
-        <main id="reader" class="hidden max-w-4xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100 mb-20 animate-in fade-in slide-in-from-bottom-10 duration-700">
-            <div id="hero" class="h-64 md:h-96 w-full bg-cover bg-center shadow-inner relative">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-            </div>
-            
-            <div class="p-8 md:p-16">
-                <article id="article-body" class="prose prose-lg max-w-none text-slate-700 leading-relaxed">
-                    </article>
-
-                <div id="quiz-area" class="mt-16 pt-16 border-t border-slate-100">
-                    <div class="text-center mb-12">
-                        <span class="bg-red-100 text-red-600 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest">Challenge</span>
-                        <h2 class="text-4xl font-800 mt-4">Vérifie tes connaissances ⚡</h2>
-                        <p class="text-slate-500 mt-2 italic text-sm">Réponds correctement pour gagner des points !</p>
-                    </div>
-                    
-                    <div id="q-list" class="space-y-12">
-                        </div>
-                </div>
-            </div>
+    <main id="grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         </main>
-    </div>
 
     <script>
-        let allEditions = [];
-        let userScores = JSON.parse(localStorage.getItem('quiz_scores') || '{}');
+        let allQuizzes = [];
+        const themes = ['Politique', 'Économie', 'Technologie', 'Écologie', 'Société', 'Culture', 'Sport', 'Géopolitique', 'Science', 'Insolite'];
+        const colors = { 'Politique': '#ef4444', 'Économie': '#10b981', 'Technologie': '#3b82f6', 'Écologie': '#059669', 'Société': '#8b5cf6', 'Culture': '#f59e0b', 'Sport': '#f43f5e', 'Géopolitique': '#6366f1', 'Science': '#06b6d4', 'Insolite': '#ec4899' };
 
-        // INITIALISATION
         async function init() {
-            try {
-                const res = await fetch('./manifest.json');
-                allEditions = await res.json();
-                renderCarousel('all');
-                updateScoreDisplay();
-                
-                // Charger automatiquement le dernier article si disponible
-                if(allEditions.length > 0) {
-                    loadEdition(allEditions[allEditions.length - 1]);
-                }
-            } catch(e) {
-                document.getElementById('carousel').innerHTML = "<p class='p-10 text-slate-400'>Aucun quiz disponible pour le moment. Lance le robot !</p>";
-            }
-        }
-
-        // FILTRAGE
-        function filterBy(t) {
-            document.querySelectorAll('#theme-tags button').forEach(b => b.classList.remove('active-theme'));
-            const activeBtn = (t === 'all') ? document.getElementById('btn-all') : document.getElementById('btn-' + t);
-            if(activeBtn) activeBtn.classList.add('active-theme');
-            renderCarousel(t);
-        }
-
-        // AFFICHAGE DU CARROUSEL
-        function renderCarousel(filter) {
-            const container = document.getElementById('carousel');
-            container.innerHTML = "";
+            const res = await fetch('manifest.json');
+            allQuizzes = await res.json();
             
-            // On affiche du plus récent au plus ancien
-            const sorted = [...allEditions].reverse();
+            // Créer les boutons de filtres
+            const filterBar = document.getElementById('filter-bar');
+            themes.forEach(t => {
+                const btn = document.createElement('button');
+                btn.className = "filter-btn bg-white border border-slate-200 px-5 py-2 rounded-full text-sm font-bold hover:bg-slate-50 transition";
+                btn.textContent = t;
+                btn.onclick = () => filterBy(t, btn);
+                filterBar.appendChild(btn);
+            });
 
-            sorted.forEach(item => {
-                if (filter !== 'all' && item.theme !== filter) return;
-                
-                const isDone = userScores[item.file] !== undefined;
-                const scoreObtenu = userScores[item.file] || 0;
+            renderGrid(allQuizzes);
+        }
 
-                const card = document.createElement('div');
-                card.className = "min-w-[300px] md:min-w-[350px] bg-white rounded-[2.5rem] border border-slate-100 shadow-sm snap-start overflow-hidden cursor-pointer hover:shadow-2xl transition-all hover:-translate-y-2 group";
-                
-                card.innerHTML = `
-                    <div class="h-52 bg-slate-200 bg-cover bg-center relative overflow-hidden" style="background-image: url('${item.image || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c'}')">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
-                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-xl text-[10px] font-black uppercase text-red-600 shadow-sm">${item.theme}</div>
-                        <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-xl text-[10px] font-bold text-white shadow-sm">${item.date}</div>
-                    </div>
-                    <div class="p-7">
-                        <h3 class="font-800 text-lg leading-tight line-clamp-2 mb-4 group-hover:text-red-600 transition-colors">${item.titre}</h3>
-                        <div class="flex items-center justify-between mt-2">
-                            <span class="text-[10px] font-black tracking-widest uppercase ${isDone ? 'text-green-500' : 'text-slate-400'}">
-                                ${isDone ? `✅ TERMINÉ (${scoreObtenu}/5)` : '⏳ À DÉCOUVRIR'}
-                            </span>
-                            <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-red-50 transition-colors">
-                                <svg class="w-4 h-4 text-slate-400 group-hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="9 5l7 7-7 7"></path></svg>
-                            </div>
+        function renderGrid(list) {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            list.reverse().forEach(q => {
+                grid.innerHTML += `
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-all group">
+                        <div class="relative h-44 overflow-hidden">
+                            <img src="${q.image || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c'}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] font-black uppercase text-white" style="background:${colors[q.theme] || '#000'}">${q.theme}</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">${q.date}</div>
+                            <h2 class="text-xl font-black text-slate-800 leading-tight mb-4">${q.titre}</h2>
+                            <a href="quiz.html?file=${q.file}" class="inline-block w-full text-center bg-slate-50 py-3 rounded-xl font-bold text-slate-900 hover:bg-blue-600 hover:text-white transition">Lire & Jouer</a>
                         </div>
                     </div>
                 `;
-                card.onclick = () => loadEdition(item);
-                container.appendChild(card);
             });
         }
 
-        // CHARGEMENT D'UN ARTICLE
-        async function loadEdition(item) {
-            const res = await fetch(`./data/${item.file}`);
-            const data = await res.json();
+        function filterBy(theme, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.replace('bg-slate-900', 'bg-white'));
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.replace('text-white', 'text-slate-900'));
             
-            const main = document.getElementById('reader');
-            main.classList.remove('hidden');
-            
-            document.getElementById('hero').style.backgroundImage = `url('${data.image}')`;
-            document.getElementById('article-body').innerHTML = `
-                <div class="mb-4 text-red-600 font-bold uppercase tracking-widest text-xs">Édition du ${item.date}</div>
-                <h1 class="text-4xl md:text-5xl font-black mb-10 leading-[1.1] tracking-tight text-slate-900">${data.titre}</h1>
-                <div class="content text-slate-600">${data.contenu_html}</div>
-            `;
-            
-            // Reset Quiz
-            const qList = document.getElementById('q-list');
-            qList.innerHTML = "";
-            window.tempScore = 0;
-            window.answered = 0;
+            if(btn) {
+                btn.classList.add('bg-slate-900', 'text-white');
+            }
 
-            // On mélange et on prend 5 questions
-            const selectedQ = data.questions.sort(() => 0.5 - Math.random()).slice(0, 5);
-            
-            selectedQ.forEach((q, i) => {
-                const div = document.createElement('div');
-                div.className = "bg-slate-50 p-6 md:p-8 rounded-[2rem] border border-slate-100 transition-all";
-                div.innerHTML = `
-                    <p class="font-800 text-xl mb-8 leading-tight"><span class="text-red-600 mr-2">#${i+1}</span> ${q.q}</p>
-                    <div class="grid gap-3" id="box-${i}">
-                        ${q.options.map((o, idx) => `
-                            <button onclick="checkAnswer(${i}, ${idx}, ${q.correct}, '${item.file}', 5, '${q.explication.replace(/'/g," ")}')" 
-                                    class="text-left p-5 bg-white border-2 border-slate-100 rounded-2xl hover:border-red-400 hover:shadow-md transition-all font-bold text-slate-700">
-                                ${o}
-                            </button>
-                        `).join('')}
-                    </div>
-                    <div id="exp-${i}" class="hidden mt-6 p-6 bg-white border-l-4 border-red-500 rounded-xl text-sm leading-relaxed text-slate-600 italic shadow-sm">
-                    </div>
-                `;
-                qList.appendChild(div);
-            });
-            
-            // Scroll fluide vers l'article
-            main.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // VÉRIFICATION DES RÉPONSES
-        function checkAnswer(qIdx, choice, correct, file, total, expl) {
-            const btns = document.querySelectorAll(`#box-${qIdx} button`);
-            const expBox = document.getElementById(`exp-${qIdx}`);
-            
-            btns.forEach(b => b.disabled = true);
-            
-            expBox.innerHTML = `<span class="font-black text-red-600 not-italic uppercase text-[10px] block mb-2">L'explication :</span> ${expl}`;
-            expBox.classList.remove('hidden');
-
-            if(choice === correct) {
-                btns[choice].classList.add('bg-green-500', 'text-white', 'border-green-500', 'scale-[1.02]');
-                window.tempScore++;
+            if(theme === 'Tous') {
+                renderGrid(allQuizzes);
             } else {
-                btns[choice].classList.add('bg-red-500', 'text-white', 'border-red-500');
-                btns[correct].classList.add('bg-green-100', 'border-green-500', 'text-green-700');
-            }
-
-            window.answered++;
-
-            // Fin du Quiz
-            if(window.answered === total) {
-                // On ne sauvegarde que si c'est le premier essai ou un meilleur score
-                if (!userScores[file] || window.tempScore > userScores[file]) {
-                    userScores[file] = window.tempScore;
-                    localStorage.setItem('quiz_scores', JSON.stringify(userScores));
-                }
-                
-                // Animation Confettis si 5/5
-                if(window.tempScore === 5) {
-                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ef4444', '#ffffff', '#000000'] });
-                }
-                
-                updateScoreDisplay();
-                renderCarousel('all'); // Rafraîchir les badges "Terminé"
+                const filtered = allQuizzes.filter(q => q.theme === theme);
+                renderGrid(filtered);
             }
         }
 
-        // MISE À JOUR DU SCORE GLOBAL
-        function updateScoreDisplay() {
-            const totalPoints = Object.values(userScores).reduce((a, b) => a + b, 0);
-            const scoreEl = document.getElementById('global-score');
-            scoreEl.innerText = `Score : ${totalPoints} pts`;
-            scoreEl.classList.add('scale-125');
-            setTimeout(() => scoreEl.classList.remove('scale-125'), 200);
-        }
-
-        init();
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz | Ton actu en Quiz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .active-theme { background-color: #ef4444 !important; color: white !important; border-color: #ef4444 !important; }
-        .prose b { color: #ef4444; }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-900">
-
-    <header class="p-6 max-w-7xl mx-auto flex justify-between items-center">
-        <h1 class="text-3xl font-800 tracking-tighter italic">ACTU<span class="text-red-600">QUIZ</span></h1>
-        <div id="global-score" class="bg-white px-6 py-2 rounded-full shadow-sm font-bold text-red-600 border border-red-50">Score : 0 pts</div>
-    </header>
-
-    <div class="max-w-7xl mx-auto px-6">
-        <div id="theme-tags" class="flex gap-2 mb-8 overflow-x-auto scrollbar-hide py-2">
-            <button id="btn-all" onclick="filterBy('all')" class="active-theme px-5 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold whitespace-nowrap transition shadow-sm">Tous</button>
-            <script>
-                const themes = ["Politique", "Économie", "Technologie", "Écologie", "Société", "Culture", "Sport", "Géopolitique", "Science", "Insolite"];
-                themes.forEach(t => {
-                    document.write(`<button id="btn-${t}" onclick="filterBy('${t}')" class="px-5 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-500 hover:border-red-400 transition whitespace-nowrap shadow-sm">${t}</button>`);
-                });
-            </script>
-        </div>
-
-        <section class="mb-12">
-            <h2 class="text-sm font-800 mb-6 uppercase tracking-widest text-slate-400">Dernières <span class="text-red-600">éditions</span></h2>
-            <div id="carousel" class="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x">
-                </div>
-        </section>
-
-        <main id="reader" class="hidden max-w-4xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100 mb-20">
-            <div id="hero" class="h-64 md:h-96 w-full bg-cover bg-center"></div>
-            <div class="p-8 md:p-16">
-                <div id="article-body"></div>
-                <div id="quiz-area" class="mt-16 pt-16 border-t border-slate-100">
-                    <h2 class="text-3xl font-800 mb-10 text-center">Le Quiz express ⚡</h2>
-                    <div id="q-list" class="space-y-12"></div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <script>
-        let allEditions = [];
-        let userScores = JSON.parse(localStorage.getItem('quiz_scores') || '{}');
-
-        async function init() {
-            try {
-                const res = await fetch('./manifest.json');
-                allEditions = await res.json();
-                renderCarousel('all');
-                updateScoreDisplay();
-                if(allEditions.length > 0) loadEdition(allEditions[allEditions.length - 1]);
-            } catch(e) { console.log("En attente de données..."); }
-        }
-
-        function filterBy(t) {
-            document.querySelectorAll('#theme-tags button').forEach(b => b.classList.remove('active-theme'));
-            document.getElementById(t === 'all' ? 'btn-all' : 'btn-' + t).classList.add('active-theme');
-            renderCarousel(t);
-        }
-
-        function renderCarousel(filter) {
-            const container = document.getElementById('carousel');
-            container.innerHTML = "";
-            [...allEditions].reverse().forEach(item => {
-                if(filter !== 'all' && item.theme !== filter) return;
-                const isDone = userScores[item.file] !== undefined;
-                const card = document.createElement('div');
-                card.className = "min-w-[300px] md:min-w-[350px] bg-white rounded-[2rem] border border-slate-100 shadow-sm snap-start overflow-hidden cursor-pointer hover:shadow-xl transition-all hover:-translate-y-2";
-                card.innerHTML = `
-                    <div class="h-48 bg-slate-200 bg-cover bg-center relative" style="background-image: url('${item.image}')">
-                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-black uppercase text-red-600">${item.theme}</div>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase">${item.date} • ${isDone ? '✅ Complété' : '⏱️ 5 min de lecture'}</div>
-                        <h3 class="font-800 text-lg leading-tight line-clamp-2">${item.titre}</h3>
-                    </div>
-                `;
-                card.onclick = () => loadEdition(item);
-                container.appendChild(card);
-            });
-        }
-
-        async function loadEdition(item) {
-            const res = await fetch(`./data/${item.file}`);
-            const data = await res.json();
-            const main = document.getElementById('reader');
-            main.classList.remove('hidden');
-            document.getElementById('hero').style.backgroundImage = `url('${data.image}')`;
-            document.getElementById('article-body').innerHTML = `<h1 class="text-4xl font-black mb-8 leading-tight">${data.titre}</h1><div class="prose prose-lg max-w-none text-slate-700">${data.contenu_html}</div>`;
-            
-            const qList = document.getElementById('q-list');
-            qList.innerHTML = "";
-            window.tempScore = 0; window.answered = 0;
-            const selectedQ = data.questions.sort(() => 0.5 - Math.random()).slice(0, 5);
-            
-            selectedQ.forEach((q, i) => {
-                const d = document.createElement('div');
-                d.innerHTML = `<p class="font-bold text-xl mb-6">${i+1}. ${q.q}</p><div class="grid gap-3" id="box-${i}">${q.options.map((o, idx) => `<button onclick="check(${i},${idx},${q.correct},'${item.file}',5,'${q.explication.replace(/'/g," ")}')" class="text-left p-5 bg-slate-50 border-2 border-transparent rounded-2xl hover:border-red-400 transition font-bold text-slate-700">${o}</button>`).join('')}</div><div id="exp-${i}" class="hidden mt-4 p-5 bg-blue-50 text-blue-800 rounded-2xl text-sm italic"></div>`;
-                qList.appendChild(d);
-            });
-            main.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function check(qIdx, choice, correct, file, total, expl) {
-            const btns = document.querySelectorAll(`#box-${qIdx} button`);
-            const exp = document.getElementById(`exp-${qIdx}`);
-            btns.forEach(b => b.disabled = true);
-            exp.innerHTML = "<b>L'explication :</b> " + expl; exp.classList.remove('hidden');
-            if(choice === correct) {
-                btns[choice].classList.add('bg-green-500', 'text-white', 'border-green-500');
-                window.tempScore++;
-            } else {
-                btns[choice].classList.add('bg-red-500', 'text-white', 'border-red-500');
-                btns[correct].classList.add('bg-green-100', 'border-green-500', 'text-green-700');
-            }
-            window.answered++;
-            if(window.answered === total) {
-                userScores[file] = window.tempScore;
-                localStorage.setItem('quiz_scores', JSON.stringify(userScores));
-                if(window.tempScore === 5) confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-                updateScoreDisplay(); renderCarousel('all');
-            }
-        }
-
-        function updateScoreDisplay() {
-            const total = Object.values(userScores).reduce((a, b) => a + b, 0);
-            document.getElementById('global-score').innerText = `Score : ${total} pts`;
-        }
         init();
     </script>
 </body>
