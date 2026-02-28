@@ -1,4 +1,62 @@
-#!/usr/bin/env python3
+import os, imaplib, email, json, re, requests
+from google import genai
+from datetime import datetime
+
+# Config
+client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+THEMES = ["POLITIQUE EN FRANCE", "POLITIQUE INTERNATIONALE ET CONFLITS", "SOCIÉTÉ / FAITS DE SOCIÉTÉ", "ÉCONOMIE ET EMPLOI", "ENVIRONNEMENT ET CLIMAT", "SCIENCE, SANTÉ ET TECHNOLOGIE", "CULTURE ET MÉDIAS", "SPORT"]
+
+def clean_hugo_html(raw_html):
+    if "Ouvrir dans le navigateur" in raw_html:
+        raw_html = raw_html.split("Ouvrir dans le navigateur")[-1]
+    for p in ["Vous avez aimé cette newsletter ?", "Cette édition vous a plu ?"]:
+        if p in raw_html: raw_html = raw_html.split(p)[0]
+    # Nettoyage radical
+    raw_html = re.sub(r'<style[^>]*>.*?</style>', '', raw_html, flags=re.DOTALL | re.IGNORECASE)
+    raw_html = re.sub(r'<svg[^>]*>.*?</svg>', '', raw_html, flags=re.DOTALL | re.IGNORECASE)
+    raw_html = re.sub(r'class="[^"]*preheader[^"]*"', 'style="display:none"', raw_html, flags=re.IGNORECASE)
+    return raw_html.strip()
+
+def process():
+    mail = imaplib.IMAP4_SSL("imap.gmail.com")
+    mail.login(os.environ.get("EMAIL_USER"), os.environ.get("EMAIL_PASS"))
+    mail.select("HUGO") if mail.select("HUGO")[0] == 'OK' else mail.select("INBOX")
+    
+    _, data = mail.search(None, '(FROM "hugodecrypte@kessel.media")')
+    ids = data[0].split()
+    manifest = json.load(open('manifest.json', 'r')) if os.path.exists('manifest.json') else []
+
+    for e_id in ids[-5:]: # On traite les 5 derniers
+        _, msg_data = mail.fetch(e_id, '(RFC822)')
+        msg = email.message_from_bytes(msg_data[0][1])
+        if any(m['titre'] == msg['subject'] for m in manifest): continue
+
+        body = ""
+        for part in msg.walk():
+            if part.get_content_type() == "text/html": body = part.get_payload(decode=True).decode(errors='ignore')
+
+        prompt = f"Analyse cette newsletter. Crée 10 questions (4 choix). Pour CHAQUE question, choisis un thème parmi {THEMES}. Retourne UNIQUEMENT un JSON: {{'questions': [{{'q':'','options':[],'correct':0,'explication':'','theme':''}}]}}"
+        
+        try:
+            res = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+            quiz_data = json.loads(re.search(r'\{.*\}', res.text, re.DOTALL).group())
+            quiz_data['html_article'] = clean_hugo_html(body)
+            quiz_data['titre'] = msg['subject']
+            
+            # Image
+            imgs = re.findall(r'src="([^"]+)"', body)
+            img_url = next((u for u in imgs if "kessel" in u and "logo" not in u.lower()), "")
+            
+            filename = f"data/q-{e_id.decode()}.json"
+            os.makedirs('data', exist_ok=True)
+            json.dump(quiz_data, open(filename, 'w', encoding='utf-8'), ensure_ascii=False)
+            manifest.append({"date": datetime.now().strftime("%d/%m/%Y"), "file": filename, "titre": msg['subject'], "img": img_url})
+        except: pass
+
+    json.dump(manifest, open('manifest.json', 'w', encoding='utf-8'), indent=2)
+    mail.logout()
+
+if __name__ == "__main__": process()#!/usr/bin/env python3
 import os
 import json
 import re
