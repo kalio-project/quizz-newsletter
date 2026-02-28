@@ -8,50 +8,68 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background: #fff; }
+        .card-shadow { transition: all 0.3s ease; }
+        .card-shadow:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
     </style>
 </head>
 <body class="p-6 md:p-12">
 
-    <header class="max-w-5xl mx-auto mb-16 flex flex-col md:flex-row justify-between items-end gap-4">
+    <header class="max-w-6xl mx-auto mb-16 flex flex-col md:flex-row justify-between items-end gap-6 border-b border-slate-100 pb-10">
         <div>
-            <h1 class="text-4xl font-black text-blue-600 italic tracking-tighter">ACTUQUIZ.</h1>
+            <h1 class="text-5xl font-black text-blue-600 italic tracking-tighter mb-2">ACTUQUIZ.</h1>
+            <p class="text-slate-400 font-medium">Testez votre compréhension des newsletters d'Hugo Décrypte.</p>
         </div>
-        <a href="multiquiz.html" class="text-sm font-bold text-slate-400 hover:text-blue-600 transition">
-            Lancer un test aléatoire ⚡
-        </a>
+        <div class="flex gap-4">
+            <a href="multiquiz.html" class="bg-slate-900 text-white px-6 py-3 rounded-2xl font-bold text-sm hover:bg-blue-600 transition shadow-lg">
+                Super Quiz Aléatoire ⚡
+            </a>
+        </div>
     </header>
 
-    <main id="grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <main id="grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         </main>
 
     <script>
         async function init() {
             try {
                 const res = await fetch('manifest.json');
+                if (!res.ok) throw new Error("Manifest introuvable");
                 const data = await res.json();
                 const grid = document.getElementById('grid');
                 
+                // On inverse pour avoir le plus récent en premier
                 grid.innerHTML = data.reverse().map(i => `
-                    <div class="cursor-pointer group" onclick="location.href='quiz.html?file=${i.file}'">
-                        <div class="relative aspect-video overflow-hidden rounded-2xl mb-4 bg-slate-100">
-                            <img src="${i.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="cursor-pointer group card-shadow rounded-3xl overflow-hidden bg-white border border-slate-50" 
+                         onclick="location.href='quiz.html?file=${i.file}'">
+                        
+                        <div class="relative aspect-video overflow-hidden bg-slate-100">
+                            <img src="${i.image}" 
+                                 onerror="this.src='https://via.placeholder.com/600x337?text=ActuQuiz+Hugo'"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                            <div class="absolute top-4 left-4 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
+                                ${i.theme || 'ACTU'}
+                            </div>
                         </div>
-                        <div class="space-y-2">
-                            <h2 class="text-xl font-bold leading-tight text-slate-900 group-hover:text-blue-600 transition">
+
+                        <div class="p-6">
+                            <div class="text-slate-400 text-[11px] font-bold mb-3 uppercase tracking-widest">
+                                ${i.date} • 5 MIN DE LECTURE
+                            </div>
+                            <h2 class="text-xl font-extrabold leading-tight text-slate-900 group-hover:text-blue-600 transition-colors">
                                 ${i.titre}
                             </h2>
-                            <div class="flex items-center gap-3 text-slate-400 text-sm font-medium">
-                                <span>${i.date}</span>
-                                <span>•</span>
-                                <span>5 min</span>
-                                <i class="fa-regular fa-user-group"></i>
-                            </div>
                         </div>
                     </div>
                 `).join('');
-            } catch (e) { console.error("Erreur chargement index:", e); }
+            } catch (e) {
+                console.error("Erreur d'initialisation :", e);
+                document.getElementById('grid').innerHTML = `<p class="text-slate-400">Aucun quiz disponible pour le moment.</p>`;
+            }
         }
+        
+        // Lancement au chargement de la page
         init();
     </script>
+
 </body>
 </html>
