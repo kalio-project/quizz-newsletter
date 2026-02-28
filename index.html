@@ -34,32 +34,29 @@
                 const grid = document.getElementById('quiz-grid');
                 grid.innerHTML = '';
 
-                // On boucle sur le manifest (du plus récent au plus ancien)
+                // On inverse pour avoir les dates les plus récentes en haut (Reverse)
                 for (const item of [...manifest].reverse()) {
                     try {
-                        // Récupération du JSON de chaque quiz
                         const detailRes = await fetch(item.file);
                         const data = await detailRes.json();
                         
-                        // LOGIQUE D'EXTRACTION DE L'IMAGE (Copiée de quiz.html)
+                        // Extraction de l'image (Logique identique à Quiz.html)
                         let foundImage = data.image;
                         if (!foundImage) {
-                            const htmlContent = data.html_affichage || data.contenu_html;
                             const tempDiv = document.createElement('div');
-                            tempDiv.innerHTML = htmlContent;
+                            tempDiv.innerHTML = data.html_affichage || data.contenu_html;
                             const firstImg = tempDiv.querySelector('img');
                             if (firstImg) foundImage = firstImg.src;
                         }
 
-                        // Si vraiment aucune image n'est trouvée, on met un placeholder propre
                         const finalImg = foundImage || 'https://images.unsplash.com/photo-1504711432869-efd5971ee142?auto=format&fit=crop&q=80&w=1000';
 
-                        // CRÉATION DE LA CARTE
+                        // Création de la carte
                         const card = document.createElement('a');
                         card.href = `quiz.html?file=${item.file}`;
                         card.className = "group block";
 
-                        // TA STRUCTURE EXACTE POUR L'IMAGE
+                        // Structure demandée : Image vignette + Infos (Date, Temps, Titre)
                         card.innerHTML = `
                             <div id="cover-container" class="mb-5 overflow-hidden rounded-[2rem] shadow-sm border border-slate-100 group-hover:shadow-xl transition-all duration-300">
                                 <img src="${finalImg}" class="w-full h-52 object-cover bg-slate-100 transition-transform duration-500">
@@ -70,7 +67,7 @@
                                         ⏱️ ${data.temps_lecture || '3 min'}
                                     </span>
                                     <span class="text-slate-300 text-[10px] font-bold uppercase">
-                                        ${item.date || ''}
+                                        🗓️ ${item.date || 'Récent'}
                                     </span>
                                 </div>
                                 <h2 class="text-xl font-black text-slate-900 leading-tight group-hover:text-blue-600 transition-colors">
@@ -81,12 +78,12 @@
                         grid.appendChild(card);
 
                     } catch (err) {
-                        console.error("Erreur chargement fichier quiz:", item.file);
+                        console.error("Erreur sur le fichier:", item.file);
                     }
                 }
             } catch (e) {
-                console.error("Erreur manifest:", e);
-                document.getElementById('quiz-grid').innerHTML = "<p class='text-center col-span-full py-20 text-slate-400'>Aucun quiz trouvé.</p>";
+                console.error("Erreur manifest");
+                document.getElementById('quiz-grid').innerHTML = "<p class='col-span-full text-center py-20 text-slate-400 font-bold'>Aucune édition trouvée.</p>";
             }
         }
 
