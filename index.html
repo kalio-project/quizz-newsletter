@@ -3,102 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz - Accueil</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>ActuQuiz - HugoDécrypte</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
-        .card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .card:hover { transform: translateY(-5px); }
-        
-        /* Petit bouton flottant en haut à droite */
-        .multi-btn {
-            animation: float 3s infinite ease-in-out;
-            transition: all 0.3s ease;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(-3deg); }
-            50% { transform: translateY(-5px) rotate(3deg); }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        header { text-align: center; color: white; margin-bottom: 40px; }
+        h1 { font-size: 3em; font-weight: 800; }
+        .challenge-btn { background: #ff6b6b; color: white; border: none; padding: 15px 30px; font-size: 1.2em; border-radius: 50px; cursor: pointer; transition: transform 0.3s; margin-top: 20px; }
+        .challenge-btn:hover { transform: scale(1.05); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 20px; }
+        .card h3 { font-size: 1.3em; margin-bottom: 10px; }
+        .card date { color: #666; }
     </style>
 </head>
-<body class="p-4 md:p-10">
-
-    <div class="fixed top-6 right-6 z-50">
-        <a href="multiquiz.html" class="multi-btn flex flex-col items-center justify-center w-20 h-20 md:w-24 md:h-24 bg-blue-600 rounded-2xl shadow-xl shadow-blue-200 text-white hover:bg-slate-900 group">
-            <span class="text-2xl mb-1">⚡</span>
-            <span class="text-[9px] font-black uppercase tracking-tighter text-center leading-none">Super<br>Quiz</span>
-            <span class="absolute -top-1 -right-1 flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500 border-2 border-white"></span>
-            </span>
-        </a>
-    </div>
-
-    <header class="max-w-6xl mx-auto mb-16">
-        <h1 class="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter italic uppercase">ActuQuiz.</h1>
-        <p class="text-slate-400 font-medium text-sm mt-2 uppercase tracking-widest">Dernières éditions</p>
-        <div class="h-1 w-20 bg-blue-600 mt-4 rounded-full"></div>
+<body>
+    <header>
+        <h1>📖 ActuQuiz</h1>
+        <button class="challenge-btn" onclick="window.location.href='superquiz.html'">MODE CHALLENGE ⚡</button>
     </header>
-
-    <main class="max-w-6xl mx-auto">
-        <div id="quiz-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            </div>
-    </main>
-
+    <div class="grid" id="grid"></div>
     <script>
-        const themeColors = {
-            'GÉOPOLITIQUE': 'bg-red-100 text-red-600 border-red-200',
-            'SOCIÉTÉ': 'bg-blue-100 text-blue-600 border-blue-200',
-            'ÉCONOMIE': 'bg-amber-100 text-amber-600 border-amber-200',
-            'PLANÈTE': 'bg-green-100 text-green-600 border-green-200',
-            'TECH': 'bg-purple-100 text-purple-600 border-purple-200',
-            'CULTURE': 'bg-pink-100 text-pink-600 border-pink-200',
-            'SPORT': 'bg-orange-100 text-orange-600 border-orange-200'
-        };
-
-        async function loadApp() {
-            const grid = document.getElementById('quiz-grid');
-            try {
-                const res = await fetch('manifest.json');
-                const manifest = await res.json();
-                
-                // On affiche tout, du plus récent au plus ancien
-                const list = [...manifest].reverse();
-                grid.innerHTML = '';
-
-                list.forEach(item => {
-                    const colorClass = themeColors[item.theme] || 'bg-slate-100 text-slate-600 border-slate-200';
-                    
-                    const card = document.createElement('a');
-                    card.href = `quiz.html?file=${item.file}`;
-                    card.className = "card group block bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-100";
-                    
-                    card.innerHTML = `
-                        <div class="h-56 overflow-hidden bg-slate-200">
-                            <img src="${item.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
-                                 onerror="this.src='https://via.placeholder.com/600x400?text=ActuQuiz'">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-4">
-                                <span class="px-2 py-1 rounded-md border text-[8px] font-black tracking-widest ${colorClass}">
-                                    ${item.theme || 'INFO'}
-                                </span>
-                                <span class="text-slate-300 text-[10px] font-bold uppercase">${item.date}</span>
-                            </div>
-                            <h2 class="text-xl font-black text-slate-900 leading-[1.2] group-hover:text-blue-600 transition-colors">
-                                ${item.titre}
-                            </h2>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            } catch (e) {
-                grid.innerHTML = "<p class='text-slate-400'>Aucun quiz trouvé.</p>";
-            }
-        }
-        
-        loadApp();
+        fetch('manifest.json').then(r=>r.json()).then(data => {
+            const grid = document.getElementById('grid');
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => window.location.href = `quiz.html?file=${item.file}`;
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="card-content">
+                        <h3>${item.title}</h3>
+                        <date>${item.date}</date>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        });
     </script>
 </body>
 </html>
