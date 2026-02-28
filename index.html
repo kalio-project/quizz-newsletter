@@ -3,168 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hugo Décrypte - Quiz Hub</title>
+    <title>Hugo Décrypte - Quiz</title>
     <style>
-        :root {
-            /* Palette Officielle HugoDécrypte */
-            --hugo-navy: #151a2e; /* Le bleu sombre des vidéos */
-            --hugo-red: #e63946;  /* Le rouge des actus du jour */
-            --hugo-blue: #0077b6; /* Le bleu clair des liens */
-            --hugo-bg: #f8f9fa;   /* Fond très clair */
-            --hugo-text: #1a1a1a;
-        }
-
-        body { 
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-            background-color: var(--hugo-bg); 
-            margin: 0; 
-            padding: 0; 
-            color: var(--hugo-text);
-        }
-
-        /* Header type "Chaîne Youtube" */
-        header {
-            background-color: var(--hugo-navy);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 5px solid var(--hugo-red);
-        }
-
-        header h1 { 
-            margin: 0; 
-            font-size: 2.2em; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-        }
-
-        header p { opacity: 0.8; font-weight: 300; margin-top: 10px; }
-
-        .container { max-width: 1000px; margin: -30px auto 40px; padding: 0 20px; }
-
-        /* Bloc Super Quiz Style "Breaking News" */
-        .super-quiz-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-            border-left: 8px solid var(--hugo-red);
-        }
-
-        .super-quiz-text h2 { margin: 0; color: var(--hugo-navy); font-size: 1.5em; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #fff; margin: 0; color: #1a1a1a; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
         
-        .btn-play {
-            background: var(--hugo-red);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: 0.2s;
-        }
+        /* En-tête simple */
+        header { padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+        h1 { font-size: 24px; margin: 0; color: #151a2e; }
 
-        .btn-play:hover { background: #c12a36; transform: scale(1.02); }
+        /* Super Quiz en Bonus discret sur le côté */
+        .bonus-quiz { font-size: 14px; background: #f8f9fa; padding: 10px 20px; border-radius: 20px; text-decoration: none; color: #e63946; font-weight: bold; border: 1px solid #e63946; }
 
-        /* Grille des Actus */
-        .section-title { font-weight: 800; font-size: 1.2em; margin-bottom: 20px; color: var(--hugo-navy); display: flex; align-items: center; }
-        .section-title::before { content: ""; width: 12px; height: 12px; background: var(--hugo-red); margin-right: 10px; border-radius: 2px; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-
-        .card { 
-            background: white; 
-            border-radius: 10px; 
-            overflow: hidden; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #eee;
-        }
-
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-
-        .card-content { padding: 20px; flex-grow: 1; }
-
-        .badge { 
-            background: #eee; 
-            color: #666; 
-            padding: 4px 8px; 
-            font-size: 0.7em; 
-            font-weight: bold; 
-            border-radius: 4px; 
-            margin-bottom: 12px;
-            display: inline-block;
-        }
-
-        .card h3 { margin: 0 0 10px 0; font-size: 1.1em; line-height: 1.4; color: var(--hugo-navy); }
-        .card .date { font-size: 0.85em; color: #999; margin-bottom: 15px; }
-
-        .btn-footer {
-            background: #f8f9fa;
-            border-top: 1px solid #eee;
-            padding: 12px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--hugo-blue);
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .btn-footer:hover { background: var(--hugo-navy); color: white; }
-
-        @media (max-width: 600px) {
-            .super-quiz-card { flex-direction: column; text-align: center; gap: 20px; }
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        .card { text-decoration: none; color: inherit; transition: opacity 0.2s; }
+        .card:hover { opacity: 0.8; }
+        
+        /* Style des images comme sur l'exemple */
+        .card-img { width: 100%; aspect-ratio: 16/9; background: #eee; border-radius: 12px; object-fit: cover; margin-bottom: 15px; }
+        
+        .card-meta { font-size: 13px; color: #666; margin-bottom: 8px; display: flex; gap: 10px; }
+        .card-title { font-size: 18px; font-weight: 800; line-height: 1.3; margin: 0; }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>Hugo Décrypte</h1>
-        <p>L'actualité décryptée & testée chaque jour</p>
-    </header>
-
     <div class="container">
-        <div class="super-quiz-card">
-            <div class="super-quiz-text">
-                <span style="color: var(--hugo-red); font-weight: bold; font-size: 0.8em; text-transform: uppercase;">Format Long</span>
-                <h2>Le Super Quiz de la semaine</h2>
-                <p style="color: #666; margin: 5px 0 0 0;">50 questions pour tester votre mémoire.</p>
-            </div>
-            <a href="multiquiz.html" class="btn-play">C'est parti</a>
-        </div>
+        <header>
+            <h1>Les derniers <strong>articles</strong></h1>
+            <a href="multiquiz.html" class="bonus-quiz">🎁 Bonus : Super Quiz (50 Qs)</a>
+        </header>
 
-        <div class="section-title">LES DERNIERS DÉCRYPTAGES</div>
-        
-        <div id="quiz-list" class="grid">
-            </div>
+        <div id="quiz-list" class="grid"></div>
     </div>
 
     <script>
-        fetch('manifest.json')
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById('quiz-list');
-                data.reverse().forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <div class="card-content">
-                            <span class="badge">${item.theme || 'ACTU'}</span>
-                            <h3>${item.titre}</h3>
-                            <div class="date">Posté le ${item.date}</div>
-                        </div>
-                        <a href="quiz.html?file=${item.file}" class="btn-footer">FAIRE LE QUIZ →</a>
-                    `;
-                    container.appendChild(card);
-                });
+        fetch('manifest.json').then(r => r.json()).then(data => {
+            const list = document.getElementById('quiz-list');
+            data.reverse().forEach(item => {
+                // On essaie de récupérer une image si elle existe, sinon fond gris
+                list.innerHTML += `
+                    <a href="quiz.html?file=${item.file}" class="card">
+                        <div class="card-img" style="background: #f0f0f0 url('https://raw.githubusercontent.com/kalio-project/quiz-newsletter/main/thumb.jpg') center/cover"></div>
+                        <div class="card-meta"><span>${item.date}</span> <span>• 5 min</span></div>
+                        <h3 class="card-title">🚨 ${item.titre}</h3>
+                    </a>`;
             });
+        });
     </script>
 </body>
 </html>
