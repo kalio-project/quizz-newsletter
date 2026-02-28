@@ -2,18 +2,12 @@
 import os
 import json
 import re
-import base64
-import datetime
+import requests
 from bs4 import BeautifulSoup
-import imghdr
-import google.generativeai as genai  # UNIQUEMENT ça pour Gemini
-from googleapiclient.discovery import build
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-from googleapiclient.errors import HttpError
+from datetime import datetime
+import google.genai as genai  # Nouvelle API officielle Gemini
 
-# Configuration Gemini
+# Configuration Gemini (NOUVEAU PACKAGE)
 genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 model = genai.GenerativeModel('gemini-2.0-flash-exp')
 
@@ -23,161 +17,144 @@ THEMES = [
     "CULTURE ET MÉDIAS", "SPORT"
 ]
 
-SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+def scrape_hugo_newsletters():
+    """Scrape les 3 dernières newsletters depuis Kessel (public)"""
+    url = "https://hugodecrypte.kessel.media/posts"
+    response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    posts = []
+    for article in soup.find_all('article')[:3]:  # 3 dernières
+        link = article.find('a', href=True)
+        title_elem = article.find(['h2', 'h3', 'h1'])
+        date_elem = article.find('time') or article.find(class_=re.compile('date'))
+        
+        if link and title_elem:
+            full_url = link['href']
+            if not full_url.startswith('http'):
+                full_url = 'https://hugodecrypte.kessel.media' + full_url
+            posts.append({
+                'title': title_elem.get_text().strip(),
+                'url': full_url,
+                'date': date_elem.get_text().strip() if date_elem else datetime.now().strftime('%Y-%m-%d')
+            })
+    return posts
 
-def authenticate_gmail():
-    """Auth Gmail OAuth2"""
-    creds = None
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
-    return build('gmail', 'v1', credentials=creds)
-
-def clean_html(html):
-    soup = BeautifulSoup(html, 'html.parser')
-    # Supprime Gmail artifacts
-    for tag in soup(['header', 'footer', '[class*="gmail"]', '[id*="gmail"]', 'div[role="presentation"]']):
-        tag.decompose()
-    # Nettoie styles parasites
-    for tag in soup.find_all(attrs={"style": re.compile(r'(background|display:none|position|margin-top:\s*-|visibility:hidden)')}):
-        tag.decompose()
-    # Simplifie images
-    for img in soup.find_all('img'):
-        if img.get('src') and 'cid:' in img['src']:
-            img.decompose()
-    return str(soup.get_text()[:5000])  # Texte brut pour Gemini + limite
-
-def extract_title(html):
-    soup = BeautifulSoup(html, 'html.parser')
-    title = soup.find('h1') or soup.find('h2') or soup.title
-    return title.get_text().strip()[:100] if title else 'Newsletter HugoDécrypte'
+def clean_content(url):
+    """Nettoie l'article complet"""
+    response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # Extraction contenu principal
+    content = soup.find(['article', '.content', '.post-content', 'main'])
+    if not content:
+        content = soup.body
+    
+    # Supprime parasites
+    for unwanted in soup.find_all(['nav', 'aside', 'footer', 'header', '[class*="ad"]', '[class*="comment"]']):
+        unwanted.decompose()
+    
+    # Images (première valide)
+    img = soup.find('img', src=re.compile(r'\.(jpg|png|webp)$'))
+    image_url = img['src'] if img else 'https://via.placeholder.com/300x200/667eea/ffffff?text=ActuQuiz'
+    
+    text = content.get_text(separator=' ', strip=True)[:5000]
+    return text, image_url
 
 def generate_questions(content, title):
-    prompt = f"""Analyse cet article de la newsletter HugoDécrypte "{title}".
+    """Génère 10 questions avec les 8 thèmes exacts"""
+    prompt = f"""Analyse cet article HugoDécrypte "{title}" (newsletter quotidienne).
 
-Génère EXACTEMENT 10 questions QCM éducatives pour collégiens/lycéens :
-- 4 options (A B C D), 1 seule bonne réponse (indice 0-3)
-- Attribue À CHAQUE question UN des thèmes EXACTS suivants : {', '.join(THEMES)}
-- Questions courtes, précises, niveau collège/lycée
-- Explications détaillées et pédagogiques
-
-Format JSON valide (array d'objets) :
+TA MISSION : 10 questions QCM pédagogiques (niveau collège/lycée)
+✅ Format JSON array STRICT :
 [
-  {{
-    "question": "Question ?",
-    "options": ["A. Faux", "B. Vrai", "C. Option 3", "D. Option 4"],
-    "correct": 1,
-    "theme": "POLITIQUE INTERNATIONALE ET CONFLITS",
-    "explanation": "Explication complète..."
-  }}
+  {{"question": "Question?", "options": ["A. Réponse1", "B. Réponse2", "C. Réponse3", "D. Réponse4"], "correct": 1, "theme": "THÈME_EXACT", "explanation": "Explication détaillée"}}
 ]
 
-Contenu article :
+📋 RÈGLES OBLIGATOIRES :
+- EXACTEMENT 10 questions
+- 1 seul thème par question parmi CES 8 UNIQUEMENT : {', '.join(THEMES)}
+- 4 options A B C D, indice correct 0-3
+- Questions courtes (1 phrase)
+- Explications complètes, éducatives
+- Couvre tout l'article
+
+Article :
 { content }
 """
     try:
         response = model.generate_content(prompt)
-        questions = json.loads(response.text.strip('```json\n').strip('```'))
-        return questions
+        # Nettoie JSON des markdown
+        text = re.sub(r'```(?:json)?\s*', '', response.text, flags=re.DOTALL)
+        text = re.sub(r'```\s*$', '', text, flags=re.MULTILINE)
+        questions = json.loads(text.strip())
+        return questions[:10]  # Sécurité
     except Exception as e:
-        print(f"Erreur Gemini: {e}")
-        return []  # Fallback
+        print(f"❌ Erreur Gemini: {e}")
+        return [{"question": "Fallback", "options": ["A", "B", "C", "D"], "correct": 0, "theme": "SOCIÉTÉ / FAITS DE SOCIÉTÉ", "explanation": "Article temporaire"}] * 10
 
-def process_message(service, msg_id):
-    try:
-        msg = service.users().messages().get(userId='me', id=msg_id, format='full').execute()
-        payload = msg['payload']
+def update_manifest(new_quiz):
+    """Met à jour manifest.json"""
+    manifest = []
+    if os.path.exists('manifest.json'):
+        try:
+            with open('manifest.json', 'r', encoding='utf-8') as f:
+                manifest = json.load(f)
+        except:
+            pass
+    
+    # Ajoute le nouveau (unique par date)
+    today = datetime.now().strftime('%Y%m%d')
+    new_entry = {
+        'file': f"quiz_{today}.json",
+        'title': new_quiz['title'],
+        'date': today,
+        'image': new_quiz['image']
+    }
+    
+    # Remplace si existe déjà
+    manifest = [e for e in manifest if not e['file'].endswith(today)] + [new_entry]
+    manifest = manifest[-50:]  # Garde 50 max
+    
+    with open('manifest.json', 'w', encoding='utf-8') as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
+
+def main():
+    print("🚀 ActuQuiz - Scraping HugoDécrypte Kessel...")
+    
+    # 1. Scrape dernières newsletters
+    posts = scrape_hugo_newsletters()
+    if not posts:
+        print("❌ Aucune newsletter trouvée")
+        return
+    
+    print(f"📄 {len(posts)} newsletters détectées")
+    
+    for post in posts[:1]:  # 1 seule par jour pour éviter spam
+        print(f"🔄 Traitement: {post['title'][:60]}...")
         
-        # Extraire HTML
-        html_content = ''
-        if 'parts' in payload:
-            for part in payload['parts']:
-                if part.get('mimeType') == 'text/html':
-                    data = part['body'].get('data')
-                    if data:
-                        html_content = base64.urlsafe_b64decode(data).decode('utf-8')
-                        break
-        else:
-            data = payload['body'].get('data')
-            if data:
-                html_content = base64.urlsafe_b64decode(data).decode('utf-8')
+        content, image = clean_content(post['url'])
+        questions = generate_questions(content, post['title'])
         
-        if not html_content:
-            print("Pas de HTML trouvé")
-            return
-            
-        # Traitement
-        title = extract_title(html_content)
-        clean_content = clean_html(html_content)
-        questions = generate_questions(clean_content, title)
-        
-        if not questions:
-            print("Aucune question générée")
-            return
-            
-        # Sauvegarde JSON
-        today = datetime.datetime.now().strftime('%Y%m%d_%H%M')
+        # Sauvegarde
+        today = datetime.now().strftime('%Y%m%d')
         filename = f"quiz_{today}.json"
         data = {
-            'title': title,
+            'title': post['title'],
             'date': today,
-            'content': clean_content,  # Texte nettoyé
+            'content': content,
+            'image': image,
             'questions': questions
         }
         
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         
-        # Update manifest
-        manifest = []
-        if os.path.exists('manifest.json'):
-            with open('manifest.json', 'r', encoding='utf-8') as f:
-                manifest = json.load(f)
-        
-        # Image par défaut (pas d'URL extraction pour simplicité statique)
-        manifest.append({
-            'file': filename,
-            'title': title,
-            'date': today,
-            'image': 'https://via.placeholder.com/300x200/667eea/ffffff?text=ActuQuiz'
-        })
-        
-        # Garde les 50 derniers
-        manifest = manifest[-50:]
-        with open('manifest.json', 'w', encoding='utf-8') as f:
-            json.dump(manifest, f, ensure_ascii=False, indent=2)
-        
-        print(f"✅ Quiz généré : {filename} ({len(questions)} questions)")
-        
-    except HttpError as error:
-        print(f"Erreur Gmail {error}")
+        update_manifest(data)
+        print(f"✅ {filename} créé ({len(questions)} questions)")
+        break  # 1 seul par run
+    
+    print("🎉 Process terminé ! Site mis à jour.")
 
-def main():
-    print("🚀 Lancement ActuQuiz process...")
-    service = authenticate_gmail()
-    
-    # Recherche newsletters Hugo (label HUGO ou from hugodecrypte)
-    query = 'from:hugodecrypte@kessel.media is:unread'  # Seulement non traitées
-    results = service.users().messages().list(userId='me', q=query).execute()
-    
-    messages = results.get('messages', [])
-    if not messages:
-        print("✅ Aucune nouvelle newsletter")
-        return
-    
-    for msg in messages[:3]:  # Max 3 par run
-        process_message(service, msg['id'])
-        # Marque comme lu
-        service.users().messages().modify(userId='me', id=msg['id'], body={'removeLabelIds': ['UNREAD']}).execute()
-    
-    print("🎉 Process terminé !")
-
-if __name__ == '__main__':
+if __name__ **==** '__main__':
     main()
