@@ -12,12 +12,13 @@
         .option-btn.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
         .option-btn.wrong { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
         #q-display-zone { min-height: 100px; }
+        img { max-width: 100%; height: auto; border-radius: 1.5rem; }
     </style>
 </head>
 <body class="bg-white">
 
     <nav class="sticky top-0 bg-white/95 backdrop-blur-md border-b z-50 p-4">
-        <div class="max-w-3xl mx-auto">
+        <div class="max-w-3xl mx-auto flex justify-between items-center">
             <a href="index.html" class="text-blue-600 font-black italic tracking-tighter text-xl uppercase">ActuQuiz.</a>
         </div>
     </nav>
@@ -25,11 +26,11 @@
     <main class="max-w-3xl mx-auto p-4 md:p-6">
         
         <div id="cover-container" class="mb-8">
-            <img id="main-cover" src="" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-lg bg-slate-100 transition-opacity duration-500">
+            <img id="main-cover" src="" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-lg bg-slate-100">
         </div>
 
-        <article id="hugo-content" class="prose prose-slate max-w-none mb-12 border-b pb-12 overflow-hidden">
-            <p class="text-center text-slate-400 italic">Chargement de l'édition...</p>
+        <article id="hugo-content" class="prose prose-slate max-w-none mb-12 border-b pb-12">
+            <p class="text-center text-slate-400 italic py-10">Préparation de votre édition...</p>
         </article>
 
         <section id="quiz-block" class="bg-slate-50 rounded-[2.5rem] p-6 md:p-10 border border-slate-100 shadow-xl mb-24">
@@ -58,9 +59,9 @@
 
             <div id="end-screen" class="hidden text-center py-10">
                 <div class="text-5xl mb-6">🎯</div>
-                <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase">Terminé !</h2>
+                <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase">Score Final</h2>
                 <div class="text-7xl font-black text-blue-600 mb-10" id="final-score">0 / 0</div>
-                <a href="index.html" class="inline-block bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest">Retour à l'accueil</a>
+                <a href="index.html" class="inline-block bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest">Quitter</a>
             </div>
         </section>
     </main>
@@ -78,36 +79,46 @@
                 const res = await fetch(file);
                 const data = await res.json();
 
-                // Injection de l'image de couverture
+                // 1. EXTRACTION DE L'IMAGE (Avant tout nettoyage)
                 const coverImg = document.getElementById('main-cover');
-                if (data.image) {
-                    coverImg.src = data.image;
+                let foundImage = data.image;
+
+                if (!foundImage) {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = data.html_affichage || data.contenu_html;
+                    const firstImg = tempDiv.querySelector('img');
+                    if (firstImg) foundImage = firstImg.src;
+                }
+
+                if (foundImage) {
+                    coverImg.src = foundImage;
                 } else {
                     document.getElementById('cover-container').style.display = 'none';
                 }
 
-                // Injection de l'article
+                // 2. NETTOYAGE DU TEXTE
                 let cleanHtml = data.html_affichage || data.contenu_html;
                 cleanHtml = cleanHtml.replace(/.*Ouvrir dans le navigateur.*/i, "");
+                
                 const splitKey = "Vous avez aimé cette newsletter ?";
-                if (cleanHtml.includes(splitKey)) cleanHtml = cleanHtml.split(splitKey)[0];
+                if (cleanHtml.includes(splitKey)) {
+                    cleanHtml = cleanHtml.split(splitKey)[0];
+                }
+
                 document.getElementById('hugo-content').innerHTML = cleanHtml;
                 
                 questions = data.questions;
                 renderQuestion();
             } catch (err) {
-                console.error("Erreur de chargement :", err);
-                document.getElementById('hugo-content').innerHTML = "Erreur lors du chargement du fichier JSON.";
+                console.error("Erreur:", err);
             }
         }
 
         function renderQuestion() {
             const q = questions[currentIdx];
-            
             document.getElementById('q-counter').innerText = `${String(currentIdx + 1).padStart(2, '0')} / ${String(questions.length).padStart(2, '0')}`;
-            document.getElementById('q-category').innerText = q.categorie || "ACTUALITÉ";
+            document.getElementById('q-category').innerText = q.categorie || "INFO";
             document.getElementById('q-text').innerText = q.q;
-            
             document.getElementById('q-text').classList.remove('hidden');
             document.getElementById('explanation-box').classList.add('hidden');
             
@@ -118,34 +129,29 @@
                 const btn = document.createElement('button');
                 btn.className = "option-btn w-full p-5 rounded-2xl text-left font-bold text-slate-700 bg-white shadow-sm";
                 btn.innerText = opt;
-                btn.onclick = () => checkAnswer(i, q.correct, btn);
+                btn.onclick = () => {
+                    const btns = grid.querySelectorAll('button');
+                    btns.forEach(b => b.disabled = true);
+                    
+                    document.getElementById('q-text').classList.add('hidden');
+                    document.getElementById('expl-text').innerHTML = `
+                        <span class="font-black ${i === q.correct ? 'text-green-600' : 'text-red-600'} uppercase text-[10px] tracking-widest mb-1 block">
+                            ${i === q.correct ? '✅ Bravo' : '❌ Erreur'}
+                        </span>
+                        ${q.explication}
+                    `;
+                    document.getElementById('explanation-box').classList.remove('hidden');
+
+                    if(i === q.correct) {
+                        btn.classList.add('correct');
+                        score++;
+                    } else {
+                        btn.classList.add('wrong');
+                        btns[q.correct].classList.add('correct');
+                    }
+                };
                 grid.appendChild(btn);
             });
-        }
-
-        function checkAnswer(idx, correct, btn) {
-            const btns = document.querySelectorAll('.option-btn');
-            btns.forEach(b => b.disabled = true);
-
-            document.getElementById('q-text').classList.add('hidden');
-            const isCorrect = (idx === correct);
-            
-            document.getElementById('expl-text').innerHTML = `
-                <span class="font-black ${isCorrect ? 'text-green-600' : 'text-red-600'} uppercase text-[10px] tracking-[0.2em] mb-2 block">
-                    ${isCorrect ? '✅ Bonne réponse' : '❌ Mauvaise réponse'}
-                </span>
-                ${questions[currentIdx].explication}
-            `;
-            
-            document.getElementById('explanation-box').classList.remove('hidden');
-
-            if (isCorrect) {
-                btn.classList.add('correct');
-                score++;
-            } else {
-                btn.classList.add('wrong');
-                btns[correct].classList.add('correct');
-            }
         }
 
         function nextQuestion() {
