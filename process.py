@@ -5,91 +5,62 @@ from datetime import datetime
 from email.header import decode_header
 
 # --- CONFIGURATION ---
-# La bibliothèque google-genai récupère GEMINI_API_KEY automatiquement via l'environnement
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
-
 SOURCE_FOLDER = "newsletters_html"
 EMAIL_USER = os.environ.get("EMAIL_USER")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
 def clean_html_for_ia(raw_html):
-    """Nettoie le HTML pour n'envoyer que le texte utile à l'IA"""
+    """Extrait le texte pur pour que l'IA ne soit pas perturbée par les balises"""
     soup = BeautifulSoup(raw_html, 'html.parser')
-    # Supprime les scripts et les balises de style
-    for tag in soup(["script", "style"]):
+    for tag in soup(["script", "style", "nav", "footer"]):
         tag.decompose()
-    # Récupère le texte propre
-    text = ' '.join(soup.get_text(separator=' ').split())
-    return text
+    # On garde tout le texte, mais on enlève les espaces inutiles
+    return ' '.join(soup.get_text(separator=' ').split())
 
 def fetch_emails():
-    """Se connecte à Gmail et récupère les mails non lus du libellé HUGO"""
+    """Récupère les mails non lus dans le dossier HUGO"""
     if not EMAIL_USER or not EMAIL_PASSWORD:
-        print("⚠️ Variables EMAIL_USER ou EMAIL_PASSWORD manquantes.")
         return []
-    
     newsletters = []
     try:
-        print(f"📧 Connexion à Gmail ({EMAIL_USER})...")
+        print(f"📧 Connexion à Gmail...")
         mail = imaplib.IMAP4_SSL("imap.gmail.com")
         mail.login(EMAIL_USER, EMAIL_PASSWORD)
-        mail.select("HUGO") # Assure-toi que ce libellé existe exactement ainsi
-        
+        mail.select("HUGO")
         status, messages = mail.search(None, 'UNSEEN')
-        if status != "OK" or not messages[0]:
-            print("✅ Aucun nouveau mail non lu dans HUGO.")
-            mail.logout()
-            return []
-
-        for m_id in messages[0].split():
-            res, data = mail.fetch(m_id, "(RFC822)")
-            msg = email.message_from_bytes(data[0][1])
-            
-            # Décoder le sujet du mail
-            subject_parts = decode_header(msg["Subject"])
-            subject = "".join([
-                part.decode(enc or 'utf-8') if isinstance(part, bytes) else part 
-                for part, enc in subject_parts
-            ])
-            
-            body_html = ""
-            if msg.is_multipart():
-                for part in msg.walk():
-                    if part.get_content_type() == "text/html":
-                        body_html = part.get_payload(decode=True).decode(errors='ignore')
-            else:
-                body_html = msg.get_payload(decode=True).decode(errors='ignore')
-            
-            if body_html:
-                newsletters.append({
-                    "id": f"mail-{m_id.decode()}", 
-                    "html": body_html, 
-                    "title": subject
-                })
-        
+        if status == "OK" and messages[0]:
+            for m_id in messages[0].split():
+                res, data = mail.fetch(m_id, "(RFC822)")
+                msg = email.message_from_bytes(data[0][1])
+                subject = decode_header(msg["Subject"])[0][0]
+                if isinstance(subject, bytes): subject = subject.decode(errors='ignore')
+                
+                html_content = ""
+                if msg.is_multipart():
+                    for part in msg.walk():
+                        if part.get_content_type() == "text/html":
+                            html_content = part.get_payload(decode=True).decode(errors='ignore')
+                else:
+                    html_content = msg.get_payload(decode=True).decode(errors='ignore')
+                
+                if html_content:
+                    newsletters.append({"id": f"mail-{m_id.decode()}", "html": html_content, "title": subject})
         mail.logout()
     except Exception as e:
-        print(f"❌ Erreur lors de la récupération Gmail : {e}")
+        print(f"❌ Gmail : {e}")
     return newsletters
 
 def run():
-    # Création du dossier data s'il n'existe pas
-    if not os.path.exists('data'):
-        os.makedirs('data')
-        
-    # Chargement du manifest
+    if not os.path.exists('data'): os.makedirs('data')
     try:
-        with open('manifest.json', 'r', encoding='utf-8') as f:
-            manifest = json.load(f)
-    except:
-        manifest = []
+        with open('manifest.json', 'r', encoding='utf-8') as f: manifest = json.load(f)
+    except: manifest = []
     
     deja_vus = [m.get("titre_original") for m in manifest]
-
-    # 1. RÉCUPÉRATION DES SOURCES (Priorité Email)
     sources = fetch_emails()
     
-    # 2. AJOUT DES FICHIERS LOCAUX (Dossier newsletters_html)
+    # On ajoute aussi les fichiers locaux si présents
     if os.path.exists(SOURCE_FOLDER):
         for f in os.listdir(SOURCE_FOLDER):
             if f.lower().endswith(('.htm', '.html')) and f not in deja_vus:
@@ -97,73 +68,66 @@ def run():
                     sources.append({"id": f, "html": file.read(), "title": f})
 
     if not sources:
-        print("🏁 Fin : Rien à traiter.")
+        print("✅ Tout est à jour.")
         return
 
-    # On traite uniquement le premier élément non vu
     item = sources[0]
-    if item["id"] in deja_vus:
-        print(f"⏩ Déjà traité : {item['title']}")
-        return
-
-    print(f"🤖 Analyse IA en cours pour : {item['title']}")
+    print(f"🤖 Traitement de : {item['title']}")
+    
+    # 1. Préparation des données
     texte_ia = clean_html_for_ia(item["html"])
     
-    prompt = (
-        "Génère un quiz JSON de 10 questions basé sur le texte fourni. "
-        "Réponds uniquement au format JSON suivant : "
-        "{\"theme_global\": \"\", \"titre\": \"\", \"questions\": "
-        "[{\"q\": \"\", \"options\": [\"\", \"\", \"\", \"\"], \"correct\": 0, \"explication\": \"\"}]}"
-    )
+    # 2. Demande à l'IA
+    prompt = """Génère un quiz de 10 questions sur ce texte. 
+    Tu DOIS répondre UNIQUEMENT avec un objet JSON structuré comme ceci:
+    {
+      "theme_global": "Thème court",
+      "titre": "Titre du Quiz",
+      "questions": [
+        {
+          "q": "La question ?",
+          "options": ["A", "B", "C", "D"],
+          "correct": 0,
+          "explication": "Détails de la réponse"
+        }
+      ]
+    }"""
 
-    # --- GÉNÉRATION IA AVEC RETRY ---
-    # On teste le modèle 2.0 Flash (stable)
-    model_name = 'gemini-2.0-flash'
-    
-    for attempt in range(2):
-        try:
-            response = client.models.generate_content(
-                model=model_name, 
-                contents=f"{prompt}\n\nTexte source :\n{texte_ia}"
-            )
+    try:
+        # On utilise gemini-1.5-flash-latest pour la stabilité quota gratuit
+        response = client.models.generate_content(
+            model='gemini-1.5-flash-latest', 
+            contents=f"{prompt}\n\nTexte source :\n{texte_ia[:10000]}" # Limite à 10k pour le quota gratuit
+        )
+        
+        json_match = re.search(r'\{.*\}', response.text, re.DOTALL)
+        if json_match:
+            quiz_data = json.loads(json_match.group())
             
-            # Extraction du JSON dans la réponse
-            json_match = re.search(r'\{.*\}', response.text, re.DOTALL)
-            if json_match:
-                quiz_data = json.loads(json_match.group())
-                
-                # On injecte le HTML d'origine pour l'affichage sur ton site
-                quiz_data['html_affichage'] = item["html"]
-                
-                # Sauvegarde du fichier JSON
-                quiz_id = datetime.now().strftime("%Y%m%d-%H%M")
-                file_name = f"quiz-{quiz_id}.json"
-                dest_path = f"data/{file_name}"
-                
-                with open(dest_path, 'w', encoding='utf-8') as f:
-                    json.dump(quiz_data, f, ensure_ascii=False, indent=2)
+            # --- C'EST ICI QUE LA MAGIE OPÈRE ---
+            # On stocke le HTML COMPLET d'Hugo pour l'affichage site
+            quiz_data['html_affichage'] = item["html"] 
+            
+            # Sauvegarde
+            quiz_id = datetime.now().strftime("%Y%m%d-%H%M")
+            file_name = f"quiz-{quiz_id}.json"
+            with open(f"data/{file_name}", 'w', encoding='utf-8') as f:
+                json.dump(quiz_data, f, ensure_ascii=False, indent=2)
 
-                # Mise à jour du manifest
-                manifest.append({
-                    "date": datetime.now().strftime("%d %b %Y"),
-                    "file": dest_path,
-                    "titre": quiz_data.get('titre', item['title']),
-                    "titre_original": item["id"],
-                    "theme": quiz_data.get('theme_global', 'ACTU')
-                })
-                
-                with open('manifest.json', 'w', encoding='utf-8') as f:
-                    json.dump(manifest, f, ensure_ascii=False, indent=2)
-                
-                print(f"✨ Succès ! Quiz généré : {file_name}")
-                return # On sort après avoir réussi
-
-        except Exception as e:
-            print(f"⚠️ Essai {attempt+1} échoué : {e}")
-            if attempt == 0:
-                print("Nouvelle tentative dans 10 secondes avec gemini-1.5-flash-latest...")
-                model_name = 'gemini-1.5-flash-latest' # Repli sur le 1.5 si le 2.0 bloque
-                time.sleep(10)
+            # Manifest pour ta page d'accueil (index)
+            manifest.append({
+                "date": datetime.now().strftime("%d %b %Y"),
+                "file": f"data/{file_name}",
+                "titre": quiz_data.get('titre', item['title']),
+                "titre_original": item["id"],
+                "theme": quiz_data.get('theme_global', 'ACTU')
+            })
+            with open('manifest.json', 'w', encoding='utf-8') as f:
+                json.dump(manifest, f, ensure_ascii=False, indent=2)
+            
+            print(f"🚀 Terminé ! Quiz créé et HTML sauvegardé.")
+    except Exception as e:
+        print(f"💥 Erreur : {e}")
 
 if __name__ == "__main__":
     run()
