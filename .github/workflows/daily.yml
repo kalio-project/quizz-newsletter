@@ -2,8 +2,8 @@ name: Actualisation Newsletter
 
 on:
   schedule:
-    - cron: '0 20 * * *'
-  workflow_dispatch:
+    - cron: '0 20 * * *' # Tourne tous les jours à 20h
+  workflow_dispatch: # Permet de le lancer à la main
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
       - name: Configuration de Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11' # Version plus récente et stable
+          python-version: '3.11'
 
       - name: Installation des bibliothèques
         run: |
@@ -34,5 +34,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git commit -m "Mise à jour des quiz via Gemini 1.5 Flash" || exit 0
+          git commit -m "Mise à jour automatique des quiz" || exit 0
           git push
