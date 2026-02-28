@@ -1,7 +1,7 @@
 name: Update ActuQuiz
 on:
   schedule:
-    - cron: '30 18 * * *'  # 18h30 tous les jours
+    - cron: '30 18 * * *'
   workflow_dispatch:
 jobs:
   update:
@@ -12,18 +12,17 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    - name: Install deps
-      run: pip install google-api-python-client google-generativeai beautifulsoup4
+    - name: Install dependencies
+      run: |
+        pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib google-generativeai beautifulsoup4
     - name: Run process
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        EMAIL_USER: ${{ secrets.EMAIL_USER }}
-        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
       run: python process.py
-    - name: Commit changes
+    - name: Commit & Push
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
-        git commit -m "Update quizzes $(date)" || echo "No changes"
+        git diff --staged --quiet || git commit -m "Update quizzes $(date)"
         git push
