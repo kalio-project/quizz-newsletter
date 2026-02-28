@@ -7,29 +7,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #fff; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; background: #fff; }
+        #hugo-content img { max-width: 100%; height: auto; border-radius: 1.5rem; margin: 1rem 0; }
         .option-btn { transition: all 0.2s; border: 2px solid #f1f5f9; }
         .option-btn.correct { border-color: #22c55e; background-color: #f0fdf4; color: #166534; }
         .option-btn.wrong { border-color: #ef4444; background-color: #fef2f2; color: #991b1b; }
-        
-        /* Nettoyage forcé des styles de la newsletter */
-        #hugo-content img { max-width: 100%; height: auto; border-radius: 1.5rem; margin: 1.5rem 0; }
-        #hugo-content table { width: 100% !important; border-collapse: collapse; }
-        
-        /* Cache les éléments vides ou de structure inutiles */
-        .prose :empty { display: none !important; }
     </style>
 </head>
 <body class="bg-white">
 
-    <nav class="sticky top-0 bg-white/95 backdrop-blur-md border-b z-50 p-4">
+    <nav class="p-6">
         <div class="max-w-3xl mx-auto">
             <a href="index.html" class="text-blue-600 font-black italic tracking-tighter text-xl uppercase">ActuQuiz.</a>
         </div>
     </nav>
 
     <main class="max-w-3xl mx-auto p-4 md:p-6">
-        
         <div id="cover-container" class="mb-8">
             <img id="main-cover" src="" class="w-full h-64 md:h-96 object-cover rounded-[2rem] shadow-lg bg-slate-100">
         </div>
@@ -46,21 +39,18 @@
                 <div id="q-display-zone" class="mb-8">
                     <h2 id="q-text" class="text-xl md:text-2xl font-bold text-slate-900 leading-tight"></h2>
                     <div id="explanation-box" class="hidden">
-                        <div class="p-5 bg-white rounded-2xl border-2 border-blue-50 text-slate-700 text-sm leading-relaxed shadow-sm mb-4">
+                        <div class="p-5 bg-white rounded-2xl border-2 border-blue-50 text-slate-700 text-sm mb-4">
                             <p id="expl-text"></p>
                         </div>
-                        <button onclick="nextQuestion()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest active:scale-95">
-                            Suivant →
-                        </button>
+                        <button onclick="nextQuestion()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest">Suivant →</button>
                     </div>
                 </div>
                 <div id="options-grid" class="space-y-3"></div>
             </div>
-
             <div id="end-screen" class="hidden text-center py-10">
                 <div class="text-5xl mb-6">🎯</div>
                 <h2 class="text-2xl font-black text-slate-900 mb-2 uppercase">Score Final</h2>
-                <div class="text-7xl font-black text-blue-600 mb-10" id="final-score">0 / 0</div>
+                <div id="final-score" class="text-7xl font-black text-blue-600 mb-10">0 / 0</div>
                 <a href="index.html" class="inline-block bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest">Retour</a>
             </div>
         </section>
@@ -71,56 +61,35 @@
         let currentIdx = 0;
         let score = 0;
 
-        const params = new URLSearchParams(window.location.search);
-        const file = params.get('file');
-
         async function loadQuiz() {
+            const params = new URLSearchParams(window.location.search);
+            const file = params.get('file');
             try {
                 const res = await fetch(file);
                 const data = await res.json();
-                let rawHtml = data.html_affichage || data.contenu_html || "";
+                let html = data.html_affichage || data.contenu_html;
 
-                // 1. EXTRACTION IMAGE (Méthode DOMParser robuste)
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(rawHtml, 'text/html');
-                const firstImg = doc.querySelector('img');
-                const coverImg = document.getElementById('main-cover');
+                // 1. EXTRACTION IMAGE
+                const imgMatch = html.match(/https?:\/\/[^"'>]+\.(?:png|jpg|jpeg|gif|webp|c\/[^\s"'>]+)/i);
+                if (imgMatch) document.getElementById('main-cover').src = imgMatch[0];
 
-                if (data.image) {
-                    coverImg.src = data.image;
-                } else if (firstImg) {
-                    coverImg.src = firstImg.src;
-                    firstImg.remove(); // On enlève la première image du texte pour éviter le doublon
-                } else {
-                    document.getElementById('cover-container').style.display = 'none';
+                // 2. NETTOYAGE MANUEL DES BLOCS (Le vrai ménage)
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+
+                // On vire les 3 premiers et 3 derniers éléments s'ils sont louches (souvent des tables de structure)
+                const children = Array.from(temp.children);
+                if(children.length > 5) {
+                    for(let i=0; i<3; i++) { if(children[i].tagName === 'TABLE' || children[i].tagName === 'CENTER') children[i].remove(); }
+                    for(let i=children.length-1; i>children.length-4; i--) { if(children[i]) children[i].remove(); }
                 }
 
-                // 2. NETTOYAGE CHIRURGICAL DU CONTENU
-                // On coupe après la fin de la news
-                const splitKey = "Vous avez aimé cette newsletter ?";
-                let cleanHtml = doc.body.innerHTML;
-                if (cleanHtml.includes(splitKey)) {
-                    cleanHtml = cleanHtml.split(splitKey)[0];
+                let cleaned = temp.innerHTML;
+                if (cleaned.includes("Vous avez aimé cette newsletter ?")) {
+                    cleaned = cleaned.split("Vous avez aimé cette newsletter ?")[0];
                 }
 
-                const finalDiv = document.createElement('div');
-                finalDiv.innerHTML = cleanHtml;
-
-                // On supprime les liens "Ouvrir dans le navigateur" et les blocs vides
-                const elements = finalDiv.querySelectorAll('a, div, p, center, table');
-                elements.forEach(el => {
-                    // Si c'est le lien navigateur, on dégage
-                    if (el.innerText.includes("navigateur") || el.innerText.includes("view in browser")) {
-                        el.remove();
-                    }
-                    // Si c'est un bloc de structure vide (plusieurs espaces ou rien)
-                    if (el.tagName !== 'IMG' && el.innerText.trim().length === 0 && !el.querySelector('img')) {
-                        el.remove();
-                    }
-                });
-
-                document.getElementById('hugo-content').innerHTML = finalDiv.innerHTML;
-                
+                document.getElementById('hugo-content').innerHTML = cleaned;
                 questions = data.questions || [];
                 renderQuestion();
             } catch (err) { console.error(err); }
@@ -133,10 +102,8 @@
             document.getElementById('q-text').innerText = q.q;
             document.getElementById('q-text').classList.remove('hidden');
             document.getElementById('explanation-box').classList.add('hidden');
-            
             const grid = document.getElementById('options-grid');
             grid.innerHTML = "";
-            
             q.options.forEach((opt, i) => {
                 const btn = document.createElement('button');
                 btn.className = "option-btn w-full p-5 rounded-2xl text-left font-bold text-slate-700 bg-white shadow-sm";
@@ -144,12 +111,7 @@
                 btn.onclick = () => {
                     document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
                     document.getElementById('q-text').classList.add('hidden');
-                    document.getElementById('expl-text').innerHTML = `
-                        <span class="font-black ${i === q.correct ? 'text-green-600' : 'text-red-600'} uppercase text-[10px] tracking-widest mb-1 block">
-                            ${i === q.correct ? '✅ Bravo' : '❌ Erreur'}
-                        </span>
-                        ${q.explication}
-                    `;
+                    document.getElementById('expl-text').innerHTML = `${i === q.correct ? '✅ Bravo' : '❌ Erreur'}<br>${q.explication}`;
                     document.getElementById('explanation-box').classList.remove('hidden');
                     if(i === q.correct) { btn.classList.add('correct'); score++; }
                     else { btn.classList.add('wrong'); grid.querySelectorAll('button')[q.correct].classList.add('correct'); }
@@ -160,10 +122,8 @@
 
         function nextQuestion() {
             currentIdx++;
-            if (currentIdx < questions.length) {
-                renderQuestion();
-                document.getElementById('quiz-block').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
+            if (currentIdx < questions.length) renderQuestion();
+            else {
                 document.getElementById('q-container').classList.add('hidden');
                 document.getElementById('end-screen').classList.remove('hidden');
                 document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
