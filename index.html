@@ -2,48 +2,56 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>ActuQuiz Hub</title>
+    <title>ActuQuiz - Le Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
 <body class="bg-slate-50 p-6">
-    <header class="max-w-5xl mx-auto flex justify-between items-center mb-12">
-        <h1 class="text-4xl font-black italic underline decoration-blue-500">ActuQuiz.</h1>
-        <button onclick="document.getElementById('modal').classList.remove('hidden')" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold">SUPER QUIZ ⚡</button>
-    </header>
-    <div id="grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8"></div>
 
-    <div id="modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
-        <div class="bg-white p-10 rounded-[2rem] max-w-md w-full">
-            <h2 class="text-2xl font-black mb-6">Paramètres du SuperQuiz</h2>
-            <input type="range" id="qty" min="5" max="50" value="20" class="w-full mb-4">
-            <p class="mb-8 text-sm">Questions : <span id="val">20</span></p>
-            <button onclick="window.location.href='superquiz.html'" class="...">
-            SUPER QUIZ
-            </button>
-            <a href="superquiz.html" class="...">
-            SUPER QUIZ
-            </a>
+    <header class="max-w-5xl mx-auto flex justify-between items-center mb-12">
+        <h1 class="text-4xl font-black italic underline decoration-blue-500 text-slate-900 tracking-tighter">ActuQuiz.</h1>
+        <button onclick="window.location.href='superquiz.html'" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-blue-200 hover:scale-105 transition active:scale-95">
+            SUPER QUIZ ⚡
+        </button>
+    </header>
+
+    <div id="grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         </div>
-    </div>
 
     <script>
-        document.getElementById('qty').oninput = function() { document.getElementById('val').innerText = this.value; }
         async function load() {
-            const res = await fetch('manifest.json');
-            const data = await res.json();
-            const grid = document.getElementById('grid');
-            data.reverse().forEach(item => {
-                grid.innerHTML += `
-                <a href="quiz.html?folder=${item.folder}" class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition block">
-                    <img src="${item.img}" class="h-52 w-full object-cover">
-                    <div class="p-6">
-                        <span class="text-blue-600 font-bold text-xs uppercase">${item.date}</span>
-                        <h2 class="text-xl font-bold mt-2">${item.titre}</h2>
-                    </div>
-                </a>`;
-            });
+            try {
+                const res = await fetch('manifest.json');
+                const data = await res.json();
+                const grid = document.getElementById('grid');
+                
+                // On affiche les newsletters (les plus récentes en premier)
+                data.reverse().forEach(item => {
+                    grid.innerHTML += `
+                    <a href="quiz.html?folder=${item.folder}" class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 block">
+                        <div class="relative overflow-hidden h-52">
+                            <img src="${item.img}" class="h-full w-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-white/50">
+                                <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">${item.date}</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h2 class="text-xl font-bold leading-tight text-slate-800 group-hover:text-blue-600 transition">${item.titre}</h2>
+                            <div class="flex items-center gap-2 mt-4 text-blue-600">
+                                <span class="text-xs font-black uppercase tracking-widest">Jouer au Quiz</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </div>
+                        </div>
+                    </a>`;
+                });
+            } catch (e) { 
+                console.error("Erreur de chargement du manifest :", e);
+                document.getElementById('grid').innerHTML = "<p class='text-slate-400 font-bold'>Aucune newsletter trouvée. Lance le script Python pour générer le contenu !</p>";
+            }
         }
-        function launch() { window.location.href = `superquiz.html?qty=${document.getElementById('qty').value}`; }
         load();
     </script>
 </body>
