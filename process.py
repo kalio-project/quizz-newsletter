@@ -1,10 +1,18 @@
-import os, imaplib, email, json, re, requests
+import os, imaplib, email, json, re, requests, time
 from datetime import datetime
 from email.utils import parsedate_to_datetime
+from email.header import decode_header
 from google import genai
 
+# ON UTILISE TON MODÈLE : GEMINI 2.5 FLASH
+MODEL_NAME = "gemini-2.5-flash" 
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+
 THEMES = ["POLITIQUE FR", "INTERNATIONAL", "ÉCONOMIE", "SOCIÉTÉ", "ENVIRONNEMENT", "TECH / SCIENCE", "SANTÉ", "CULTURE", "SPORT", "JUSTICE"]
+
+def clean_subject(subject):
+    dh = decode_header(subject)
+    return ''.join([str(t[0].decode(t[1] or 'utf-8') if isinstance(t[0], bytes) else t[0]) for t in dh])
 
 def clean_html(html):
     if "Ouvrir dans le navigateur" in html: html = html.split("Ouvrir dans le navigateur")[-1]
@@ -23,7 +31,7 @@ def download_img(url, folder, name):
     return False
 
 def process():
-    print("🚀 Démarrage du script...")
+    print(f"🚀 Démarrage avec {MODEL_NAME}...")
     mail = imaplib.IMAP4_SSL("imap.gmail.com")
     mail.login(os.environ.get("EMAIL_USER"), os.environ.get("EMAIL_PASS"))
     mail.select("HUGO")
@@ -31,36 +39,33 @@ def process():
     _, data = mail.search(None, '(FROM "hugodecrypte@kessel.media")')
     ids = data[0].split()
     
-    # Charger ou créer le manifest
     manifest_path = 'manifest.json'
-    if os.path.exists(manifest_path):
-        with open(manifest_path, 'r', encoding='utf-8') as f: manifest = json.load(f)
-    else: manifest = []
+    manifest = json.load(open(manifest_path, 'r', encoding='utf-8')) if os.path.exists(manifest_path) else []
 
-    for e_id in ids[-3:]:
+    for e_id in ids[-3:]: # On traite les 3 plus récents
         _, msg_data = mail.fetch(e_id, '(RFC822)')
         msg = email.message_from_bytes(msg_data[0][1])
-        titre = msg['subject']
+        titre = clean_subject(msg['subject'])
         date_obj = parsedate_to_datetime(msg['Date'])
         folder_name = date_obj.strftime("%Y-%m-%d")
         path = f"archives/{folder_name}"
 
-        # On vérifie si cette édition est DÉJÀ dans le manifest
         if any(m['folder'] == path for m in manifest):
-            print(f"⏩ Déjà traité : {titre}")
+            print(f"⏩ Déjà dans l'archive : {titre}")
             continue 
 
-        print(f"📂 Traitement de : {titre}...")
+        print(f"📂 Extraction : {titre}...")
         os.makedirs(f"{path}/images", exist_ok=True)
 
         body = ""
         for part in msg.walk():
-            if part.get_content_type() == "text/html": body = part.get_payload(decode=True).decode(errors='ignore')
+            if part.get_content_type() == "text/html": 
+                body = part.get_payload(decode=True).decode(errors='ignore')
         
         body = clean_html(body)
         urls = re.findall(r'src="([^"]+)"', body)
         img_couv = ""
-        for i, url in enumerate(urls):
+        for i, url in enumerate(urls[:12]):
             img_name = f"img_{i}.jpg"
             if download_img(url, f"{path}/images", img_name):
                 local_url = f"{path}/images/{img_name}"
@@ -70,45 +75,44 @@ def process():
 
         with open(f"{path}/contenu.html", "w", encoding="utf-8") as f: f.write(body)
 
-        # IA - GÉNÉRATION DU QUIZ
-        print(f"🤖 Appel à Gemini pour {titre}...")
+        # PARTIE IA
+        print(f"🤖 IA en cours ({MODEL_NAME})...")
         text_only = re.sub('<[^<]+?>', '', body)[:8000]
         prompt = f"Contenu: {text_only}. Génère 10 questions (4 choix). Thèmes: {THEMES}. Réponds UNIQUEMENT en JSON: {{'questions': [{{'q':'','options':[],'correct':0,'explication':'','theme':''}}]}}"
         
         try:
-            res = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+            # PAUSE DE 20 SECONDES (Sécurité RPM pour ton quota de 5/min)
+            time.sleep(20) 
+            res = client.models.generate_content(model=MODEL_NAME, contents=prompt)
+            
             json_match = re.search(r'\{.*\}', res.text, re.DOTALL)
             if json_match:
                 quiz = json.loads(json_match.group())
-                
                 metadata = {
                     "titre": titre,
                     "date": date_obj.strftime("%d/%m/%Y"),
                     "img": img_couv,
                     "questions": quiz['questions']
                 }
-                
                 with open(f"{path}/metadata.json", "w", encoding="utf-8") as f:
                     json.dump(metadata, f, indent=2, ensure_ascii=False)
                 
-                # AJOUT AU MANIFEST (C'est ça qui remplit l'index !)
                 manifest.append({
                     "folder": path,
                     "titre": titre,
                     "date": metadata['date'],
                     "img": img_couv
                 })
-                print(f"✨ Quiz et Metadata créés !")
+                print(f"✨ Quiz validé pour {folder_name}")
             else:
-                print("❌ Gemini n'a pas renvoyé un JSON valide.")
+                print("❌ Gemini n'a pas renvoyé de JSON propre.")
         except Exception as e:
-            print(f"❌ Erreur lors de l'appel IA : {e}")
+            print(f"❌ Erreur Quota ou IA : {e}")
 
-    # Sauvegarde finale du manifest
     with open(manifest_path, 'w', encoding='utf-8') as f:
         json.dump(manifest, f, indent=2, ensure_ascii=False)
     
-    print("✅ Fin du script.")
+    print("✅ Mission accomplie.")
     mail.logout()
 
 if __name__ == "__main__": process()
