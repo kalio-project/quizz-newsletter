@@ -9,52 +9,52 @@
     <style>
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .progress-bar { transition: width 0.4s ease-out; }
-        /* Bleu SuperQuiz plus lumineux */
-        .bg-aq-blue { background-color: #3b82f6; }
-        .text-aq-blue { color: #3b82f6; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="bg-white pb-20">
-    <nav class="p-6 max-w-2xl mx-auto flex justify-between items-center">
-        <a href="index.html" class="text-slate-400 font-black uppercase text-[10px] tracking-widest hover:text-blue-600">← Retour</a>
-        <span class="text-[10px] font-black uppercase tracking-widest text-slate-300 italic">Lecture Mode</span>
+<body class="bg-white pb-20 text-slate-900">
+
+    <nav class="p-6 max-w-2xl mx-auto">
+        <a href="index.html" class="text-blue-600 font-black uppercase text-[10px] tracking-widest italic">← Retour au Hub</a>
     </nav>
 
     <article id="content" class="max-w-2xl mx-auto p-6 prose prose-slate lg:prose-xl mb-12 border-b border-slate-100 pb-12"></article>
     
-    <div id="quiz-container" class="max-w-xl mx-auto p-6 md:p-10 bg-slate-900 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden">
+    <div id="quiz-container" class="max-w-xl mx-auto p-6 md:p-10 bg-slate-900 rounded-[2.5rem] text-white shadow-2xl relative">
         
-        <button onclick="closeQuiz()" class="absolute top-6 right-6 text-white/20 hover:text-white transition-all z-10">
+        <button onclick="this.parentElement.style.display='none'" class="absolute top-6 right-6 text-white/20 hover:text-white transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
 
-        <div class="absolute top-0 left-0 w-full h-1.5 bg-white/5">
-            <div id="progress" class="progress-bar h-full bg-aq-blue" style="width: 0%"></div>
-        </div>
-
         <div id="quiz-interface">
-            <div class="flex justify-between items-center mb-8 pr-8">
-                <span id="step-label" class="text-[10px] font-black uppercase tracking-[0.3em] text-aq-blue">Question 1</span>
-                <span id="theme-label" class="text-[9px] font-black uppercase bg-white/10 px-3 py-1 rounded-full">Thème</span>
+            <div class="flex justify-between items-center mb-8">
+                <span id="step-label" class="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">Question 1</span>
+                <span id="theme-label" class="text-[9px] font-black uppercase bg-white/10 px-3 py-1 rounded-full text-slate-300">Thème</span>
             </div>
 
-            <h2 id="question-text" class="text-xl md:text-2xl font-black mb-8 leading-tight italic tracking-tight">Chargement...</h2>
+            <h2 id="question-text" class="text-xl md:text-2xl font-black mb-8 leading-tight italic">Chargement...</h2>
 
             <div id="options-zone" class="space-y-3"></div>
 
-            <div id="explanation-zone" class="hidden mt-8 p-6 bg-white/5 rounded-3xl border border-white/10 animate-in fade-in slide-in-from-bottom-6">
-                <p id="result-status" class="font-black uppercase text-[11px] mb-3"></p>
-                <p id="explanation-text" class="text-sm text-slate-300 italic leading-relaxed"></p>
-                <button onclick="nextStep()" class="mt-8 w-full bg-aq-blue text-white py-4 rounded-2xl font-black uppercase italic tracking-widest hover:brightness-110 transition-all shadow-lg">Continuer ➔</button>
+            <div id="explanation-zone" class="hidden mt-8 p-6 bg-white/5 rounded-3xl border border-white/10">
+                <p id="result-status" class="font-black uppercase text-[11px] mb-2 tracking-widest"></p>
+                <p id="explanation-text" class="text-sm text-slate-300 italic leading-relaxed mb-6"></p>
+                <button id="btn-next" onclick="nextStep()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black uppercase italic tracking-widest hover:bg-blue-500 transition shadow-lg">
+                    Continuer ➔
+                </button>
             </div>
         </div>
 
-        <div id="result-screen" class="hidden text-center py-10">
-            <div class="text-6xl mb-6">🎯</div>
-            <h2 class="text-3xl font-black mb-2 italic">Résultat</h2>
-            <p id="final-score-text" class="text-6xl font-black text-aq-blue mb-8 tracking-tighter">0 / 0</p>
-            <div id="recap-list" class="text-left space-y-2 mb-8 max-h-48 overflow-y-auto no-scrollbar bg-black/20 p-5 rounded-3xl border border-white/5 text-[10px] font-bold uppercase tracking-wide"></div>
-            <button onclick="location.href='index.html'" class="w-full bg-white text-slate-900 py-4 rounded-2xl font-black uppercase italic tracking-widest hover:bg-aq-blue hover:text-white transition-all shadow-xl">Finir la lecture</button>
+        <div id="result-screen" class="hidden text-center py-6">
+            <h2 class="text-3xl font-black mb-2 italic uppercase">Terminé !</h2>
+            <p class="text-blue-400 font-black uppercase text-[10px] tracking-[0.2em] mb-8 italic">Ton score sur cet article</p>
+            
+            <div class="text-6xl font-black text-white mb-10 tracking-tighter" id="final-score">0/0</div>
+
+            <div id="theme-details" class="space-y-4 mb-10 text-left">
+                </div>
+
+            <button onclick="location.href='index.html'" class="w-full bg-white text-slate-900 py-5 rounded-2xl font-black uppercase italic tracking-widest hover:bg-blue-600 hover:text-white transition">RETOURNER AU HUB</button>
         </div>
     </div>
 
@@ -63,7 +63,7 @@
         let questions = [];
         let currentIndex = 0;
         let score = 0;
-        let userResults = [];
+        let themeScores = {};
 
         async function init() {
             try {
@@ -73,91 +73,96 @@
                 const resJson = await fetch(`${folder}/metadata.json?v=${Date.now()}`);
                 const data = await resJson.json();
                 questions = data.questions;
-                showQuestion();
-            } catch (err) {
-                console.error(err);
-                document.getElementById('question-text').innerText = "Erreur de chargement.";
-            }
+                renderQuestion();
+            } catch (err) { console.error(err); }
         }
 
-        function showQuestion() {
+        function renderQuestion() {
             const q = questions[currentIndex];
             document.getElementById('step-label').innerText = `Question ${currentIndex + 1} / ${questions.length}`;
             document.getElementById('theme-label').innerText = q.theme;
             document.getElementById('question-text').innerText = q.q;
-            document.getElementById('progress').style.width = `${((currentIndex) / questions.length) * 100}%`;
             
-            const optionsZone = document.getElementById('options-zone');
-            optionsZone.innerHTML = "";
+            const zone = document.getElementById('options-zone');
+            zone.innerHTML = "";
             document.getElementById('explanation-zone').classList.add('hidden');
 
             q.options.forEach((opt, idx) => {
                 const btn = document.createElement('button');
                 btn.className = "w-full text-left p-5 bg-white/5 border border-white/10 rounded-2xl font-bold text-sm hover:bg-white/10 transition-all";
                 btn.innerText = opt;
-                btn.onclick = () => checkAnswer(idx, q.correct, q.explication, btn);
-                optionsZone.appendChild(btn);
+                btn.onclick = () => check(idx, q.correct, q.explication, btn);
+                zone.appendChild(btn);
             });
-            
-            // On remonte au début du QCM pour la nouvelle question
-            document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        function checkAnswer(idx, correct, expl, btn) {
+        function check(idx, correct, expl, btn) {
+            const q = questions[currentIndex];
+            if (!themeScores[q.theme]) themeScores[q.theme] = { correct: 0, total: 0 };
+            themeScores[q.theme].total++;
+
             const isCorrect = (idx === correct);
-            if(isCorrect) score++;
-            userResults.push({ q: questions[currentIndex].q, success: isCorrect });
+            if (isCorrect) {
+                score++;
+                themeScores[q.theme].correct++;
+                btn.classList.add('bg-green-500/20', 'border-green-500', 'text-green-400');
+            } else {
+                btn.classList.add('bg-red-500/20', 'border-red-500', 'text-red-400');
+                // Montrer la bonne réponse en vert
+                const allBtns = document.getElementById('options-zone').querySelectorAll('button');
+                allBtns[correct].classList.add('bg-green-500/20', 'border-green-500', 'text-green-400');
+            }
 
-            const btns = document.getElementById('options-zone').querySelectorAll('button');
-            btns.forEach(b => b.disabled = true);
-
-            btn.style.borderColor = isCorrect ? '#22c55e' : '#ef4444';
-            btn.style.backgroundColor = isCorrect ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)';
-
-            document.getElementById('result-status').innerText = isCorrect ? "✅ Correct" : "❌ Erreur";
-            document.getElementById('result-status').style.color = isCorrect ? "#22c55e" : "#ef4444";
+            document.getElementById('options-zone').querySelectorAll('button').forEach(b => b.onclick = null);
+            
+            // Remplir l'explication
+            document.getElementById('result-status').innerText = isCorrect ? "✅ BRAVO" : "❌ ERREUR";
+            document.getElementById('result-status').className = `font-black uppercase text-[11px] mb-2 tracking-widest ${isCorrect ? 'text-green-500' : 'text-red-500'}`;
             document.getElementById('explanation-text').innerText = expl;
             
             const expZone = document.getElementById('explanation-zone');
             expZone.classList.remove('hidden');
 
-            // AUTO-SCROLL vers l'explication
+            // SCROLL DOWN : On descend pour voir l'explication et le bouton Continuer
             setTimeout(() => {
-                expZone.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                const offset = expZone.offsetTop + expZone.offsetHeight - window.innerHeight + 40;
+                window.scrollTo({ top: offset, behavior: 'smooth' });
             }, 100);
         }
 
         function nextStep() {
             currentIndex++;
             if (currentIndex < questions.length) {
-                showQuestion();
+                renderQuestion();
+                // Remonter un peu pour voir la nouvelle question
+                document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
-                showFinalScore();
+                showFinal();
             }
         }
 
-        function showFinalScore() {
-            document.getElementById('progress').style.width = "100%";
+        function showFinal() {
             document.getElementById('quiz-interface').classList.add('hidden');
             document.getElementById('result-screen').classList.remove('hidden');
-            document.getElementById('final-score-text').innerText = `${score} / ${questions.length}`;
+            document.getElementById('final-score').innerText = `${score}/${questions.length}`;
             
-            const recap = document.getElementById('recap-list');
-            recap.innerHTML = userResults.map(r => `
-                <div class="py-3 border-b border-white/5 flex justify-between items-center">
-                    <span class="truncate pr-4 opacity-70">${r.q}</span>
-                    <span>${r.success ? '✅' : '❌'}</span>
-                </div>
-            `).join('');
-            
-            document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function closeQuiz() {
-            if(confirm("Quitter le quiz ?")) {
-                document.getElementById('quiz-container').style.display = 'none';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            const details = document.getElementById('theme-details');
+            details.innerHTML = "";
+            for (let t in themeScores) {
+                const s = themeScores[t];
+                const p = Math.round((s.correct / s.total) * 100);
+                details.innerHTML += `
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] font-black uppercase italic">
+                            <span class="text-slate-400">${t}</span>
+                            <span class="text-blue-400">${s.correct}/${s.total}</span>
+                        </div>
+                        <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500 transition-all duration-1000" style="width: ${p}%"></div>
+                        </div>
+                    </div>`;
             }
+            document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         init();
