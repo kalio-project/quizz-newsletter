@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Quiz ⚡</title>
+    <title>Super Quiz ⚡ - ActuQuiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
         .theme-card input:checked + div { border-color: #2563eb; background-color: #eff6ff; color: #1e40af; }
-        /* Empêcher le rebond élastique sur mobile */
         html, body { overscroll-behavior: none; }
     </style>
 </head>
@@ -17,32 +16,39 @@
 
     <div id="setup-ui" class="max-w-xl w-full bg-white p-8 rounded-[2.5rem] shadow-xl border border-slate-100">
         <h1 class="text-3xl font-black mb-6 italic uppercase tracking-tighter text-slate-900 text-center text-blue-600">Super Quiz ⚡</h1>
-        <div id="themes-grid" class="grid grid-cols-2 gap-2 mb-6"></div>
-        <div class="mb-8">
-            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block border-b pb-2">Questions : <span id="qty-val" class="text-blue-600 font-black">15</span></label>
-            <input type="range" id="qty-range" min="5" max="50" value="15" class="w-full accent-blue-600" oninput="document.getElementById('qty-val').innerText=this.value">
+        
+        <div class="mb-6">
+            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block border-b pb-2 italic">Sélectionne tes thèmes</label>
+            <div id="themes-grid" class="grid grid-cols-2 gap-2"></div>
         </div>
-        <button onclick="startChallenge()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl shadow-lg active:scale-95 transition">LANCER LE DÉFI</button>
-        <button onclick="window.location.href='index.html'" class="w-full mt-4 text-slate-400 font-bold text-xs uppercase text-center">Retour au Hub</button>
+
+        <div class="mb-8">
+            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block border-b pb-2 italic">Questions : <span id="qty-val" class="text-blue-600 font-black">15</span></label>
+            <input type="range" id="qty-range" min="5" max="50" value="15" class="w-full accent-blue-600 appearance-none bg-slate-100 h-2 rounded-lg" oninput="document.getElementById('qty-val').innerText=this.value">
+        </div>
+
+        <button onclick="startChallenge()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl shadow-lg hover:scale-[1.02] active:scale-95 transition">LANCER LE DÉFI</button>
+        <button onclick="window.location.href='index.html'" class="w-full mt-4 text-slate-400 font-bold text-[10px] uppercase text-center tracking-widest">Retour au Hub</button>
     </div>
 
     <div id="quiz-ui" class="hidden max-w-xl w-full flex flex-col gap-4">
-        <div class="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-xl border border-slate-100 flex flex-col min-h-[520px] relative">
+        <div class="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-xl border border-slate-100 flex flex-col min-h-[550px] relative">
             
             <div class="flex justify-between items-center mb-6">
                 <div class="flex gap-2">
-                    <span id="theme-tag" class="bg-blue-100 text-[9px] font-black px-3 py-1 rounded-full text-blue-600 uppercase italic">THÈME</span>
-                    <span id="date-tag" class="bg-slate-100 text-[9px] font-black px-3 py-1 rounded-full text-slate-500 uppercase italic">DATE</span>
+                    <span id="theme-tag" class="bg-blue-100 text-[9px] font-black px-3 py-1 rounded-full text-blue-600 uppercase tracking-widest italic">THÈME</span>
+                    <span id="date-tag" class="bg-slate-100 text-[9px] font-black px-3 py-1 rounded-full text-slate-500 uppercase tracking-widest italic text-center">DATE</span>
                 </div>
-                <span id="progress-text" class="text-xs font-bold text-slate-400 font-mono italic">01/15</span>
+                <span id="progress-text" class="text-xs font-black text-slate-300 font-mono italic">01/15</span>
             </div>
 
             <div class="flex-grow">
                 <h2 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 mb-6 leading-tight italic">...</h2>
-                <div id="options" class="grid grid-cols-1 gap-3 mb-4"></div>
+                <div id="options" class="grid grid-cols-1 gap-3 mb-6"></div>
                 
-                <div id="explanation-box" class="hidden p-4 bg-blue-50 rounded-2xl border-l-4 border-blue-500 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                    <p id="explanation-text" class="text-sm text-slate-700 leading-relaxed font-medium italic"></p>
+                <div id="explanation-box" class="hidden p-5 bg-blue-50 rounded-2xl border-l-4 border-blue-500 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                    <p class="text-[10px] font-black uppercase text-blue-600 mb-1 tracking-widest italic italic">L'explication :</p>
+                    <p id="explanation-text" class="text-sm text-slate-700 leading-relaxed font-medium italic italic"></p>
                 </div>
             </div>
 
@@ -51,17 +57,154 @@
             </button>
         </div>
 
-        <button onclick="confirmExit()" class="py-2 text-slate-400 hover:text-red-500 text-[10px] font-black uppercase tracking-[0.2em] transition">
+        <button onclick="confirmExit()" class="py-2 text-slate-400 hover:text-red-500 text-[10px] font-black uppercase tracking-[0.2em] transition text-center italic">
             ✕ Abandonner la session
         </button>
     </div>
 
     <div id="score-ui" class="hidden max-w-xl w-full bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 text-center">
+        <h2 class="text-4xl font-black text-slate-900 mb-2 italic uppercase tracking-tighter italic">Terminé !</h2>
+        <p class="text-blue-500 font-black uppercase text-[10px] tracking-[0.2em] mb-10 italic">Ton Résultat ActuQuiz</p>
+        
+        <div class="relative inline-block mb-10">
+            <svg class="w-32 h-32 transform -rotate-90">
+                <circle cx="64" cy="64" r="58" stroke="currentColor" stroke-width="12" fill="transparent" class="text-slate-100" />
+                <circle id="score-circle" cx="64" cy="64" r="58" stroke="currentColor" stroke-width="12" fill="transparent" stroke-dasharray="364.4" stroke-dashoffset="364.4" class="text-blue-600 transition-all duration-1000 ease-out" />
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <span id="final-score-text" class="text-3xl font-black italic">0/0</span>
+            </div>
         </div>
 
+        <div id="theme-details" class="space-y-4 mb-10 text-left"></div>
+
+        <button onclick="window.location.href='index.html'" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl shadow-lg hover:scale-105 active:scale-95 transition italic">RETOURNER AU HUB</button>
+    </div>
+
     <script>
-        // ... (Ton code JavaScript précédent reste identique) ...
-        // Assure-toi juste que la fonction render() et check() pointent vers les bons IDs
+        let pool = [], questions = [], currentIdx = 0, score = 0;
+        let themeScores = {}; 
+
+        const THEMES_LIST = ["POLITIQUE FR", "INTERNATIONAL", "ÉCONOMIE", "SOCIÉTÉ", "ENVIRONNEMENT", "TECH / SCIENCE", "SANTÉ", "CULTURE", "SPORT", "JUSTICE"];
+
+        const grid = document.getElementById('themes-grid');
+        THEMES_LIST.forEach(t => {
+            grid.innerHTML += `
+                <label class="theme-card cursor-pointer">
+                    <input type="checkbox" name="theme-choice" value="${t}" checked class="hidden">
+                    <div class="border-2 border-slate-100 p-3 rounded-xl text-[9px] font-black uppercase text-center transition hover:border-blue-200 italic">${t}</div>
+                </label>`;
+        });
+
+        async function startChallenge() {
+            const selected = Array.from(document.querySelectorAll('input[name="theme-choice"]:checked')).map(i => i.value);
+            const limit = parseInt(document.getElementById('qty-range').value);
+            if(selected.length === 0) return alert("Choisis tes thèmes !");
+
+            try {
+                const res = await fetch('manifest.json');
+                const manifest = await res.json();
+                pool = [];
+                for(let item of manifest) {
+                    const r = await fetch(`${item.folder}/metadata.json`);
+                    const meta = await r.json();
+                    const qWithMeta = meta.questions.map(q => ({...q, dateRef: item.date }));
+                    pool.push(...qWithMeta.filter(q => selected.includes(q.theme)));
+                }
+                
+                if(pool.length === 0) return alert("Aucune question trouvée.");
+                
+                questions = pool.sort(() => Math.random() - 0.5).slice(0, limit);
+                document.getElementById('setup-ui').classList.add('hidden');
+                document.getElementById('quiz-ui').classList.remove('hidden');
+                render();
+            } catch(e) { alert("Erreur de chargement des fichiers."); }
+        }
+
+        function render() {
+            const q = questions[currentIdx];
+            document.getElementById('theme-tag').innerText = q.theme;
+            document.getElementById('date-tag').innerText = q.dateRef; 
+            document.getElementById('progress-text').innerText = `${String(currentIdx + 1).padStart(2, '0')}/${questions.length}`;
+            document.getElementById('question-text').innerText = q.q;
+            
+            document.getElementById('explanation-box').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            const container = document.getElementById('options');
+            container.innerHTML = "";
+            
+            q.options.forEach((opt, i) => {
+                const b = document.createElement('button');
+                b.className = "w-full text-left p-4 rounded-xl border-2 border-slate-100 font-bold hover:bg-slate-50 transition italic";
+                b.innerText = opt;
+                b.onclick = () => check(i);
+                container.appendChild(b);
+            });
+        }
+
+        function check(idx) {
+            const q = questions[currentIdx];
+            const btns = document.getElementById('options').children;
+            for(let b of btns) b.onclick = null;
+
+            if(!themeScores[q.theme]) themeScores[q.theme] = { correct: 0, total: 0 };
+            themeScores[q.theme].total++;
+
+            if(idx === q.correct) {
+                btns[idx].classList.replace('border-slate-100', 'border-green-500');
+                btns[idx].classList.add('bg-green-50', 'text-green-700');
+                score++;
+                themeScores[q.theme].correct++;
+            } else {
+                btns[idx].classList.replace('border-slate-100', 'border-red-500');
+                btns[idx].classList.add('bg-red-50', 'text-red-700');
+                btns[q.correct].classList.replace('border-slate-100', 'border-green-500');
+                btns[q.correct].classList.add('bg-green-50', 'text-green-700');
+            }
+
+            document.getElementById('explanation-text').innerText = q.explication;
+            document.getElementById('explanation-box').classList.remove('hidden');
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if(currentIdx < questions.length) render();
+            else showFinalScore();
+        }
+
+        function showFinalScore() {
+            document.getElementById('quiz-ui').classList.add('hidden');
+            document.getElementById('score-ui').classList.remove('hidden');
+            document.getElementById('final-score-text').innerText = `${score}/${questions.length}`;
+            
+            const circle = document.getElementById('score-circle');
+            const percent = (score / questions.length) * 100;
+            const offset = 364.4 - (364.4 * percent) / 100;
+            setTimeout(() => circle.style.strokeDashoffset = offset, 100);
+
+            const details = document.getElementById('theme-details');
+            details.innerHTML = "";
+            for(let t in themeScores) {
+                const s = themeScores[t];
+                const p = Math.round((s.correct / s.total) * 100);
+                details.innerHTML += `
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] font-black uppercase italic">
+                            <span class="text-slate-400">${t}</span>
+                            <span class="text-blue-600">${s.correct}/${s.total}</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500 transition-all duration-1000" style="width: ${p}%"></div>
+                        </div>
+                    </div>`;
+            }
+        }
+
+        function confirmExit() {
+            if(confirm("Abandonner le quiz ?")) window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
