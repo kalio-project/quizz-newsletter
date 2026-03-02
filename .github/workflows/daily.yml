@@ -23,8 +23,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          # On fait le pont ici : le script cherchera EMAIL_PASS, GitHub donne EMAIL_PASSWORD
-          EMAIL_PASS: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASSWORD }} # On fait le lien vers ton secret
         run: python process.py
 
       - name: Commit and push changes
@@ -32,5 +31,5 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           git add .
-          git commit -m "MAJ Quiz $(date +'%d/%m/%Y')" || exit 0
+          git commit -m "Nouvelle archive : $(date +'%d/%m/%Y')" || exit 0
           git push
