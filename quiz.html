@@ -4,77 +4,39 @@
     <meta charset="UTF-8">
     <title>Lecture ActuQuiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .quiz-box { position: fixed; bottom: -100%; left: 0; right: 0; background: white; border-top: 4px solid #3b82f6; transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1); z-index: 100; box-shadow: 0 -20px 50px rgba(0,0,0,0.1); }
-        .quiz-box.active { bottom: 0; }
-        #hugo-content img { width: 100%; border-radius: 2rem; margin: 2rem 0; }
-        body { padding-bottom: 400px; }
-    </style>
 </head>
-<body class="bg-white">
-    <article id="hugo-content" class="max-w-2xl mx-auto p-6 md:p-12 prose prose-slate prose-lg"></article>
-
-    <div id="quiz-box" class="quiz-box p-6 md:p-10">
-        <div class="max-w-xl mx-auto">
-            <div id="q-header" class="flex justify-between mb-4 items-center">
-                <span id="t-badge" class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[10px] font-black uppercase"></span>
-                <span id="counter" class="font-black text-blue-600">01 / 10</span>
-            </div>
-            <div id="game-zone">
-                <h2 id="q-text" class="text-xl font-bold mb-6"></h2>
-                <div id="opts" class="grid grid-cols-2 gap-3"></div>
-            </div>
-            <div id="feedback-zone" class="hidden">
-                <div id="fb-status" class="font-black mb-2 uppercase italic text-sm"></div>
-                <p id="expl" class="text-slate-600 text-sm mb-6"></p>
-                <button onclick="next()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase text-xs">Suivant →</button>
-            </div>
-        </div>
+<body class="bg-white pb-20">
+    <nav class="p-6"><a href="index.html" class="text-blue-600 font-bold">← Retour</a></nav>
+    <article id="content" class="max-w-2xl mx-auto p-6 prose lg:prose-xl"></article>
+    
+    <div class="max-w-2xl mx-auto p-6 bg-slate-50 rounded-[2rem] mt-10">
+        <h2 class="text-2xl font-black mb-8 text-center uppercase tracking-widest">Le Quiz du jour</h2>
+        <div id="quiz-zone"></div>
     </div>
 
     <script>
-        let quiz, current = 0, score = 0;
-
-        window.onscroll = () => {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 150) 
-                document.getElementById('quiz-box').classList.add('active');
-        };
-
+        const folder = new URLSearchParams(window.location.search).get('folder');
         async function init() {
-            const res = await fetch(new URLSearchParams(window.location.search).get('file'));
-            quiz = await res.json();
-            document.getElementById('hugo-content').innerHTML = quiz.html_article;
-            render();
-        }
-
-        function render() {
-            const q = quiz.questions[current];
-            document.getElementById('t-badge').innerText = q.theme;
-            document.getElementById('counter').innerText = `${current + 1} / 10`;
-            document.getElementById('q-text').innerText = q.q;
-            document.getElementById('game-zone').classList.remove('hidden');
-            document.getElementById('feedback-zone').classList.add('hidden');
-
-            const div = document.getElementById('opts'); div.innerHTML = "";
-            q.options.forEach((o, i) => {
-                const b = document.createElement('button');
-                b.className = "p-4 border-2 rounded-2xl text-xs font-bold bg-slate-50 hover:border-blue-500 transition";
-                b.innerText = o;
-                b.onclick = () => {
-                    const ok = i === q.correct; if(ok) score++;
-                    b.style.borderColor = ok ? '#22c55e' : '#ef4444';
-                    setTimeout(() => {
-                        document.getElementById('game-zone').classList.add('hidden');
-                        document.getElementById('feedback-zone').classList.remove('hidden');
-                        document.getElementById('fb-status').innerText = ok ? "✅ Bien joué !" : "❌ Oups...";
-                        document.getElementById('expl').innerText = q.explication;
-                    }, 500);
-                };
-                div.appendChild(b);
+            // Charger l'article
+            const resHtml = await fetch(`${folder}/contenu.html`);
+            document.getElementById('content').innerHTML = await resHtml.text();
+            
+            // Charger le Quiz
+            const resJson = await fetch(`${folder}/metadata.json`);
+            const data = await resJson.json();
+            const zone = document.getElementById('quiz-zone');
+            
+            data.questions.forEach((q, i) => {
+                let opts = q.options.map((o, idx) => `<button onclick="check(this, ${idx==q.correct}, '${q.explication.replace(/'/g, "\\'")}')" class="block w-full text-left p-4 mb-2 bg-white border rounded-xl hover:bg-blue-50">${o}</button>`).join('');
+                zone.innerHTML += `<div class="mb-10"><p class="font-bold mb-4">${i+1}. ${q.q} <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-1 rounded ml-2">${q.theme}</span></p>${opts}<p class="expl hidden mt-2 text-sm text-slate-500 italic"></p></div>`;
             });
         }
-
-        function next() { current++; if(current < 10) render(); else alert("Score final: " + score + "/10"); }
+        function check(btn, isCorrect, expl) {
+            btn.style.backgroundColor = isCorrect ? '#dcfce7' : '#fee2e2';
+            const p = btn.parentElement.querySelector('.expl');
+            p.innerText = (isCorrect ? "✅ " : "❌ ") + expl;
+            p.classList.remove('hidden');
+        }
         init();
     </script>
 </body>
