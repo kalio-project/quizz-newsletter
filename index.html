@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-slate-50 p-4 md:p-8 pb-24 text-slate-900">
@@ -16,14 +15,15 @@
     <header class="max-w-5xl mx-auto flex justify-between items-center mb-10 border-b border-slate-200 pb-6">
         <h1 class="text-3xl font-black italic underline decoration-blue-500 tracking-tighter cursor-pointer" onclick="location.reload()">ActuQuiz.</h1>
         
-        <div class="flex items-center gap-3">
-            <div class="relative bg-white border border-slate-200 rounded-lg px-2 py-1.5 shadow-sm flex items-center gap-2">
-                <select id="date-filter" onchange="handleDateFilter()" class="bg-transparent text-[10px] font-black uppercase outline-none cursor-pointer text-slate-600 pr-1">
-                    <option value="">Archives</option>
+        <div class="flex items-center gap-2">
+            <div class="bg-white border border-slate-200 rounded-lg px-2 py-1.5 shadow-sm flex items-center">
+                <span class="text-[9px] font-black text-blue-500 mr-2 uppercase italic">Mois:</span>
+                <select id="date-filter" onchange="handleDateFilter()" class="bg-transparent text-[10px] font-black uppercase outline-none cursor-pointer text-slate-700">
+                    <option value="">Tous</option>
                     </select>
             </div>
 
-            <button onclick="document.getElementById('modal').classList.remove('hidden')" class="bg-slate-900 text-white px-4 py-2 rounded-lg font-black text-[10px] uppercase tracking-tighter hover:bg-blue-600 transition shadow-md">
+            <button onclick="document.getElementById('modal').classList.remove('hidden')" class="bg-slate-900 text-white px-4 py-2 rounded-lg font-black text-[10px] uppercase hover:bg-blue-600 transition shadow-md">
                 Super Quiz ⚡
             </button>
         </div>
@@ -32,13 +32,11 @@
     <div id="grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8"></div>
 
     <div id="nav-controls" class="max-w-5xl mx-auto mt-12 flex justify-center items-center gap-6">
-        <button id="prev-btn" onclick="changePage(-1)" class="p-2 text-slate-400 hover:text-blue-600 transition disabled:opacity-10">
+        <button id="prev-btn" onclick="changePage(-1)" class="p-2 text-slate-400 hover:text-blue-600 disabled:opacity-10 transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
         </button>
-
-        <span id="page-indicator" class="text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase">PAGE 1</span>
-
-        <button id="next-btn" onclick="changePage(1)" class="p-2 text-slate-400 hover:text-blue-600 transition disabled:opacity-10">
+        <span id="page-indicator" class="text-[10px] font-black text-slate-400 tracking-widest uppercase">PAGE 1</span>
+        <button id="next-btn" onclick="changePage(1)" class="p-2 text-slate-400 hover:text-blue-600 disabled:opacity-10 transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
         </button>
     </div>
@@ -46,10 +44,10 @@
     <div id="modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
         <div class="bg-white p-8 rounded-[2rem] max-w-sm w-full relative">
             <button onclick="document.getElementById('modal').classList.add('hidden')" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900 font-bold">✕</button>
-            <h2 class="text-xl font-black mb-6 italic uppercase tracking-tight">Paramètres SuperQuiz</h2>
+            <h2 class="text-xl font-black mb-6 italic uppercase">SuperQuiz ⚡</h2>
             <input type="range" id="qty" min="5" max="50" value="20" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600 mb-2" oninput="document.getElementById('val').innerText = this.value">
             <p class="mb-8 text-[10px] font-black text-slate-400 uppercase">Questions : <span id="val" class="text-blue-600">20</span></p>
-            <button onclick="launch()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase italic tracking-widest hover:bg-blue-600 transition">LANCER ⚡</button>
+            <button onclick="launch()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase hover:bg-blue-600 transition">LANCER</button>
         </div>
     </div>
 
@@ -61,27 +59,37 @@
 
         async function load() {
             try {
+                // On force le rafraîchissement du JSON
                 const res = await fetch('manifest.json?v=' + Date.now());
                 allData = await res.json();
+                
+                // On s'assure que c'est bien trié du plus récent au plus ancien
                 allData.reverse(); 
                 filteredData = allData;
                 
-                generateDateOptions();
+                populateFilter();
                 renderGrid();
-            } catch (e) { console.error(e); }
+            } catch (e) { 
+                console.error("Erreur chargement manifest:", e); 
+                document.getElementById('grid').innerHTML = "<p class='text-center col-span-2 py-20 font-bold text-slate-400'>Erreur de chargement du manifest.json</p>";
+            }
         }
 
-        function generateDateOptions() {
+        function populateFilter() {
             const select = document.getElementById('date-filter');
-            const months = [...new Set(allData.map(item => {
+            // On extrait "Mois Année" de chaque date (ex: "Mars 2026")
+            const monthYears = allData.map(item => {
                 const p = item.date.split(' ');
                 return p.length >= 4 ? `${p[2]} ${p[3]}` : null;
-            }))].filter(Boolean);
+            }).filter(Boolean);
 
-            months.forEach(d => {
+            // On garde les valeurs uniques
+            const uniqueMonths = [...new Set(monthYears)];
+
+            uniqueMonths.forEach(my => {
                 const opt = document.createElement('option');
-                opt.value = d.toLowerCase();
-                opt.innerText = d.toUpperCase();
+                opt.value = my.toLowerCase();
+                opt.innerText = my.toUpperCase();
                 select.appendChild(opt);
             });
         }
@@ -98,16 +106,19 @@
             const startIndex = (currentPage - 1) * itemsPerPage;
             const slice = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
-            grid.innerHTML = slice.map(item => `
-                <a href="quiz.html?folder=${item.folder}" class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 block group">
-                    <img src="${item.img}" class="h-48 w-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="p-6">
-                        <span class="text-blue-600 font-black text-[9px] uppercase tracking-widest">${item.date}</span>
-                        <h2 class="text-lg font-black mt-1 leading-tight italic tracking-tighter">${item.titre}</h2>
-                    </div>
-                </a>
-            `).join('');
-
+            if(slice.length === 0) {
+                grid.innerHTML = "<p class='text-center col-span-2 py-20 font-bold text-slate-400'>Aucun quiz trouvé</p>";
+            } else {
+                grid.innerHTML = slice.map(item => `
+                    <a href="quiz.html?folder=${item.folder}" class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 block group">
+                        <img src="${item.img}" class="h-48 w-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="p-6">
+                            <span class="text-blue-600 font-black text-[9px] uppercase tracking-widest">${item.date}</span>
+                            <h2 class="text-lg font-black mt-1 leading-tight italic tracking-tighter">${item.titre}</h2>
+                        </div>
+                    </a>
+                `).join('');
+            }
             updatePagination();
         }
 
