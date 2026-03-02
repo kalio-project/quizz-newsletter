@@ -2,57 +2,166 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>ActuQuiz - Le Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActuQuiz - Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .active-pill { background-color: #2563eb !important; color: white !important; }
+    </style>
 </head>
-<body class="bg-slate-50 p-6">
+<body class="p-4 md:p-8 pb-24">
 
-    <header class="max-w-5xl mx-auto flex justify-between items-center mb-12">
-        <h1 class="text-4xl font-black italic underline decoration-blue-500 text-slate-900 tracking-tighter">ActuQuiz.</h1>
-        <button onclick="window.location.href='superquiz.html'" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-blue-200 hover:scale-105 transition active:scale-95">
-            SUPER QUIZ ⚡
-        </button>
-    </header>
-
-    <div id="grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+    <header class="max-w-4xl mx-auto mb-8">
+        <div class="flex justify-between items-end mb-6">
+            <h1 class="text-4xl font-black italic underline decoration-blue-500 text-slate-900 tracking-tighter cursor-pointer" onclick="resetToRecent()">ActuQuiz.</h1>
+            <button onclick="toggleFilters()" class="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl shadow-sm border border-slate-100 hover:border-blue-500 transition">
+                <div class="text-right">
+                    <p class="text-[7px] font-black uppercase text-slate-400 italic">Archives</p>
+                    <p id="display-date" class="text-[10px] font-black uppercase italic">Récent</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
+            </button>
         </div>
 
+        <div class="relative w-full">
+            <input type="text" id="search-input" oninput="handleSearch()" placeholder="Rechercher un sujet..." class="w-full bg-white border border-slate-200 rounded-[1.5rem] px-6 py-4 text-sm font-bold focus:outline-none focus:border-blue-500 shadow-sm transition italic">
+        </div>
+    </header>
+
+    <div id="filters-area" class="max-w-4xl mx-auto hidden mb-10 p-6 bg-white rounded-[2rem] shadow-xl border border-slate-50">
+        <div class="mb-4">
+            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 italic">Année</p>
+            <div id="year-container" class="flex gap-2 overflow-x-auto no-scrollbar"></div>
+        </div>
+        <div>
+            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 italic">Mois</p>
+            <div id="month-container" class="flex gap-2 overflow-x-auto no-scrollbar"></div>
+        </div>
+    </div>
+
+    <div id="grid" class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10"></div>
+
+    <div class="max-w-4xl mx-auto mt-12 mb-12 flex justify-center">
+        <button id="load-more" onclick="loadMore()" class="hidden bg-slate-900 text-white px-10 py-4 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-600 transition shadow-xl italic">
+            Afficher la suite ➔
+        </button>
+    </div>
+
+    <button onclick="window.location.href='superquiz.html'" class="fixed bottom-6 right-6 bg-blue-600 text-white px-6 py-4 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition z-50 font-black text-[11px] uppercase italic">
+        Super Quiz ⚡
+    </button>
+
     <script>
-        async function load() {
+        let allNews = [];
+        let filteredNews = [];
+        let itemsToShow = 6; // Changé à 6 pour les 2 colonnes
+        let selectedYear = "";
+        let selectedMonth = "";
+        const monthMap = {"JANVIER":0, "FÉVRIER":1, "MARS":2, "AVRIL":3, "MAI":4, "JUIN":5, "JUILLET":6, "AOÛT":7, "SEPTEMBRE":8, "OCTOBRE":9, "NOVEMBRE":10, "DÉCEMBRE":11};
+
+        async function init() {
             try {
-                const res = await fetch('manifest.json');
-                const data = await res.json();
-                const grid = document.getElementById('grid');
-                
-                // On affiche les newsletters (les plus récentes en premier)
-                data.reverse().forEach(item => {
-                    grid.innerHTML += `
-                    <a href="quiz.html?folder=${item.folder}" class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 block">
-                        <div class="relative overflow-hidden h-52">
-                            <img src="${item.img}" class="h-full w-full object-cover group-hover:scale-105 transition duration-500">
-                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-white/50">
-                                <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">${item.date}</span>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <h2 class="text-xl font-bold leading-tight text-slate-800 group-hover:text-blue-600 transition">${item.titre}</h2>
-                            <div class="flex items-center gap-2 mt-4 text-blue-600">
-                                <span class="text-xs font-black uppercase tracking-widest">Jouer au Quiz</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </div>
-                        </div>
-                    </a>`;
-                });
-            } catch (e) { 
-                console.error("Erreur de chargement du manifest :", e);
-                document.getElementById('grid').innerHTML = "<p class='text-slate-400 font-bold'>Aucune newsletter trouvée. Lance le script Python pour générer le contenu !</p>";
-            }
+                const res = await fetch('manifest.json?v=' + Date.now());
+                allNews = await res.json();
+                renderPickers();
+                resetToRecent();
+            } catch (e) { console.error(e); }
         }
-        load();
+
+        function toggleFilters() { document.getElementById('filters-area').classList.toggle('hidden'); }
+
+        function resetToRecent() {
+            document.getElementById('search-input').value = "";
+            document.getElementById('display-date').innerText = "31 Derniers Jours";
+            const limit = new Date(); limit.setDate(limit.getDate() - 31);
+
+            filteredNews = allNews.filter(item => {
+                const p = item.date.split(' ');
+                return new Date(p[3], monthMap[p[2].toUpperCase()], p[1]) >= limit;
+            });
+            
+            itemsToShow = 6;
+            renderGrid();
+        }
+
+        function handleSearch() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            if(q.length > 0) {
+                document.getElementById('display-date').innerText = "Résultats";
+                filteredNews = allNews.filter(i => i.titre.toLowerCase().includes(q) || i.date.toLowerCase().includes(q));
+            } else {
+                resetToRecent();
+                return;
+            }
+            itemsToShow = 6;
+            renderGrid();
+        }
+
+        function filterByArchive(y, m) {
+            if(y) selectedYear = y;
+            if(m) selectedMonth = m;
+            if(!selectedYear) selectedYear = allNews[0].date.split(' ')[3];
+            if(!selectedMonth) selectedMonth = allNews[0].date.split(' ')[2].toUpperCase();
+
+            document.getElementById('display-date').innerText = `${selectedMonth} ${selectedYear}`;
+            filteredNews = allNews.filter(item => {
+                const p = item.date.split(' ');
+                return p[2].toUpperCase() === selectedMonth && p[3] === selectedYear;
+            });
+            
+            itemsToShow = 6;
+            renderGrid();
+            if(window.innerWidth < 768) toggleFilters();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = "";
+            const toDisplay = filteredNews.slice(0, itemsToShow);
+            
+            if(toDisplay.length === 0) {
+                grid.innerHTML = `<p class="col-span-full py-20 text-center text-slate-300 font-black uppercase text-[10px] italic">Aucun contenu trouvé</p>`;
+                document.getElementById('load-more').classList.add('hidden');
+                return;
+            }
+
+            toDisplay.forEach(item => {
+                grid.innerHTML += `
+                <a href="quiz.html?folder=${item.folder}" class="group block animate-in fade-in slide-in-from-bottom-2 duration-500">
+                    <div class="overflow-hidden rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="${item.img}" class="h-full w-full object-cover group-hover:scale-105 transition duration-700" loading="lazy">
+                        </div>
+                        <div class="p-8">
+                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 italic underline decoration-blue-500/30">${item.date}</p>
+                            <h2 class="text-2xl font-black leading-tight text-slate-800 group-hover:text-blue-600 transition italic tracking-tighter">${item.titre}</h2>
+                        </div>
+                    </div>
+                </a>`;
+            });
+
+            const btn = document.getElementById('load-more');
+            if (filteredNews.length > itemsToShow) btn.classList.remove('hidden');
+            else btn.classList.add('hidden');
+        }
+
+        function loadMore() {
+            itemsToShow += 6; // On rajoute une ligne complète
+            renderGrid();
+        }
+
+        function renderPickers() {
+            const years = [...new Set(allNews.map(item => item.date.split(' ')[3]))].sort().reverse();
+            const months = Object.keys(monthMap);
+            document.getElementById('year-container').innerHTML = years.map(y => `<button onclick="filterByArchive('${y}', null)" class="px-4 py-1.5 rounded-xl bg-slate-50 text-[10px] font-black text-slate-400 transition hover:text-blue-600">${y}</button>`).join('');
+            document.getElementById('month-container').innerHTML = months.map(m => `<button onclick="filterByArchive(null, '${m}')" class="px-4 py-1.5 rounded-xl bg-slate-50 text-[10px] font-black text-slate-400 transition hover:text-blue-600">${m}</button>`).join('');
+        }
+
+        init();
     </script>
 </body>
 </html>
