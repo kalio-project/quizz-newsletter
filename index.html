@@ -3,93 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActuQuiz - Hub</title>
+    <title>ActuQuiz Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="p-4 md:p-8 pb-24">
+<body class="bg-slate-50 p-4 md:p-8 pb-24 text-slate-900">
 
-    <header class="max-w-4xl mx-auto flex justify-between items-center mb-12">
-        <h1 class="text-3xl font-black italic underline decoration-blue-500 text-slate-900 tracking-tighter cursor-pointer" onclick="location.reload()">ActuQuiz.</h1>
+    <header class="max-w-5xl mx-auto flex justify-between items-center mb-10 border-b border-slate-200 pb-6">
+        <h1 class="text-3xl font-black italic underline decoration-blue-500 tracking-tighter cursor-pointer" onclick="location.reload()">ActuQuiz.</h1>
         
-        <div class="relative w-40 md:w-64">
-            <input type="text" id="search-input" oninput="handleSearch()" placeholder="Rechercher..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2 text-[11px] font-bold focus:outline-none focus:border-blue-500 shadow-sm transition italic">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 absolute right-3 top-3 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+        <div class="flex items-center gap-3">
+            <div class="relative bg-white border border-slate-200 rounded-lg px-2 py-1.5 shadow-sm flex items-center gap-2">
+                <select id="date-filter" onchange="handleDateFilter()" class="bg-transparent text-[10px] font-black uppercase outline-none cursor-pointer text-slate-600 pr-1">
+                    <option value="">Archives</option>
+                    </select>
+            </div>
+
+            <button onclick="document.getElementById('modal').classList.remove('hidden')" class="bg-slate-900 text-white px-4 py-2 rounded-lg font-black text-[10px] uppercase tracking-tighter hover:bg-blue-600 transition shadow-md">
+                Super Quiz ⚡
+            </button>
         </div>
     </header>
 
-    <div id="grid" class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10"></div>
+    <div id="grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8"></div>
 
-    <div class="max-w-4xl mx-auto mt-16 flex justify-center items-center gap-8">
-        <button id="prev-btn" onclick="changePage(-1)" class="group flex items-center gap-2 text-slate-400 hover:text-blue-600 transition disabled:opacity-20 disabled:pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
-            <span class="text-[10px] font-black uppercase tracking-widest italic">Précédent</span>
+    <div id="nav-controls" class="max-w-5xl mx-auto mt-12 flex justify-center items-center gap-6">
+        <button id="prev-btn" onclick="changePage(-1)" class="p-2 text-slate-400 hover:text-blue-600 transition disabled:opacity-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
         </button>
 
-        <span id="page-indicator" class="text-[10px] font-black text-slate-900 bg-white border border-slate-100 px-4 py-2 rounded-lg shadow-sm">PAGE 1</span>
+        <span id="page-indicator" class="text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase">PAGE 1</span>
 
-        <button id="next-btn" onclick="changePage(1)" class="group flex items-center gap-2 text-slate-400 hover:text-blue-600 transition disabled:opacity-20 disabled:pointer-events-none">
-            <span class="text-[10px] font-black uppercase tracking-widest italic">Suivant</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
+        <button id="next-btn" onclick="changePage(1)" class="p-2 text-slate-400 hover:text-blue-600 transition disabled:opacity-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
         </button>
     </div>
 
-    <button onclick="window.location.href='superquiz.html'" class="fixed bottom-6 right-6 bg-blue-600 text-white px-6 py-4 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition z-50 font-black text-[11px] uppercase italic">
-        Super Quiz ⚡
-    </button>
+    <div id="modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+        <div class="bg-white p-8 rounded-[2rem] max-w-sm w-full relative">
+            <button onclick="document.getElementById('modal').classList.add('hidden')" class="absolute top-6 right-6 text-slate-300 hover:text-slate-900 font-bold">✕</button>
+            <h2 class="text-xl font-black mb-6 italic uppercase tracking-tight">Paramètres SuperQuiz</h2>
+            <input type="range" id="qty" min="5" max="50" value="20" class="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600 mb-2" oninput="document.getElementById('val').innerText = this.value">
+            <p class="mb-8 text-[10px] font-black text-slate-400 uppercase">Questions : <span id="val" class="text-blue-600">20</span></p>
+            <button onclick="launch()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase italic tracking-widest hover:bg-blue-600 transition">LANCER ⚡</button>
+        </div>
+    </div>
 
     <script>
         let allData = [];
         let filteredData = [];
         let currentPage = 1;
-        const itemsPerPage = 8;
+        const itemsPerPage = 6;
 
-        async function init() {
+        async function load() {
             try {
-                const response = await fetch('manifest.json?v=' + Date.now());
-                allData = await response.json();
+                const res = await fetch('manifest.json?v=' + Date.now());
+                allData = await res.json();
+                allData.reverse(); 
                 filteredData = allData;
+                
+                generateDateOptions();
                 renderGrid();
-            } catch (error) {
-                console.error("Erreur manifest", error);
-            }
+            } catch (e) { console.error(e); }
+        }
+
+        function generateDateOptions() {
+            const select = document.getElementById('date-filter');
+            const months = [...new Set(allData.map(item => {
+                const p = item.date.split(' ');
+                return p.length >= 4 ? `${p[2]} ${p[3]}` : null;
+            }))].filter(Boolean);
+
+            months.forEach(d => {
+                const opt = document.createElement('option');
+                opt.value = d.toLowerCase();
+                opt.innerText = d.toUpperCase();
+                select.appendChild(opt);
+            });
+        }
+
+        function handleDateFilter() {
+            const val = document.getElementById('date-filter').value;
+            currentPage = 1;
+            filteredData = val ? allData.filter(i => i.date.toLowerCase().includes(val)) : allData;
+            renderGrid();
         }
 
         function renderGrid() {
             const grid = document.getElementById('grid');
             const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const slice = filteredData.slice(startIndex, endIndex);
+            const slice = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
             grid.innerHTML = slice.map(item => `
-                <a href="quiz.html?folder=${item.folder}" class="group block animate-in fade-in duration-500">
-                    <div class="overflow-hidden rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500">
-                        <div class="aspect-[4/3] overflow-hidden">
-                            <img src="${item.img}" class="h-full w-full object-cover group-hover:scale-105 transition duration-700" loading="lazy">
-                        </div>
-                        <div class="p-8">
-                            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 italic underline decoration-blue-500/30">${item.date}</p>
-                            <h2 class="text-2xl font-black leading-tight text-slate-800 group-hover:text-blue-600 transition italic tracking-tighter">${item.titre}</h2>
-                        </div>
+                <a href="quiz.html?folder=${item.folder}" class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 block group">
+                    <img src="${item.img}" class="h-48 w-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="p-6">
+                        <span class="text-blue-600 font-black text-[9px] uppercase tracking-widest">${item.date}</span>
+                        <h2 class="text-lg font-black mt-1 leading-tight italic tracking-tighter">${item.titre}</h2>
                     </div>
                 </a>
             `).join('');
 
-            updateControls();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updatePagination();
         }
 
-        function updateControls() {
+        function updatePagination() {
             const totalPages = Math.ceil(filteredData.length / itemsPerPage);
             document.getElementById('prev-btn').disabled = (currentPage === 1);
-            document.getElementById('next-btn').disabled = (currentPage >= totalPages);
+            document.getElementById('next-btn').disabled = (currentPage >= totalPages || totalPages === 0);
             document.getElementById('page-indicator').innerText = `PAGE ${currentPage} / ${totalPages || 1}`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function changePage(step) {
@@ -97,17 +124,11 @@
             renderGrid();
         }
 
-        function handleSearch() {
-            const q = document.getElementById('search-input').value.toLowerCase();
-            currentPage = 1;
-            filteredData = allData.filter(i => 
-                i.titre.toLowerCase().includes(q) || 
-                i.date.toLowerCase().includes(q)
-            );
-            renderGrid();
+        function launch() { 
+            window.location.href = `superquiz.html?qty=${document.getElementById('qty').value}`; 
         }
 
-        init();
+        load();
     </script>
 </body>
 </html>
