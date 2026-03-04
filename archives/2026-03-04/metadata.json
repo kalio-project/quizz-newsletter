@@ -1,0 +1,127 @@
+{
+  "titre": "🚨 Pourquoi les États-Unis ont-ils attaqué l’Iran ?",
+  "date": "04/03/2026",
+  "img": "archives/2026-03-04/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quelle déclaration Donald Trump a-t-il faite en 2019 concernant l'intervention des États-Unis au Moyen-Orient ?",
+      "options": [
+        "L'intervention au Moyen-Orient est cruciale pour la sécurité nationale.",
+        "Intervenir au Moyen-Orient fut la pire décision de l'histoire des États-Unis.",
+        "Les États-Unis doivent renforcer leur présence au Moyen-Orient.",
+        "La paix au Moyen-Orient dépend de notre engagement continu."
+      ],
+      "correct": 1,
+      "explication": "En 2019, Donald Trump avait déclaré : “Intervenir au Moyen-Orient fut la pire décision de l'histoire des États-Unis”.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle est l'une des raisons principales de la dissolution du groupe d'ultradroite Bloc montpelliérain, annoncée ce mercredi ?",
+      "options": [
+        "Détournement de fonds publics.",
+        "Appels à la violence, à la haine et à la discrimination.",
+        "Organisation de manifestations non autorisées.",
+        "Liens avec des puissances étrangères."
+      ],
+      "correct": 1,
+      "explication": "Le groupe a été dissous en raison “d’appels à la violence, à la haine et à la discrimination”, a annoncé le gouvernement.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Selon l'étude de ViveS Media, quelle proportion de femmes se sent à l'aise pour demander une augmentation de salaire ?",
+      "options": [
+        "Près d'1 femme sur 2.",
+        "Seule 1 femme sur 3.",
+        "Plus de 2 femmes sur 3.",
+        "Environ 1 femme sur 4."
+      ],
+      "correct": 1,
+      "explication": "L'étude indique que seule 1 femme sur 3 se sent à l’aise pour demander une augmentation, contre près d’1 homme sur 2.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Outre la pollution de l'air, quels autres types de pollution sont mis en cause dans l'étude de l'Agence européenne de l'environnement pour causer du stress et de l'anxiété ?",
+      "options": [
+        "La pollution visuelle et la pollution lumineuse.",
+        "La pollution des sols et la pollution des eaux.",
+        "La pollution sonore et la pollution chimique.",
+        "La pollution thermique et la pollution radioactive."
+      ],
+      "correct": 2,
+      "explication": "La pollution sonore, liée au trafic aérien et routier, et la pollution chimique sont aussi mises en cause.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quel record a été battu par le mois de février 2026, selon Météo-France ?",
+      "options": [
+        "Le mois de février le plus sec jamais enregistré.",
+        "Le mois de février le plus chaud depuis 1900.",
+        "Le mois de février le plus pluvieux jamais enregistré.",
+        "Le mois de février avec le moins de jours de vigilance crues."
+      ],
+      "correct": 2,
+      "explication": "Février 2026 est devenu le mois de février le plus pluvieux jamais enregistré et le 2e plus chaud depuis 1900.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Pourquoi 8 pays ont-ils annoncé boycotter la cérémonie d’ouverture des Jeux Paralympiques de Milan-Cortina 2026 ?",
+      "options": [
+        "En protestation contre le coût excessif des Jeux.",
+        "En désaccord avec le choix de la ville hôte.",
+        "Pour protester contre la participation d'athlètes russes sous leur drapeau national.",
+        "En raison de préoccupations environnementales liées à l'événement."
+      ],
+      "correct": 2,
+      "explication": "Ces pays protestent contre la participation des athlètes russes sous leur drapeau, au lieu de la bannière neutre.",
+      "theme": "SPORT"
+    },
+    {
+      "q": "Combien de nouvelles personnes ont été arrêtées ce mercredi dans le cadre de l'enquête sur le meurtre de Quentin Deranque ?",
+      "options": [
+        "Une personne.",
+        "Deux personnes.",
+        "Trois personnes.",
+        "Aucune nouvelle arrestation."
+      ],
+      "correct": 1,
+      "explication": "2 nouvelles personnes ont été arrêtées ce mercredi dans la région lyonnaise et dans l’Aube.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Quel est l'un des principaux arguments avancés par Donald Trump pour justifier l'attaque contre l'Iran, selon le texte ?",
+      "options": [
+        "La protection des sites du patrimoine mondial.",
+        "La destruction des capacités militaires iraniennes.",
+        "La saisie des réserves de pétrole iraniennes.",
+        "Le soutien aux groupes d'opposition syriens."
+      ],
+      "correct": 1,
+      "explication": "L’un des principaux arguments avancés par Donald Trump pour 'justifier' cette attaque est la destruction des capacités militaires iraniennes.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle distinction Gisèle Pélicot a-t-elle reçue de la part du Premier ministre espagnol Pedro Sanchez ?",
+      "options": [
+        "La Légion d'honneur espagnole.",
+        "La Médaille d'or du mérite des Beaux-Arts.",
+        "L'Ordre du Mérite Civil Espagnol.",
+        "Le Prix Prince des Asturies."
+      ],
+      "correct": 2,
+      "explication": "Gisèle Pélicot a été décorée de l’Ordre du Mérite Civil Espagnol, l’une des plus hautes distinctions en Espagne.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quel sujet Emmanuel Macron a-t-il évoqué lors de son allocution mardi soir, en plus des affaires nationales ?",
+      "options": [
+        "La réforme des retraites.",
+        "La situation au Moyen-Orient.",
+        "La politique fiscale du gouvernement.",
+        "L'avenir de l'Union européenne."
+      ],
+      "correct": 1,
+      "explication": "Emmanuel Macron s’est adressé aux Français lors d’une allocution mardi soir. Il a évoqué la situation au Moyen-Orient.",
+      "theme": "POLITIQUE FR"
+    }
+  ]
+}
