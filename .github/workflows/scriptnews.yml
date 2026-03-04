@@ -26,10 +26,11 @@ jobs:
           EMAIL_PASS: ${{ secrets.EMAIL_PASSWORD }} # On fait le lien vers ton secret
         run: python process.py
 
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-          git add .
-          git commit -m "Nouvelle archive : $(date +'%d/%m/%Y')" || exit 0
-          git push
+      - name: Sauvegarder les changements
+              run: |
+                git config --global user.name "GitHub Action"
+                git config --global user.email "action@github.com"
+                git pull origin main --rebase  # <--- LE NETTOYAGE SE FAIT ICI
+                git add .
+                git commit -m "Nouvelle archive : $(date +'%d/%m/%Y')" || exit 0
+                git push
