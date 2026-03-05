@@ -1,0 +1,128 @@
+{
+  "titre": "🚨Dissuasion nucléaire : les annonces de Macron",
+  "date": "05/03/2026",
+  "img": "archives/2026-03-05/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quelle a été la principale évolution annoncée par Emmanuel Macron concernant la dissuasion nucléaire française ?",
+      "options": [
+        "La réduction du nombre de sous-marins nucléaires",
+        "L'augmentation du nombre de têtes nucléaires, dont le chiffre ne sera plus rendu public",
+        "Le partage du contrôle de l'arme nucléaire avec d'autres pays européens",
+        "Le remplacement des Rafale par de nouveaux avions de combat",
+        "Le renforcement de la coopération avec les États-Unis"
+      ],
+      "correct": 1,
+      "explication": "Emmanuel Macron a annoncé que la France allait augmenter le nombre de têtes nucléaires et que ce chiffre ne serait plus rendu public pour instaurer une ambiguïté stratégique.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Pour quel chef d'accusation le policier ayant tué Nahel en juin 2023 va-t-il être jugé ?",
+      "options": [
+        "Meurtre avec préméditation",
+        "Homicide involontaire",
+        "Violence ayant entraîné la mort sans intention de la donner",
+        "Non-assistance à personne en danger"
+      ],
+      "correct": 2,
+      "explication": "Le policier sera jugé pour 'violence ayant entraîné la mort sans intention de la donner', et non pour meurtre.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Combien d'appels ont été recensés au 3919, le numéro d'écoute pour les femmes victimes de violences, en 2025 ?",
+      "options": [
+        "Environ 63 500 appels",
+        "Plus de 108 000 appels",
+        "Moins de 50 000 appels",
+        "Exactement 78 000 appels"
+      ],
+      "correct": 1,
+      "explication": "Plus de 108 000 appels au 3919 ont été recensés en 2025, un record.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quelle est la bonne nouvelle rapportée concernant l'environnement ?",
+      "options": [
+        "La découverte d'une nouvelle espèce animale en France",
+        "L'interdiction totale de l'exploitation forestière en Amazonie",
+        "Le rachat de 659 hectares par le WWF France et la LPO pour créer un sanctuaire naturel",
+        "La diminution record des émissions de CO2 en Europe"
+      ],
+      "correct": 2,
+      "explication": "Le WWF France et la LPO ont racheté 659 hectares dans les Marais de Mazerolles pour créer un sanctuaire naturel géant.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Pourquoi la France n'enverra-t-elle pas de représentant gouvernemental à la cérémonie d'ouverture des Jeux paralympiques de Milan-Cortina 2026 ?",
+      "options": [
+        "Pour des raisons budgétaires",
+        "Pour protester contre la participation d'athlètes russes et biélorusses sous leur drapeau",
+        "En raison de préoccupations sécuritaires",
+        "Pour soutenir une candidature alternative pour l'organisation des Jeux"
+      ],
+      "correct": 1,
+      "explication": "La ministre des Sports Marina Ferrari a annoncé que la France protestera ainsi contre la participation de 10 athlètes russes et biélorusses sous leur drapeau et leur hymne.",
+      "theme": "SPORT"
+    },
+    {
+      "q": "Quel parcours de soin l'Assurance maladie va-t-elle désormais rembourser pour les adultes en situation d’obésité ?",
+      "options": [
+        "Uniquement un suivi diététique",
+        "Seulement des séances de soutien psychologique",
+        "Un parcours de soin et d’éducation thérapeutique renforcé incluant un accompagnement médical, diététique, psychologique et de l'activité physique adaptée",
+        "Exclusivement des opérations chirurgicales"
+      ],
+      "correct": 2,
+      "explication": "L’Assurance maladie va rembourser un parcours de soin et d’éducation thérapeutique renforcé, incluant un accompagnement médical, un suivi diététique, un soutien psychologique et de l’activité physique adaptée.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quel événement a eu lieu au Népal ce jeudi pour la première fois depuis les manifestations de la Gen Z en septembre ?",
+      "options": [
+        "L'inauguration d'une nouvelle ligne de métro",
+        "Des élections parlementaires",
+        "Un référendum sur la monarchie",
+        "Le lancement d'un nouveau satellite"
+      ],
+      "correct": 1,
+      "explication": "Les premières élections organisées au Népal depuis les manifestations de la Gen Z ont eu lieu ce jeudi pour élire les membres du Parlement.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Contre qui l'ONG Médecins sans frontières a-t-elle porté plainte pour 'diffamation' ?",
+      "options": [
+        "Un journal français",
+        "Un groupe britannique d'extrême droite",
+        "Le gouvernement d'un pays africain",
+        "Une multinationale pharmaceutique"
+      ],
+      "correct": 1,
+      "explication": "L’ONG Médecins sans frontières a porté plainte pour 'diffamation' contre un groupe britannique d’extrême droite.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Quel enfant atteint d'un trouble autistique est toujours recherché depuis sa disparition il y a une semaine ?",
+      "options": [
+        "Lucas",
+        "Madoua",
+        "Enzo",
+        "Timéo"
+      ],
+      "correct": 1,
+      "explication": "Madoua, un petit garçon de 4 ans atteint d’un trouble autistique, n’a toujours pas été retrouvé depuis sa disparition au bord de la Marne.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quel est le nombre de personnes tuées en Iran, principalement des enfants, lors d'un bombardement américano-israélien contre une école à Minab, selon les autorités iraniennes ?",
+      "options": [
+        "Au moins 787 personnes",
+        "Au moins 165 personnes",
+        "Moins de 50 personnes",
+        "Plus de 1000 personnes"
+      ],
+      "correct": 1,
+      "explication": "Selon les autorités iraniennes, au moins 165 personnes, en majorité des enfants, ont été tuées ce samedi dans un bombardement américano-israélien contre une école à Minab, dans le sud de l’Iran. Le croissant rouge iranien dénombre 787 personnes tuées dans la région.",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}
