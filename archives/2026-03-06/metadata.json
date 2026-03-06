@@ -1,0 +1,127 @@
+{
+  "titre": "🚨 Les coulisses de l’assassinat du leader iranien",
+  "date": "06/03/2026",
+  "img": "archives/2026-03-06/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quel événement majeur lié au conflit au Moyen-Orient est mentionné comme ayant débuté ce week-end ?",
+      "options": [
+        "Un traité de paix entre Israël et l'Iran",
+        "Des bombardements contre l’Iran par des forces américaines et israéliennes",
+        "La démission du leader iranien",
+        "Le retrait des troupes américaines de la région"
+      ],
+      "correct": 1,
+      "explication": "Le texte indique : 'Les bombardements contre l’Iran ont débuté ce week-end'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Pourquoi Donald Trump a-t-il renvoyé Kristi Noem, la ministre de la Sécurité intérieure ?",
+      "options": [
+        "Pour sa participation à un scandale de corruption",
+        "En raison de son opposition à ses politiques d'immigration",
+        "Car elle était l'une des principales responsables de la politique d’expulsions massives d’immigrés",
+        "Pour son incapacité à sécuriser les frontières"
+      ],
+      "correct": 2,
+      "explication": "Le texte précise qu'elle était 'l’une des principales responsables de la politique d’expulsions massives d’immigrés dans le pays'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Qu'est-ce qui a mené à l'interruption des recherches pour retrouver Madoua, le garçon de 4 ans disparu en Seine-Saint-Denis ?",
+      "options": [
+        "Il a été retrouvé sain et sauf",
+        "Sa famille a demandé l'arrêt des recherches",
+        "Des images de vidéosurveillance ont révélé qu’il était tombé à l’eau",
+        "La police a manqué de ressources"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique : 'Les images de vidéosurveillance ont révélé qu’il était tombé à l’eau'.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Combien de prisonniers de guerre de chaque camp ont été échangés entre l'Ukraine et la Russie depuis ce jeudi, selon l'accord mentionné ?",
+      "options": [
+        "157",
+        "300",
+        "500",
+        "600"
+      ],
+      "correct": 2,
+      "explication": "Le texte affirme : 'Au total, 500 personnes ont été échangées par chaque partie depuis ce jeudi'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle dénomination pour les produits végétaux va être interdite dans l'UE, selon un accord récent ?",
+      "options": [
+        "\"Saucisse végétale\"",
+        "\"Burger végétarien\"",
+        "\"Steak végétal\"",
+        "\"Yaourt végétal\""
+      ],
+      "correct": 2,
+      "explication": "Le texte stipule : 'La dénomination “steak végétal” va être interdite dans l’UE'.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Pourquoi Aboulfazl Khatibi Mianaei, le seul para-athlète représentant l’Iran, a-t-il dû renoncer à sa participation aux Jeux paralympiques d'hiver de Milan-Cortina ?",
+      "options": [
+        "À cause d'une blessure de dernière minute",
+        "En raison d'un manque de financement",
+        "Le conflit au Moyen-Orient l’empêche de se rendre en Italie",
+        "Un désaccord avec le comité d'organisation"
+      ],
+      "correct": 2,
+      "explication": "Le texte mentionne qu'il 'a dû renoncer à sa participation en raison du conflit au Moyen-Orient, qui l’empêche de se rendre en Italie'.",
+      "theme": "SPORT"
+    },
+    {
+      "q": "Quelle série populaire a annoncé l'arrivée des acteurs français Vincent Cassel, Nadia Tereszkiewicz et Corentin Fila pour sa quatrième saison, qui se déroulera en France ?",
+      "options": [
+        "\"Lupin\"",
+        "\"Emily in Paris\"",
+        "\"The White Lotus\"",
+        "\"Dix pour cent\""
+      ],
+      "correct": 2,
+      "explication": "Le texte indique : 'Les acteurs français Vincent Cassel, Nadia Tereszkiewicz et Corentin Fila rejoignent le casting de la saison 4 de \"The White Lotus\"'.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Quel jeu vidéo a été sacré 'meilleur jeu vidéo français de l'année' lors de la 7e cérémonie des Pégases ?",
+      "options": [
+        "\"Stray\"",
+        "\"Sifu\"",
+        "\"A Plague Tale: Requiem\"",
+        "\"Clair Obscur: Expedition 33\""
+      ],
+      "correct": 3,
+      "explication": "La section 'Bonne nouvelle' indique : 'Le jeu vidéo \"Clair Obscur: Expedition 33\" a été sacré ce jeudi \"meilleur jeu vidéo français de l'année\"'.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Selon la section 'Décryptage', quel événement historique en 1979 a conduit au renversement du Chah d'Iran et à l'établissement d'une république islamique ?",
+      "options": [
+        "La guerre Iran-Irak",
+        "Le Mouvement vert",
+        "La révolution islamique",
+        "La guerre du Golfe"
+      ],
+      "correct": 2,
+      "explication": "Le texte précise : 'En 1979, une grande révolution en Iran, appelée révolution islamique, a renversé le Chah d’Iran'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelles ont été les conséquences signalées en Iran des bombardements américano-israéliens, selon les autorités locales, d'après le texte ?",
+      "options": [
+        "Plus de 1 000 morts et plus de 4 000 blessés",
+        "La capture du leader iranien",
+        "Un accord de paix avec Israël",
+        "Le retrait des forces iraniennes des pays voisins"
+      ],
+      "correct": 0,
+      "explication": "Le texte mentionne : 'Même si les chiffres restent provisoires, les bombardements américano-israéliens en Iran auraient causé la mort de plus de 1 000 personnes et fait plus de 4 000 blessés, selon les autorités locales.'",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}
