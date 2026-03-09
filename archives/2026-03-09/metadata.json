@@ -1,0 +1,127 @@
+{
+  "titre": "🚨La Chine et la Russie vont-elles soutenir l’Iran ?",
+  "date": "09/03/2026",
+  "img": "archives/2026-03-09/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Pourquoi Emmanuel Macron s'est-il rendu à Chypre ce lundi, selon les informations en bref ?",
+      "options": [
+        "Pour discuter de la crise migratoire en Méditerranée.",
+        "Pour soutenir le pays après des attaques de drones et de missiles iraniens.",
+        "Pour signer un nouvel accord commercial bilatéral.",
+        "Pour participer à un sommet sur la cybersécurité."
+      ],
+      "correct": 1,
+      "explication": "Le texte indique qu'Emmanuel Macron s'est rendu à Chypre, un pays membre de l'Union européenne récemment ciblé par des attaques de drones et de missiles iraniens, dans un contexte de soutien.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Pour quel motif la compagnie Swiftair est-elle poursuivie lors du procès concernant le crash de l'avion Air Algérie en 2014 ?",
+      "options": [
+        "Homicide volontaire.",
+        "Homicide involontaire.",
+        "Mise en danger de la vie d'autrui.",
+        "Négligence grave ayant entraîné la mort."
+      ],
+      "correct": 1,
+      "explication": "La compagnie Swiftair est poursuivie pour 'homicide involontaire' suite au crash de l'avion Air Algérie au Mali en 2014.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Qui était présente à Paris lors du rassemblement organisé par la Fondation des femmes pour la journée internationale des droits des femmes, selon le texte ?",
+      "options": [
+        "La présidente de la Fondation des femmes et une actrice célèbre.",
+        "Gisèle Pelicot et sa fille Caroline Darian.",
+        "Une représentante du gouvernement et une syndicaliste.",
+        "Simone Veil, à titre posthume, par un discours projeté."
+      ],
+      "correct": 1,
+      "explication": "Gisèle Pelicot, droguée et violée pendant des années, était présente avec sa fille Caroline Darian au rassemblement organisé par la Fondation des femmes à Paris le 8 mars.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quelle bactérie potentiellement dangereuse a motivé le rappel de plusieurs jambons blancs vendus en grande surface ?",
+      "options": [
+        "Salmonelle.",
+        "E. coli.",
+        "Bactérie responsable de la listériose.",
+        "Staphylocoque doré."
+      ],
+      "correct": 2,
+      "explication": "Une procédure de rappel a été lancée pour plusieurs jambons blancs, dont certains de la marque Aoste, car ils pourraient être contaminés par la bactérie responsable de la listériose.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Combien de médailles la France a-t-elle remportées depuis le début des Jeux paralympiques d’hiver de Milan-Cortina, selon la rubrique 'Bonne nouvelle' ?",
+      "options": [
+        "3 médailles.",
+        "4 médailles.",
+        "5 médailles.",
+        "6 médailles."
+      ],
+      "correct": 2,
+      "explication": "La France a remporté 5 médailles depuis le début des Jeux paralympiques d’hiver de Milan-Cortina, dont une d'or par Cécile Hernandez.",
+      "theme": "SPORT"
+    },
+    {
+      "q": "Quel pourcentage du pétrole exporté par l'Iran a été acheté par la Chine en 2025, d'après la rubrique 'Décryptage' ?",
+      "options": [
+        "Moins de 50 %.",
+        "Environ 65 %.",
+        "Plus de 80 %.",
+        "Presque 100 %."
+      ],
+      "correct": 2,
+      "explication": "En 2025, la Chine a acheté plus de 80 % du pétrole exporté par l’Iran, ce qui représente plus de 10 % de ses importations de pétrole.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quel type de soutien militaire l'Iran fournit-il à la Russie en échange de transferts de technologies militaires, selon le décryptage ?",
+      "options": [
+        "Des sous-marins.",
+        "Des drones kamikazes.",
+        "Des systèmes de défense anti-aérienne.",
+        "Des chars de combat."
+      ],
+      "correct": 1,
+      "explication": "L’Iran fournit notamment des drones kamikazes à la Russie, en échange de transferts de technologies militaires, ce qui a renforcé leurs relations.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est l'enjeu stratégique majeur du détroit d'Ormuz mentionné dans le texte, qui pourrait pousser la Chine à agir davantage ?",
+      "options": [
+        "Le contrôle des routes maritimes pour le commerce des céréales.",
+        "Le passage essentiel pour le commerce mondial de pétrole.",
+        "La surveillance des activités de pêche internationales.",
+        "La protection des câbles sous-marins de communication."
+      ],
+      "correct": 1,
+      "explication": "Le détroit d’Ormuz est un passage stratégique essentiel pour le commerce mondial de pétrole, près de la moitié du pétrole importé par la Chine y transitant.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Qui a été choisi comme nouveau guide suprême iranien ce dimanche, suite à la mort de l'ayatollah Khamenei ?",
+      "options": [
+        "Hassan Rohani.",
+        "Mojtaba Khamenei.",
+        "Ebrahim Raïssi.",
+        "Ali Akbar Velayati."
+      ],
+      "correct": 1,
+      "explication": "Mojtaba Khamenei, fils de l’ayatollah Ali Khamenei, a été choisi comme nouveau guide suprême iranien ce dimanche.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle action Emmanuel Macron a-t-il annoncée ce lundi concernant le détroit d’Ormuz ?",
+      "options": [
+        "L'envoi d'une aide humanitaire d'urgence.",
+        "La mise en place de sanctions économiques contre l'Iran.",
+        "Une future mission 'défensive' pour rouvrir progressivement le détroit.",
+        "La proposition d'un sommet de paix régional."
+      ],
+      "correct": 2,
+      "explication": "Emmanuel Macron a annoncé ce lundi une future mission 'défensive' pour rouvrir progressivement le détroit d’Ormuz.",
+      "theme": "POLITIQUE FR"
+    }
+  ]
+}
