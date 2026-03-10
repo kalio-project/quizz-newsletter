@@ -1,0 +1,127 @@
+{
+  "titre": "🚨 Pourquoi la guerre au Moyen-Orient divise les États-Unis ?",
+  "date": "10/03/2026",
+  "img": "archives/2026-03-10/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "De quoi le président libanais Joseph Aoun a-t-il accusé le Hezbollah ce lundi ?",
+      "options": [
+        "De vouloir provoquer l'effondrement du pays au profit de l'Iran.",
+        "De collaborer secrètement avec Israël.",
+        "D'être responsable de la crise économique actuelle.",
+        "De refuser toute négociation de paix."
+      ],
+      "correct": 0,
+      "explication": "Le texte indique que le président du Liban, Joseph Aoun, a accusé ce lundi le Hezbollah de vouloir provoquer “l’effondrement” du pays au profit de l’Iran.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle médaille Arthur Bauchet a-t-il remportée aux Jeux paralympiques d’hiver de Milan-Cortina ?",
+      "options": [
+        "Une médaille d'argent en ski de fond.",
+        "Une médaille de bronze en super combiné.",
+        "Une médaille d'or en ski alpin sur l'épreuve du super combiné.",
+        "Deux médailles de bronze en ski alpin."
+      ],
+      "correct": 2,
+      "explication": "Le texte dit: 'Arthur Bauchet a été sacré champion paralympique en ski alpin sur l’épreuve du super combiné.' Champion paralympique signifie médaille d'or.",
+      "theme": "SPORT"
+    },
+    {
+      "q": "Quelle est la durée moyenne de sommeil des Français en 2025, et comment a-t-elle évolué par rapport à 2024 ?",
+      "options": [
+        "7h15, soit une augmentation de 5 minutes.",
+        "6h50, soit une diminution de 14 minutes.",
+        "7h00, soit le même temps qu'en 2024.",
+        "6h30, soit une diminution de 30 minutes."
+      ],
+      "correct": 1,
+      "explication": "Selon le rapport de l’Institut national du sommeil et de la vigilance, les Français ont dormi en moyenne 6 h 50 par nuit en 2025, soit 14 minutes de moins qu’en 2024.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Combien de membres de la DZ Mafia, y compris ses chefs présumés, ont été arrêtés cette semaine ?",
+      "options": [
+        "Environ 20 membres.",
+        "42 membres.",
+        "Les 3 chefs uniquement.",
+        "Une centaine de membres."
+      ],
+      "correct": 1,
+      "explication": "Le texte mentionne: '42 membres, dont les 3 chefs présumés de la DZ Mafia... ont été arrêtés et placés en garde à vue'.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Selon une première estimation du Pentagone, quel est le coût économique quotidien de la guerre en Iran pour les États-Unis ?",
+      "options": [
+        "Environ 100 millions de dollars.",
+        "Moins de 500 millions de dollars.",
+        "Environ 1 milliard de dollars.",
+        "Plus de 2 milliards de dollars."
+      ],
+      "correct": 2,
+      "explication": "Le 'Décryptage' indique que 'la guerre en Iran coûterait environ 1 milliard de $ par jour à l’économie américaine' selon une première estimation du Pentagone.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quelle innovation médicale a eu lieu pour la première fois en France au CHU de Toulouse ?",
+      "options": [
+        "Une greffe de cœur artificielle.",
+        "Une double greffe d’un rein et de cellules du pancréas pour un diabète de type 1.",
+        "La première chirurgie robotique cérébrale.",
+        "Un traitement génique pour le cancer."
+      ],
+      "correct": 1,
+      "explication": "La 'Bonne nouvelle' rapporte que 'Pour la 1re fois en France, un patient souffrant d'un diabète de type 1 a reçu une double greffe d’un rein et de cellules du pancréas'.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Pourquoi 7 joueuses de l’équipe féminine de football iranienne ont-elles obtenu l'asile en Australie ?",
+      "options": [
+        "Elles ont gagné la Coupe d'Asie de football.",
+        "Elles ont refusé de chanter l’hymne national iranien avant un match.",
+        "Elles ont été victimes de discrimination dans leur pays.",
+        "Elles ont demandé à rejoindre un club australien."
+      ],
+      "correct": 1,
+      "explication": "Le texte précise que les 7 joueuses ont obtenu l'asile 'après avoir refusé de chanter l’hymne national iranien avant un match de la Coupe d’Asie'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est le sentiment des Américains concernant l'intervention militaire contre l'Iran, selon les sondages cités dans la section 'Décryptage' ?",
+      "options": [
+        "Une majorité d'Américains soutient fermement l'intervention.",
+        "Près de 6 Américains sur 10 désapprouvent l’intervention militaire.",
+        "Seuls les électeurs républicains soutiennent unanimement la guerre.",
+        "L'opinion publique est indécise et partagée équitablement."
+      ],
+      "correct": 1,
+      "explication": "Selon un sondage CNN cité dans le 'Décryptage', 'près de 6 Américains sur 10 désapprouvent l’intervention militaire contre l’Iran'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "À partir de quand et pour quelle période sera-t-il possible de réserver des billets TGV Inoui, Ouigo Grande Vitesse et TGV Lyria jusqu’à 6 mois avant le départ ?",
+      "options": [
+        "À partir de juin, pour toute l'année suivante.",
+        "À partir de mercredi, couvrant la période du 4 juillet au 12 décembre 2026 inclus.",
+        "Immédiatement, pour les 3 prochains mois.",
+        "À partir de l'année prochaine, pour les vacances d'été."
+      ],
+      "correct": 1,
+      "explication": "Le texte indique que les réservations pourront être faites 'à partir de mercredi' et 'couvriront la période du 4 juillet au 12 décembre 2026 inclus'.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quel est le changement notable dans la version mise à jour de la loi algérienne criminalisant la colonisation française ?",
+      "options": [
+        "Elle renforce les sanctions contre la France.",
+        "Elle exige désormais des excuses officielles de la France.",
+        "Elle n’exige plus d’excuses officielles de la France.",
+        "Elle a été abrogée."
+      ],
+      "correct": 2,
+      "explication": "Le Parlement algérien a approuvé une version mise à jour de la loi 'qui n’exige plus d’excuses officielles de la France'.",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}
