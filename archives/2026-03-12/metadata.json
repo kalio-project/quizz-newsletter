@@ -1,0 +1,127 @@
+{
+  "titre": "🚨La guerre en Iran provoque “la plus importante perturbation\" de l'approvisionnement en pétrole de l'histoire",
+  "date": "12/03/2026",
+  "img": "archives/2026-03-12/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Selon l'Agence internationale de l'énergie (AIE), quelle est la conséquence principale de la guerre en Iran sur l'approvisionnement en pétrole ?",
+      "options": [
+        "Une augmentation sans précédent de la production mondiale.",
+        "La plus importante perturbation de l'approvisionnement de l'histoire.",
+        "Une stabilité des prix grâce aux stocks d'urgence.",
+        "Une redirection complète du trafic pétrolier vers d'autres routes maritimes sûres."
+      ],
+      "correct": 1,
+      "explication": "Le texte indique que la guerre en Iran provoque “la plus importante perturbation\" de l'approvisionnement en pétrole de l'histoire, selon l'Agence internationale de l’énergie.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quel événement est prévu à Paris ce vendredi concernant le président ukrainien Volodymyr Zelensky ?",
+      "options": [
+        "Il donnera une conférence de presse conjointe avec l'OTAN.",
+        "Il signera un accord de paix avec la Russie.",
+        "Il sera reçu par Emmanuel Macron.",
+        "Il participera à un sommet européen sur l'aide humanitaire."
+      ],
+      "correct": 2,
+      "explication": "Le texte mentionne que \"Le président ukrainien Volodymyr Zelensky sera reçu ce vendredi à Paris par Emmanuel Macron.\"",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quelle est la nouvelle peine prévue par la loi sénégalaise récemment adoptée concernant les relations homosexuelles ?",
+      "options": [
+        "Une amende symbolique.",
+        "Une peine de prison de 1 à 2 ans.",
+        "Une peine de prison de 5 à 10 ans.",
+        "Une peine de travaux d'intérêt général."
+      ],
+      "correct": 2,
+      "explication": "Le texte indique qu'une loi au Sénégal \"double les peines pour les relations homosexuelles, punies de 5 à 10 ans de prison\".",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Comment se compare le réchauffement de l'Arctique par rapport au reste du monde, selon le texte ?",
+      "options": [
+        "Il se réchauffe deux fois plus lentement.",
+        "Il se réchauffe au même rythme.",
+        "Il se réchauffe quatre fois plus vite.",
+        "Il se refroidit légèrement."
+      ],
+      "correct": 2,
+      "explication": "Le texte affirme que \"L'Arctique se réchauffe quatre fois plus vite qu'ailleurs.\"",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Pour quelle raison la SNCF a-t-elle retiré un guide interne destiné à ses employés ?",
+      "options": [
+        "Il contenait des informations erronées sur les horaires de train.",
+        "Il donnait des conseils sur l'\"élégance\" jugés dépassés et sexistes par un syndicat.",
+        "Il révélait des données confidentielles sur la sécurité des passagers.",
+        "Il promouvait des pratiques de travail illégales."
+      ],
+      "correct": 1,
+      "explication": "Le texte précise que la SNCF \"a publié puis retiré un guide interne donnant aux employés des conseils pour soigner leur “élégance”... Le syndicat Sud Rail a dénoncé un document digne des années 1960.\"",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Pourquoi des vêtements vendus par Kiabi sont-ils rappelés depuis mardi ?",
+      "options": [
+        "Pour des problèmes de taille et de coupe.",
+        "En raison d'un \"risque chimique\" lié à un excès de PFAS.",
+        "Parce qu'ils sont fabriqués avec des matériaux non durables.",
+        "Suite à des plaintes concernant des étiquettes irritantes."
+      ],
+      "correct": 1,
+      "explication": "Le texte mentionne que des vêtements Kiabi \"sont rappelés depuis ce mardi en raison d’un “risque chimique” pour les consommateurs. Ils contiennent trop de PFAS, des polluants éternels toxiques\".",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quelle nouvelle fonctionnalité l'application WhatsApp a-t-elle annoncée pour les moins de 13 ans ?",
+      "options": [
+        "Des jeux éducatifs intégrés à l'application.",
+        "Des comptes supervisés par les parents, limités aux messages et appels.",
+        "L'accès complet à toutes les fonctionnalités avec un contrôle parental.",
+        "Des profils anonymes pour protéger leur vie privée."
+      ],
+      "correct": 1,
+      "explication": "Le texte déclare que WhatsApp \"a annoncé lancer des comptes pour les moins de 13 ans, supervisés par les parents. Ils pourront uniquement envoyer des messages et passer des appels.\"",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quelle médaille Aurélie Richard a-t-elle remportée ce jeudi aux Jeux paralympiques d'hiver ?",
+      "options": [
+        "L'or en ski de fond.",
+        "L'argent en snowboard cross.",
+        "Le bronze en slalom géant en para ski alpin debout.",
+        "Aucune médaille, elle a été disqualifiée."
+      ],
+      "correct": 2,
+      "explication": "Le texte indique qu'Aurélie Richard \"a remporté ce jeudi la médaille de bronze lors de l’épreuve de slalom géant en para ski alpin debout.\"",
+      "theme": "SPORT"
+    },
+    {
+      "q": "Selon une étude récente, quel groupe de personnes présenterait moins de risques de développer certains cancers ?",
+      "options": [
+        "Les personnes qui consomment de la viande rouge quotidiennement.",
+        "Les personnes ayant un régime alimentaire riche en produits laitiers.",
+        "Les personnes végétariennes ou véganes.",
+        "Les personnes qui suivent un régime méditerranéen strict."
+      ],
+      "correct": 2,
+      "explication": "Le texte rapporte que \"Les personnes végétariennes ou véganes présenteraient moins de risques de développer certains cancers... selon une étude publiée fin février.\"",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quels pays, en plus de l'Iran et d'Israël, sont mentionnés comme cibles de bombardements ou attaques récentes dans la section \"plus globalement la situation au Moyen-Orient\" ?",
+      "options": [
+        "La Syrie et la Jordanie.",
+        "L'Égypte et le Yémen.",
+        "Les Émirats arabes unis, l'Irak et le Liban.",
+        "La Turquie et l'Arabie Saoudite."
+      ],
+      "correct": 2,
+      "explication": "Le texte mentionne des \"explosions ont été entendues ce jeudi matin dans le centre de Dubaï, aux Émirats arabes unis\", une attaque en \"Irak\" et \"Au Liban, au moins 8 personnes ont été tuées... dans un bombardement israélien sur Beyrouth\".",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}
