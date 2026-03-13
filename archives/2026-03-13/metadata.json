@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Un soldat français a été tué au Moyen-Orient",
+  "date": "13/03/2026",
+  "img": "archives/2026-03-13/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quel est le nom de l'adjudant-chef français tué en Irak lors d'une attaque de drone ?",
+      "options": [
+        "Arnaud Frion",
+        "Guillaume Lebrun",
+        "Thibault Dubois",
+        "Romain Picard"
+      ],
+      "correct": 0,
+      "explication": "L'adjudant-chef Arnaud Frion du 7ᵉ bataillon de chasseurs alpins est décédé en Irak lors d’une attaque de drone.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Pour combien d'années les maires élus lors des élections municipales le sont-ils ?",
+      "options": [
+        "4 ans",
+        "5 ans",
+        "6 ans",
+        "7 ans"
+      ],
+      "correct": 2,
+      "explication": "Les maires sont élus pour 6 ans lors des élections municipales.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quelle est la décision prise par les États-Unis concernant la vente de pétrole russe ?",
+      "options": [
+        "Interdire totalement la vente de pétrole russe.",
+        "Autoriser la vente de pétrole russe jusqu'au 11 avril.",
+        "Augmenter les quotas d'achat de pétrole russe.",
+        "Négocier de nouveaux tarifs pour le pétrole russe."
+      ],
+      "correct": 1,
+      "explication": "Les États-Unis ont décidé d’autoriser jusqu’au 11 avril la vente de pétrole russe.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quel dispositif sera intégré à FR-Alert pour une diffusion plus rapide des informations en cas de disparition de mineur ?",
+      "options": [
+        "Le dispositif 'Vigipirate'",
+        "Le dispositif 'Plan Blanc'",
+        "Le dispositif 'alerte enlèvement'",
+        "Le dispositif 'Amber Alert'"
+      ],
+      "correct": 2,
+      "explication": "Le dispositif 'alerte enlèvement' va être intégré au système FR-Alert pour diffuser plus rapidement les informations.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quel type de test lié aux détergents sera interdit dans l'Union européenne à partir de 2026 ?",
+      "options": [
+        "Les tests de performance sur les textiles.",
+        "Les tests sur les animaux pour prouver la sécurité des produits.",
+        "Les tests de biodégradabilité en laboratoire.",
+        "Les tests d'efficacité des agents nettoyants."
+      ],
+      "correct": 1,
+      "explication": "Les tests sur les animaux pour fabriquer des détergents vont être interdits dans l'Union européenne à partir de 2026.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quel film d'animation, dont la suite a été annoncée par Netflix, est un favori pour l'Oscar du 'meilleur film d'animation' ?",
+      "options": [
+        "Spirit Rangers",
+        "Kpop Demon Hunters",
+        "Nimona",
+        "Leo"
+      ],
+      "correct": 1,
+      "explication": "Netflix a annoncé la suite de 'Kpop Demon Hunters', film favori pour l'Oscar du 'meilleur film d'animation'.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Contre qui des accusations ont été portées concernant le refus de poser une mousse anti-feu dans le bar Le Constellation où 41 personnes sont mortes ?",
+      "options": [
+        "Le fournisseur de la mousse.",
+        "Les propriétaires du bar.",
+        "La mairie de Crans-Montana.",
+        "Les agents de sécurité de l'établissement."
+      ],
+      "correct": 1,
+      "explication": "Les propriétaires du bar Le Constellation à Crans-Montana auraient refusé la pose d’une mousse anti-feu pour 'des raisons budgétaires'.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Où Karine Buisset, humanitaire de l'UNICEF, a-t-elle été tuée par une frappe de drone, menant à l'ouverture d'une enquête française pour crime de guerre ?",
+      "options": [
+        "En Syrie",
+        "Au Yémen",
+        "En République démocratique du Congo (RDC)",
+        "Au Soudan"
+      ],
+      "correct": 2,
+      "explication": "Karine Buisset a été tuée dans une frappe de drone en République démocratique du Congo (RDC).",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle entité a révélé des messages xénophobes, racistes et antisémites attribués au militant identitaire Quentin Deranque ?",
+      "options": [
+        "Le Parisien",
+        "Le Monde",
+        "Mediapart",
+        "BFMTV"
+      ],
+      "correct": 2,
+      "explication": "Des messages xénophobes, racistes et antisémites attribués à Quentin Deranque ont été révélés par Mediapart.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quelles méthodes alternatives les fabricants de détergents devront-ils utiliser pour prouver la sécurité de leurs produits suite à l'interdiction des tests sur animaux ?",
+      "options": [
+        "Uniquement des tests sur des cellules humaines.",
+        "Des méthodes basées sur l'IA ou des tests in vitro.",
+        "Des tests effectués uniquement par des organismes gouvernementaux.",
+        "Des autotests par les consommateurs."
+      ],
+      "correct": 1,
+      "explication": "Les fabricants devront utiliser des méthodes alternatives, basées sur l’IA ou des tests in vitro, pour prouver la sécurité de leurs produits.",
+      "theme": "TECH / SCIENCE"
+    }
+  ]
+}
