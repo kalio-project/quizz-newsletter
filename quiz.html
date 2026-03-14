@@ -23,38 +23,44 @@
 
     <article id="content" class="max-w-2xl mx-auto p-6 prose prose-slate lg:prose-xl mb-12 border-b border-slate-100 pb-12"></article>
     
-    <div id="quiz-ui" class="max-w-xl mx-auto p-6 md:p-8 bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 relative">
+    <div id="quiz-ui" class="max-w-xl mx-auto px-6 relative">
         
-        <div class="absolute -top-12 left-0 w-full flex justify-between px-6 items-center">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-black italic underline decoration-blue-500 tracking-tighter">ActuQuiz.</h1>
+        </div>
+
+        <div class="flex justify-between items-center mb-4 px-2">
             <a href="index.html" class="text-blue-600 font-black uppercase text-[10px] tracking-widest italic">
                 ← Retour
             </a>
-            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="text-slate-400 font-black text-[9px] uppercase tracking-widest hover:text-blue-600 flex items-center gap-1">
+            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="text-blue-600 font-black text-[9px] uppercase tracking-widest hover:underline flex items-center gap-1 italic">
                 ↑ Lire l'article
             </button>
         </div>
 
-        <div class="quiz-card">
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex gap-2">
-                    <span id="theme-tag" class="bg-blue-100 text-[9px] font-black px-3 py-1 rounded-full text-blue-600 uppercase tracking-widest italic">THÈME</span>
+        <div class="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-2xl border border-slate-100 relative">
+            <div class="quiz-card">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex gap-2">
+                        <span id="theme-tag" class="bg-blue-100 text-[9px] font-black px-3 py-1 rounded-full text-blue-600 uppercase tracking-widest italic">THÈME</span>
+                    </div>
+                    <span id="progress-text" class="text-xs font-black text-slate-300 font-mono italic">01/05</span>
                 </div>
-                <span id="progress-text" class="text-xs font-black text-slate-300 font-mono italic">01/05</span>
-            </div>
 
-            <div id="quiz-content" class="flex-grow">
-                <h2 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 mb-6 leading-tight italic">Chargement...</h2>
-                <div id="options" class="grid grid-cols-1 gap-3 mb-6"></div>
-                
-                <div id="explanation-box" class="hidden p-5 bg-blue-50 rounded-2xl border-l-4 border-blue-500 animate-in fade-in slide-in-from-bottom-2">
-                    <p class="text-[10px] font-black uppercase text-blue-600 mb-1 tracking-widest italic">L'explication :</p>
-                    <p id="explanation-text" class="text-sm text-slate-700 leading-relaxed font-medium italic"></p>
+                <div id="quiz-content" class="flex-grow">
+                    <h2 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 mb-6 leading-tight italic">Chargement...</h2>
+                    <div id="options" class="grid grid-cols-1 gap-3 mb-6"></div>
+                    
+                    <div id="explanation-box" class="hidden p-5 bg-blue-50 rounded-2xl border-l-4 border-blue-500 animate-in fade-in slide-in-from-bottom-2">
+                        <p class="text-[10px] font-black uppercase text-blue-600 mb-1 tracking-widest italic">L'explication :</p>
+                        <p id="explanation-text" class="text-sm text-slate-700 leading-relaxed font-medium italic"></p>
+                    </div>
                 </div>
-            </div>
 
-            <button id="next-btn" onclick="nextQuestion()" class="hidden mt-6 w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-2 shadow-xl active:scale-95 transition">
-                CONTINUER ➔
-            </button>
+                <button id="next-btn" onclick="nextQuestion()" class="hidden mt-6 w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-2 shadow-xl active:scale-95 transition">
+                    CONTINUER ➔
+                </button>
+            </div>
         </div>
     </div>
 
