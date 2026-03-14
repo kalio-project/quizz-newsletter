@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Quiz ⚡ - ActuQuiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
@@ -27,7 +28,7 @@
             </div>
             <div class="flex items-center gap-2">
                 <input type="date" id="date-start" class="w-full bg-slate-50 border-2 border-slate-100 rounded-xl p-2 text-[10px] font-bold outline-none focus:border-blue-400">
-                <span class="text-slate-400 text-[9px] font-black uppercase tracking-widest">AU</span>
+                <span class="text-slate-400 text-[9px] font-black uppercase tracking-widest text-center px-1">AU</span>
                 <input type="date" id="date-end" class="w-full bg-slate-50 border-2 border-slate-100 rounded-xl p-2 text-[10px] font-bold outline-none focus:border-blue-400">
             </div>
         </div>
@@ -38,7 +39,7 @@
 
         <div class="mb-8 border-t pt-6 border-slate-50">
             <div class="flex justify-between items-center mb-2 italic font-black uppercase text-[10px] tracking-widest text-slate-400">
-                <span>Nombre de questions</span>
+                <span>Questions</span>
                 <span id="qty-val" class="text-blue-600 text-sm">15</span>
             </div>
             <input type="range" id="qty-range" min="5" max="50" value="15" class="w-full accent-blue-600 appearance-none bg-slate-100 h-2 rounded-lg" oninput="document.getElementById('qty-val').innerText=this.value">
@@ -53,7 +54,7 @@
             <div class="flex justify-between items-center mb-6">
                 <div class="flex gap-2">
                     <span id="theme-tag" class="bg-blue-100 text-[9px] font-black px-3 py-1 rounded-full text-blue-600 uppercase tracking-widest italic">THÈME</span>
-                    <span id="date-tag" class="bg-slate-100 text-[9px] font-black px-3 py-1 rounded-full text-slate-500 uppercase tracking-widest italic text-center">DATE</span>
+                    <span id="date-tag" class="bg-slate-100 text-[9px] font-black px-3 py-1 rounded-full text-slate-500 uppercase tracking-widest italic text-center text-[8px]">DATE</span>
                 </div>
                 <span id="progress-text" class="text-xs font-black text-slate-300 font-mono italic">01/15</span>
             </div>
@@ -66,17 +67,14 @@
             </div>
             <button id="next-btn" onclick="nextQuestion()" class="hidden mt-6 w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg italic shadow-xl">CONTINUER ➔</button>
         </div>
-
-        <button onclick="confirmExit()" class="py-2 text-slate-400 hover:text-red-500 text-[10px] font-black uppercase tracking-[0.2em] transition text-center italic">
-            ✕ Abandonner la session
-        </button>
+        <button onclick="confirmExit()" class="py-2 text-slate-400 hover:text-red-500 text-[10px] font-black uppercase tracking-[0.2em] transition text-center italic">✕ Abandonner la session</button>
     </div>
 
     <div id="score-ui" class="hidden max-w-xl w-full bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 text-center">
         <h2 class="text-4xl font-black text-slate-900 mb-2 italic uppercase">Terminé !</h2>
         <div id="final-score-text" class="text-6xl font-black text-blue-600 my-8 italic">0/0</div>
         <div id="theme-details" class="space-y-4 mb-10 text-left"></div>
-        <button onclick="window.location.href='index.html'" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl italic shadow-lg">RETOUR</button>
+        <button onclick="window.location.href='index.html'" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-xl italic shadow-lg">RETOURNER AUX ACTUS</button>
     </div>
 
     <script>
@@ -105,7 +103,6 @@
             const limit = parseInt(document.getElementById('qty-range').value);
             const dMin = document.getElementById('date-start').value ? new Date(document.getElementById('date-start').value) : null;
             const dMax = document.getElementById('date-end').value ? new Date(document.getElementById('date-end').value) : null;
-
             try {
                 const res = await fetch('manifest.json');
                 const manifest = await res.json();
@@ -113,7 +110,6 @@
                     const id = parseFRDate(item.date);
                     return (!dMin || id >= dMin) && (!dMax || id <= dMax);
                 });
-
                 const promises = targets.map(async (item) => {
                     try {
                         const r = await fetch(`${item.folder}/metadata.json`);
@@ -121,7 +117,6 @@
                         return meta.questions.filter(q => selected.includes(q.theme)).map(q => ({...q, dateRef: item.date}));
                     } catch(e) { return []; }
                 });
-
                 const results = await Promise.all(promises);
                 pool = results.flat();
                 if(pool.length === 0) return alert("Rien trouvé.");
@@ -140,39 +135,49 @@
             document.getElementById('question-text').innerText = q.q;
             document.getElementById('explanation-box').classList.add('hidden');
             document.getElementById('next-btn').classList.add('hidden');
+            
             const container = document.getElementById('options');
             container.innerHTML = "";
-            q.options.forEach((opt, i) => {
+
+            // --- MÉLANGE DES OPTIONS ---
+            let shuffled = q.options.map((opt, i) => ({ text: opt, originalIdx: i }));
+            shuffled.sort(() => Math.random() - 0.5);
+
+            shuffled.forEach((item) => {
                 const b = document.createElement('button');
                 b.className = "w-full text-left p-4 rounded-xl border-2 border-slate-100 font-bold transition italic text-sm hover:bg-slate-50";
-                b.innerText = opt;
-                b.onclick = () => check(i);
+                b.innerText = item.text;
+                b.onclick = () => check(item.originalIdx, q.correct, b);
                 container.appendChild(b);
             });
         }
 
-        function check(idx) {
+        function check(chosenIdx, correctIdx, clickedBtn) {
             const q = questions[currentIdx];
             const btns = document.getElementById('options').children;
             for(let b of btns) b.onclick = null;
+
             if(!themeScores[q.theme]) themeScores[q.theme] = { correct: 0, total: 0 };
             themeScores[q.theme].total++;
-            if(idx === q.correct) {
-                btns[idx].classList.add('bg-green-50', 'border-green-500', 'text-green-700');
+
+            if(chosenIdx === correctIdx) {
+                clickedBtn.classList.add('bg-green-50', 'border-green-500', 'text-green-700');
                 score++; themeScores[q.theme].correct++;
             } else {
-                btns[idx].classList.add('bg-red-50', 'border-red-500', 'text-red-700');
-                btns[q.correct].classList.add('bg-green-50', 'border-green-500', 'text-green-700');
+                clickedBtn.classList.add('bg-red-50', 'border-red-500', 'text-red-700');
+                for(let b of btns) {
+                    if(b.innerText === q.options[correctIdx]) b.classList.add('bg-green-50', 'border-green-500', 'text-green-700');
+                }
             }
+
             document.getElementById('explanation-text').innerText = q.explication;
             document.getElementById('explanation-box').classList.remove('hidden');
             document.getElementById('next-btn').classList.remove('hidden');
             
-            // SCROLL DE 25 PIXELS
+            // LE DÉCALAGE DE 25 PIXELS
             setTimeout(() => {
                 const btn = document.getElementById('next-btn');
-                const yOffset = 25; 
-                const y = btn.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                const y = btn.getBoundingClientRect().top + window.pageYOffset + 25;
                 window.scrollTo({ top: y, behavior: 'smooth' });
             }, 100);
         }
@@ -183,26 +188,37 @@
                 render(); 
                 window.scrollTo({top: 0, behavior: 'smooth'}); 
             } else { 
-                document.getElementById('quiz-ui').classList.add('hidden');
-                document.getElementById('score-ui').classList.remove('hidden');
-                document.getElementById('final-score-text').innerText = `${score}/${questions.length}`;
-                showThemeDetails();
+                showFinalScore();
             }
         }
 
-        function showThemeDetails() {
+        function showFinalScore() {
+            document.getElementById('quiz-ui').classList.add('hidden');
+            const scoreUI = document.getElementById('score-ui');
+            scoreUI.classList.remove('hidden');
+            document.getElementById('final-score-text').innerText = `${score}/${questions.length}`;
+            
+            // SAUVEGARDE
+            const nouveauScore = { date: new Date().toLocaleDateString('fr-FR'), score: score, total: questions.length, titre: "Super Quiz ⚡" };
+            let historique = JSON.parse(localStorage.getItem('actuquiz_scores')) || [];
+            historique.unshift(nouveauScore);
+            localStorage.setItem('actuquiz_scores', JSON.stringify(historique.slice(0, 5)));
+
+            if (score >= questions.length * 0.7) {
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            }
+
             const details = document.getElementById('theme-details');
             details.innerHTML = "";
             for(let t in themeScores) {
                 const s = themeScores[t];
                 const p = Math.round((s.correct / s.total) * 100);
-                details.innerHTML += `<div class=\"flex flex-col gap-1 mb-4\"><div class=\"flex justify-between text-[10px] font-black uppercase italic\"><span class=\"text-slate-400\">${t}</span><span class=\"text-blue-600\">${s.correct}/${s.total}</span></div><div class=\"w-full h-1.5 bg-slate-100 rounded-full overflow-hidden\"><div class=\"h-full bg-blue-500\" style=\"width: ${p}%\"></div></div></div>`;
+                details.innerHTML += `<div class="flex flex-col gap-1 mb-4"><div class="flex justify-between text-[10px] font-black uppercase italic"><span class="text-slate-400">${t}</span><span class="text-blue-600">${s.correct}/${s.total}</span></div><div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-blue-500" style="width: ${p}%"></div></div></div>`;
             }
+            window.scrollTo({ top: scoreUI.offsetTop - 50, behavior: 'smooth' });
         }
 
-        function confirmExit() {
-            if(confirm("Abandonner le quiz ?")) window.location.href = 'index.html';
-        }
+        function confirmExit() { if(confirm("Abandonner ?")) window.location.href = 'index.html'; }
     </script>
 </body>
 </html>
