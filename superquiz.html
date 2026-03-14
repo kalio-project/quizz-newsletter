@@ -224,7 +224,7 @@
             // AUTO-SCROLL vers l'explication et le bouton Continuer
             setTimeout(() => {
                 const btn = document.getElementById('next-btn');
-                const yOffset = 100; // Ajustez ce nombre (ex: 150) pour descendre encore plus bas
+                const yOffset = 50; // Ajustez ce nombre (ex: 150) pour descendre encore plus bas
                 const y = btn.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
                 window.scrollTo({ top: y, behavior: 'smooth' });
