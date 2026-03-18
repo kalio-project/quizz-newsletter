@@ -1,0 +1,127 @@
+{
+  "titre": "🚨 Le conflit entre le Pakistan et l’Afghanistan expliqué",
+  "date": "18/03/2026",
+  "img": "archives/2026-03-18/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quelle est l'une des principales raisons historiques du conflit entre l'Afghanistan et le Pakistan, mentionnée dans le texte ?",
+      "options": [
+        "La division du peuple pachtoune par la frontière tracée par les Britanniques",
+        "Une rivalité pour le contrôle de gisements pétroliers majeurs",
+        "Un désaccord sur l'accès aux ports maritimes de la région",
+        "Des différences religieuses fondamentales entre les deux nations"
+      ],
+      "correct": 0,
+      "explication": "Le texte indique que les origines du conflit remontent à 1947, lors de l’indépendance du Pakistan, lorsque les frontières tracées par les Britanniques ont divisé le peuple pachtoune, ce que l'Afghanistan conteste.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel nom a été annoncé pour le futur porte-avions nucléaire français, qui remplacera le Charles de Gaulle en 2038 ?",
+      "options": [
+        "Le France Libre",
+        "Le Charles de Gaulle II",
+        "L'Hermès",
+        "Le Richelieu"
+      ],
+      "correct": 0,
+      "explication": "Emmanuel Macron a annoncé que le futur porte-avions nucléaire français s’appellera le 'France Libre'.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quel risque environnemental est associé à un navire russe à la dérive mentionné dans l'article ?",
+      "options": [
+        "Une 'catastrophe écologique' en mer Méditerranée",
+        "Une marée noire dans l'océan Atlantique",
+        "Le blocage du canal de Suez",
+        "Une contamination des eaux fluviales européennes"
+      ],
+      "correct": 0,
+      "explication": "Le texte indique qu'un navire russe à la dérive pourrait provoquer une 'catastrophe écologique' en mer Méditerranée.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quelles drogues ont vu leur consommation augmenter en Union Européenne en 2025, selon une analyse des eaux usées ?",
+      "options": [
+        "La kétamine et la cocaïne",
+        "Le cannabis et les amphétamines",
+        "L'ecstasy et l'héroïne",
+        "Le LSD et les opiacés"
+      ],
+      "correct": 0,
+      "explication": "Selon l'Agence de l'Union européenne sur les drogues, les traces de kétamine et de cocaïne ont augmenté de près de 41 % et 22 % respectivement en 2025 par rapport à 2024.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "De quoi Patrick Bruel est-il accusé dans une enquête publiée par Mediapart ?",
+      "options": [
+        "De violences sexuelles par 8 femmes",
+        "De fraude fiscale et de blanchiment d'argent",
+        "De diffamation publique envers plusieurs personnalités",
+        "De détournement de fonds dans une association caritative"
+      ],
+      "correct": 0,
+      "explication": "8 femmes, dont une mineure au moment des faits, accusent Patrick Bruel de violences sexuelles dans une enquête publiée par Mediapart.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Selon le think tank Ember, combien d'économies mondiales les véhicules électriques ont-ils permis de réaliser ?",
+      "options": [
+        "600 milliards d’euros",
+        "1,7 million de barils de pétrole par jour",
+        "2,9 milliards d’euros",
+        "8 millions de véhicules"
+      ],
+      "correct": 0,
+      "explication": "À l’échelle mondiale, les économies dues aux véhicules électriques représentent 600 milliards d’€.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Pour quelle raison la fédération de football du Sénégal a-t-elle réclamé une enquête pour 'soupçon de corruption' ?",
+      "options": [
+        "La perte de son titre de champion d’Afrique au profit du Maroc",
+        "Des irrégularités financières au sein de la fédération",
+        "Un scandale de paris truqués impliquant des joueurs",
+        "Le refus d'homologuer un nouveau stade"
+      ],
+      "correct": 0,
+      "explication": "La fédération de football du Sénégal a réclamé une enquête pour 'soupçon de corruption' après la perte de son titre de champion d’Afrique au profit du Maroc.",
+      "theme": "SPORT"
+    },
+    {
+      "q": "Quels marsupiaux, que l’on pensait éteints depuis 6 000 ans, ont été observés vivants en Indonésie ?",
+      "options": [
+        "Le phalanger pygmée à longs doigts et le planeur à queue annelée",
+        "Le diable de Tasmanie et le quokka",
+        "Le thylacine et le bandicoot",
+        "Le wombat et le koala"
+      ],
+      "correct": 0,
+      "explication": "Il s’agit du phalanger pygmée à longs doigts et du planeur à queue annelée, observés vivants en Indonésie.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quel a été le résultat de l'invitation de Donald Trump à participer à une opération militaire dans le détroit d’Ormuz ?",
+      "options": [
+        "Aucun pays n’a accepté l’invitation",
+        "Plusieurs pays européens ont formé une coalition",
+        "Seuls les États-Unis ont déployé des forces militaires",
+        "L'opération a été annulée après des négociations diplomatiques"
+      ],
+      "correct": 0,
+      "explication": "Le texte précise qu'aucun pays n’a accepté l’invitation de Donald Trump à participer à une opération militaire dans le détroit d’Ormuz.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Qui a été réélu président du Congo-Brazzaville pour un 5e mandat avec 94,82 % des voix, selon les résultats provisoires ?",
+      "options": [
+        "Denis Sassou Nguesso",
+        "Félix Tshisekedi",
+        "Alassane Ouattara",
+        "Paul Kagame"
+      ],
+      "correct": 0,
+      "explication": "Le président du Congo-Brazzaville, Denis Sassou Nguesso, a été réélu pour un 5e mandat avec 94,82 % des voix.",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}
