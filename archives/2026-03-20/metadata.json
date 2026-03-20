@@ -1,0 +1,127 @@
+{
+  "titre": "🚨 Vladimir Poutine est-il le vrai gagnant de la guerre en Iran ?",
+  "date": "20/03/2026",
+  "img": "archives/2026-03-20/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Selon les informations en bref, combien de revenus supplémentaires par jour la Russie gagnerait-elle grâce à la flambée des prix du pétrole due à la guerre en Iran ?",
+      "options": [
+        "Environ 50 millions de $",
+        "Environ 100 millions de $",
+        "Environ 150 millions de $",
+        "Environ 200 millions de $"
+      ],
+      "correct": 2,
+      "explication": "L'article indique que \"Depuis le début de la guerre en Iran, la Russie gagnerait environ 150 millions de $ de revenus supplémentaires par jour grâce à la flambée des prix du pétrole dans le monde.\"",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Dans l'affaire Epstein, de quoi 14 des 15 anciennes mannequins accusent-elles Gérald Marie, ex-dirigeant de l’agence Élite ?",
+      "options": [
+        "Escroquerie financière",
+        "Diffamation publique",
+        "Viols et agressions sexuelles",
+        "Harcèlement professionnel"
+      ],
+      "correct": 2,
+      "explication": "L'article mentionne que \"14 d’entre elles l’accusent de viols et agressions sexuelles en France.\"",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Selon le Journal de Mickey, qui est la personnalité préférée des 7-14 ans en France pour l'année 2025 ?",
+      "options": [
+        "Victor Wembanyama",
+        "Olivier Giroud",
+        "Soprano",
+        "Marine (gagnante de la Star Academy)"
+      ],
+      "correct": 2,
+      "explication": "L'article déclare que \"Le chanteur Soprano est la personnalité préférée des 7-14 ans, selon le sondage annuel du Journal de Mickey.\"",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "D'après le texte, quel est le titre du nouvel album sorti par le groupe de K-pop BTS après 3 ans d'absence ?",
+      "options": [
+        "Love Yourself",
+        "Map of the Soul",
+        "Arirang",
+        "Butter"
+      ],
+      "correct": 2,
+      "explication": "L'article indique que \"Le groupe de K-pop BTS a sorti un nouvel album, “Arirang”, après 3 ans d’absence.\"",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Quelle nouvelle règle la FIFA a-t-elle mise en place concernant le staff technique dans les compétitions féminines ?",
+      "options": [
+        "Obligation d'avoir un budget minimum pour le staff",
+        "Obligation d'inclure au moins une femme comme sélectionneuse ou adjointe",
+        "Interdiction de recruter des joueuses étrangères",
+        "Exigence d'un quota de joueuses de moins de 20 ans"
+      ],
+      "correct": 1,
+      "explication": "La \"Bonne nouvelle\" explique que \"La FIFA oblige désormais les sélections à compter au moins une femme au poste de sélectionneuse ou d’adjointe dans les compétitions féminines.\"",
+      "theme": "SPORT"
+    },
+    {
+      "q": "Pourquoi les États-Unis ont-ils temporairement assoupli les restrictions sur les ventes de pétrole russe, selon le 'Décryptage' ?",
+      "options": [
+        "Pour renforcer les sanctions contre l'Iran",
+        "Pour augmenter l'offre mondiale et tenter de freiner la hausse des prix de l'énergie",
+        "Pour soutenir l'économie russe",
+        "Pour faciliter les exportations de pétrole américain"
+      ],
+      "correct": 1,
+      "explication": "Le \"Décryptage\" explique que l'objectif est \"d’augmenter l’offre mondiale pour tenter de freiner la hausse des prix de l’énergie.\"",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Dans la rubrique 'À comprendre' sur l'Iran, qui a été identifié comme le porte-parole des Gardiens de la révolution tué dans des frappes israélo-américaines ?",
+      "options": [
+        "Ayatollah Khamenei",
+        "Mohammed Kapkour",
+        "Ali-Mohammad Naïny",
+        "Benjamin Netanyahu"
+      ],
+      "correct": 2,
+      "explication": "L'article mentionne que \"C’est l’organisation elle-même qui a annoncé la mort d’Ali-Mohammad Naïny, leur porte-parole...\"",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est l'objectif de la délégation ukrainienne qui se rendra aux États-Unis samedi ?",
+      "options": [
+        "Signer un accord commercial",
+        "Rencontrer des négociateurs américains au sujet de la guerre contre la Russie",
+        "Demander une adhésion à l'OTAN",
+        "Participer à un sommet culturel"
+      ],
+      "correct": 1,
+      "explication": "L'article indique qu'elle \"y rencontrera des négociateurs américains au sujet de la guerre qui oppose la Russie à l’Ukraine\".",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Pour quels crimes le djihadiste français Sabri Essid a-t-il été condamné à la réclusion criminelle à perpétuité par la cour d’assises de Paris ?",
+      "options": [
+        "Terrorisme et association de malfaiteurs",
+        "Crimes de guerre et contre l'humanité",
+        "Génocide et crimes contre l'humanité contre le peuple yézidi",
+        "Financement du terrorisme"
+      ],
+      "correct": 2,
+      "explication": "L'article précise qu'il a été condamné \"pour génocide et crimes contre l’humanité contre le peuple yézidi.\"",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Selon le texte, quel acteur américain, connu pour son rôle dans 'Walker, Texas Ranger', est décédé à l'âge de 86 ans ?",
+      "options": [
+        "Clint Eastwood",
+        "Sylvester Stallone",
+        "Chuck Norris",
+        "Arnold Schwarzenegger"
+      ],
+      "correct": 2,
+      "explication": "L'article annonce que \"L’acteur américain Chuck Norris, connu pour son rôle dans “Walker, Texas Ranger”, est décédé à l’âge de 86 ans.\"",
+      "theme": "CULTURE"
+    }
+  ]
+}
