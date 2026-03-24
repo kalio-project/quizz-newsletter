@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Ces robots déployés en Ukraine vont tout changer",
+  "date": "24/03/2026",
+  "img": "archives/2026-03-24/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Depuis quand des robots humanoïdes sont-ils déployés sur le front en Ukraine ?",
+      "options": [
+        "Depuis le début de l'année 2023",
+        "Depuis février dernier",
+        "Depuis avril 2024",
+        "Depuis le début du conflit"
+      ],
+      "correct": 1,
+      "explication": "Le texte indique 'Depuis février, au moins 2 robots humanoïdes sont déployés sur le front en Ukraine'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Pour quelle raison l'eurodéputé Fabrice Leggeri fait-il l'objet d'une enquête ?",
+      "options": [
+        "Détournement de fonds européens",
+        "Fraude fiscale durant son mandat à Frontex",
+        "Complicité de crimes contre l’humanité et torture",
+        "Abus de pouvoir au Parlement européen"
+      ],
+      "correct": 2,
+      "explication": "Le texte précise que Fabrice Leggeri est visé par une enquête pour 'complicité de crimes contre l’humanité et torture' pour avoir illégalement refoulé des migrants lorsqu'il dirigeait Frontex.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Quel est le nombre approximatif d'agents de l'Éducation nationale dont les données ont été piratées, selon le ministère ?",
+      "options": [
+        "Environ 100 000 agents",
+        "Environ 243 000 agents",
+        "Plus de 500 000 agents",
+        "Moins de 50 000 agents"
+      ],
+      "correct": 1,
+      "explication": "Le ministère a annoncé que les données d'environ 243 000 agents de l'Éducation nationale ont été piratées.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quel événement culturel est mentionné concernant la série Hannah Montana ?",
+      "options": [
+        "Le lancement d'un nouveau film au cinéma",
+        "La sortie d'un album inédit de Miley Cyrus",
+        "Un épisode spécial disponible sur Disney+",
+        "La reprise de la série avec de nouveaux acteurs"
+      ],
+      "correct": 2,
+      "explication": "Le texte mentionne qu''Hannah Montana est de retour, 20 ans après le début de la série, dans un épisode spécial disponible sur Disney+'.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Pourquoi TotalEnergies a-t-il renoncé à deux projets d'éoliennes en mer aux États-Unis ?",
+      "options": [
+        "Manque de rentabilité des projets",
+        "Opposition de groupes écologistes locaux",
+        "Pression de l'administration Trump",
+        "Difficultés techniques de mise en œuvre"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique que TotalEnergies a renoncé à ses projets 'sous la pression de l’administration Trump'.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quelle nouvelle fonctionnalité Instagram a été récemment déployée ?",
+      "options": [
+        "La possibilité de créer des stories plus longues",
+        "La suppression définitive des publications",
+        "La réorganisation des posts d’un carrousel après publication",
+        "L'ajout d'une option de paiement direct"
+      ],
+      "correct": 2,
+      "explication": "La 'bonne nouvelle' mentionne qu''Instagram permet désormais de réorganiser les posts d’un carrousel après publication.'",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quel est l'un des enjeux éthiques soulevés par le déploiement de robots militaires, selon le texte ?",
+      "options": [
+        "Le coût de production élevé des robots",
+        "La difficulté de leur maintenance sur le terrain",
+        "La 'déshumanisation' potentielle de la guerre",
+        "Le risque de vol par des organisations terroristes"
+      ],
+      "correct": 2,
+      "explication": "Le texte souligne que 'Certains experts craignent aussi une 'déshumanisation' de la guerre, qui pourrait la rendre plus facile à déclencher.'",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Selon l'étude Ipsos citée par Caisse d’Epargne, quelle est une raison majeure pour laquelle 7 salariés sur 10 déclarent aller au travail mécaniquement ?",
+      "options": [
+        "Un salaire insuffisant",
+        "Le manque de sens ou d’utilité au travail",
+        "Des horaires de travail trop longs",
+        "Des relations tendues avec la hiérarchie"
+      ],
+      "correct": 1,
+      "explication": "La publicité indique que parmi les raisons évoquées, 'on y retrouve le manque de sens ou d’utilité au travail.'",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quelle zone Israël a-t-il annoncé vouloir contrôler militairement au sud du Liban ?",
+      "options": [
+        "La totalité du territoire libanais",
+        "Une bande de plusieurs dizaines de kilomètres jusqu'au fleuve Litani",
+        "Uniquement la zone côtière du sud",
+        "La capitale Beyrouth"
+      ],
+      "correct": 1,
+      "explication": "Le texte indique : 'Il s’agit d’une bande de plusieurs dizaines de kilomètres de profondeur jusqu'au fleuve Litani, au sud du Liban, que l'armée contrôlera.'",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est l'un des principaux avantages pour l'Union européenne de l'accord de libre-échange avec l'Australie ?",
+      "options": [
+        "L'accès exclusif aux marchés agricoles australiens",
+        "La suppression totale de tous les droits de douane",
+        "L'accès facilité aux terres rares australiennes",
+        "Une exemption de visas pour les citoyens européens en Australie"
+      ],
+      "correct": 2,
+      "explication": "Le texte précise que l'accord 'facilite aussi l’accès de l’Union européenne aux ressources australiennes, notamment aux terres rares'.",
+      "theme": "ÉCONOMIE"
+    }
+  ]
+}
