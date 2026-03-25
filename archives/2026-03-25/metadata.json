@@ -1,0 +1,127 @@
+{
+  "titre": "🚨 Que se passe-t-il au Liban ?",
+  "date": "25/03/2026",
+  "img": "archives/2026-03-25/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Selon les \"Infos en bref\", quelle action Israël menace-t-il d'entreprendre au Liban ?",
+      "options": [
+        "Lancer des frappes aériennes sur Beyrouth.",
+        "Occuper une partie du Liban.",
+        "Imposer un blocus naval.",
+        "Retirer ses troupes de la frontière."
+      ],
+      "correct": 1,
+      "explication": "Le texte indique clairement dans les \"Infos en bref\" : \"Désormais, Israël menace même d’occuper une partie du Liban\".",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Combien de drones la Russie a-t-elle lancés sur l'Ukraine en 24 heures, selon les \"Infos en bref\" ?",
+      "options": [
+        "Environ 100.",
+        "Près de 500.",
+        "Près de 1 000.",
+        "Plus de 2 000."
+      ],
+      "correct": 2,
+      "explication": "Les \"Infos en bref\" mentionnent : \"La Russie a lancé près de 1 000 drones en 24 heures sur l’Ukraine.\"",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle substance, aussi appelée gaz hilarant, verra sa législation durcie par l'État pour lutter contre son usage ?",
+      "options": [
+        "Le cannabis.",
+        "Le protoxyde d'azote.",
+        "La cocaïne.",
+        "L'ecstasy."
+      ],
+      "correct": 1,
+      "explication": "La section \"Infos en bref\" précise : \"L’État va durcir sa législation pour lutter contre l’usage du protoxyde d’azote, aussi appelé gaz hilarant.\"",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quel métal cancérogène, présent dans les sols et l'alimentation, expose de plus en plus les Français selon l'Anses ?",
+      "options": [
+        "Le plomb.",
+        "L'arsenic.",
+        "Le mercure.",
+        "Le cadmium."
+      ],
+      "correct": 3,
+      "explication": "La section \"Infos en bref - ALIMENTATION\" indique : \"Les Français sont de plus en plus exposés au cadmium, un métal cancérogène présent dans les sols et l’alimentation, selon l’Anses.\"",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Selon un rapport d'IQAir mentionné dans le texte, combien de pays dans le monde respirent un air considéré comme sain ?",
+      "options": [
+        "7.",
+        "13.",
+        "25.",
+        "40."
+      ],
+      "correct": 1,
+      "explication": "La section \"Infos en bref - POLLUTION\" affirme : \"Seuls 13 pays dans le monde respirent un air considéré comme sain, selon un rapport d’IQAir.\"",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Pour quelle raison principale Meta a-t-elle été condamnée au Nouveau-Mexique à verser 375 millions de dollars ?",
+      "options": [
+        "Violation de la vie privée des utilisateurs.",
+        "Concurrence déloyale.",
+        "Mise en danger de mineurs et dissimulation des risques d'exploitation sexuelle.",
+        "Fraude fiscale."
+      ],
+      "correct": 2,
+      "explication": "La section \"Infos en bref - ÉTATS-UNIS\" explique : \"Meta (...) a été condamnée au Nouveau‑Mexique pour “mise en danger de mineurs” et doit verser 375 millions de dollars. L’entreprise est accusée d’avoir caché les risques d’exploitation sexuelle sur ses plateformes.\"",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Qui va devenir la première femme à arbitrer un match de Top 14, la principale compétition de rugby à XV en France ?",
+      "options": [
+        "Joël Jutge.",
+        "Hollie Davidson.",
+        "Sarah Beauchemin.",
+        "Wayne Barnes."
+      ],
+      "correct": 1,
+      "explication": "La section \"Bonne nouvelle\" annonce : \"L’Écossaise Hollie Davidson va devenir la 1re femme à arbitrer un match de Top 14\".",
+      "theme": "SPORT"
+    },
+    {
+      "q": "Selon la section \"Décryptage\", quel événement a fait rentrer le Hezbollah de nouveau en guerre le 2 mars dernier ?",
+      "options": [
+        "L'annexion d'une partie du Sud-Liban par Israël.",
+        "Le refus du désarmement par le Hezbollah.",
+        "L'assassinat du guide suprême iranien Ali Khamenei.",
+        "L'expulsion de l'ambassadeur d'Iran par le gouvernement libanais."
+      ],
+      "correct": 2,
+      "explication": "La section \"Décryptage\" indique : \"Le 2 mars dernier, le Hezbollah est de nouveau entré en guerre après l’assassinat du guide suprême iranien Ali Khamenei, tué lors de frappes israélo-américaines sur l’Iran.\"",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quels types de navires l'Iran continue-t-il d'exclure d'un \"passage pacifique\" dans le détroit d'Ormuz, selon le texte ?",
+      "options": [
+        "Tous les navires de commerce.",
+        "Les navires appartenant aux États-Unis, Israël et tout autre pays “participant à l’agression”.",
+        "Uniquement les navires transportant du pétrole.",
+        "Les navires battant pavillon européen."
+      ],
+      "correct": 1,
+      "explication": "La section \"Décryptage - Concernant la situation globale au Moyen-Orient\" précise : \"L’Iran affirme cependant que tous navires appartenant aux États-Unis, Israël et tout autre pays “participant à l’agression ne peut prétendre à un passage pacifique”.\"",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle ville de l'ouest de l'Ukraine a subi d'importants dégâts matériels lors des récentes frappes russes massives, d'après la section \"À comprendre\" ?",
+      "options": [
+        "Kiev.",
+        "Kharkiv.",
+        "Lviv.",
+        "Odessa."
+      ],
+      "correct": 2,
+      "explication": "La section \"À comprendre - GUERRE EN UKRAINE\" mentionne : \"Elles ont aussi causé de gros dégâts matériels, notamment à Lviv, une ville de l’ouest de l’Ukraine\".",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}
