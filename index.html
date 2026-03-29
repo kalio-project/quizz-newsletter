@@ -12,12 +12,23 @@
 </head>
 <body class="bg-slate-50 p-4 md:p-8 pb-24 text-slate-900">
 
-    <header class="max-w-5xl mx-auto flex justify-between items-center mb-12">
+<header class="max-w-5xl mx-auto flex justify-between items-center mb-12">
         <h1 class="text-4xl font-black italic underline decoration-blue-500 tracking-tighter cursor-pointer" onclick="location.reload()">ActuQuiz.</h1>
         
-        <a href="superquiz.html" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-sm shadow-xl hover:scale-105 active:scale-95 transition flex items-center gap-3">
-            SUPER QUIZ ⚡
-        </a>
+        <div class="flex items-center gap-8">
+            <a href="https://www.youtube.com/c/VUFranceTV" target="_blank" class="group flex flex-col items-center leading-none transition-all">
+                <span class="text-2xl font-[900] tracking-tighter text-slate-600 group-hover:text-[#00FF00] transition-all duration-300">
+                    V<span class="ml-[-2px]">U</span>
+                </span>
+                <span class="text-[8px] font-black tracking-[0.3em] mt-1 text-slate-500 group-hover:text-slate-900 transition-colors uppercase">
+                    ARTE
+                </span>
+            </a>
+
+            <a href="superquiz.html" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-sm shadow-xl hover:scale-105 active:scale-95 transition flex items-center gap-3">
+                SUPER QUIZ ⚡
+            </a>
+        </div>
     </header>
 
     <div id="grid" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10"></div>
