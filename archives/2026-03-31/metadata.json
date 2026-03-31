@@ -1,0 +1,127 @@
+{
+  "titre": "🚨La Chine pourrait-elle gagner la course à l’IA ?",
+  "date": "31/03/2026",
+  "img": "archives/2026-03-31/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quelle est l'une des raisons principales de l'intérêt croissant des entreprises pour les IA chinoises, selon le texte ?",
+      "options": [
+        "Leur capacité à rivaliser avec l'intelligence humaine",
+        "Leur coût souvent moins élevé et leur approche open source",
+        "Le soutien exclusif du secteur privé chinois",
+        "L'absence totale de restrictions technologiques en Chine"
+      ],
+      "correct": 1,
+      "explication": "Le texte indique que les IA chinoises sont souvent moins coûteuses en raison de l'électricité bon marché et adoptent une approche 'open source', ce qui permet aux entreprises de les modifier davantage et de les adapter à leurs besoins.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quel événement a conduit à une réunion d'urgence du Conseil de sécurité de l'ONU concernant le Liban ?",
+      "options": [
+        "L'adoption d'une nouvelle loi sur la peine de mort en Israël",
+        "Le décès de 3 Casques bleus indonésiens dans le sud du Liban",
+        "L'arrestation d'un narcotrafiquant français au Panama",
+        "La grève des enseignants en France"
+      ],
+      "correct": 1,
+      "explication": "Le Conseil de sécurité de l’ONU s’est réuni en urgence ce mardi après le décès de 3 Casques bleus indonésiens dans le sud du Liban.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle est l'une des principales revendications des enseignants grévistes en France ?",
+      "options": [
+        "La mise en place de l'intelligence artificielle dans les programmes scolaires",
+        "La revalorisation des salaires et la dénonciation des suppressions de postes",
+        "La suppression des cartes scolaires",
+        "Le soutien aux choix scientifiques de l'administration américaine"
+      ],
+      "correct": 1,
+      "explication": "Ils dénoncent la suppression des milliers de postes d’enseignants, ainsi que les nouvelles cartes scolaires qui pourraient imposer la fermeture de classes et exigent une revalorisation des salaires.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Qui est Bally Bagayoko, le nouveau maire de Saint-Denis, et pourquoi va-t-il porter plainte ?",
+      "options": [
+        "Un ministre de l'Intérieur qui dénonce des attaques ignobles",
+        "Un artiste qui a annoncé des concerts à Paris La Défense Arena",
+        "Un narcotrafiquant arrêté au Panama",
+        "Un maire qui va porter plainte après des propos racistes tenus à son encontre sur CNews"
+      ],
+      "correct": 3,
+      "explication": "Bally Bagayoko, le nouveau maire de Saint-Denis, va porter plainte après des propos racistes tenus à son encontre sur la chaîne CNews ce week-end.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quel pays, selon le 'Décryptage', est mentionné comme ayant des mesures récentes (réduction de budgets scientifiques, taxe sur les visas pour travailleurs étrangers) qui pourraient freiner son attractivité pour les chercheurs en IA ?",
+      "options": [
+        "La Chine",
+        "Les États-Unis",
+        "La France",
+        "Le Panama"
+      ],
+      "correct": 1,
+      "explication": "Le texte mentionne que certaines mesures récentes de l’administration Trump aux États-Unis, comme la réduction de budgets scientifiques ou l’instauration d’une taxe annuelle de 100 000 $ sur les visas pour les travailleurs étrangers spécialisés, pourraient freiner l’attractivité du pays pour les chercheurs.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Selon l'article, qui est Joël Soudron, arrêté au Panama ?",
+      "options": [
+        "Un militant écologiste recherché",
+        "Un ancien chef d'État en exil",
+        "Un narcotrafiquant français figurant sur la liste des 'most wanted' d'Europe",
+        "Un scientifique spécialisé en IA"
+      ],
+      "correct": 2,
+      "explication": "Le narcotrafiquant français Joël Soudron, condamné en France pour trafic de cocaïne et en fuite depuis 2018, a été arrêté au Panama et était inscrit sur la liste des 'most wanted' d'Europe.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Où la chanteuse québécoise Céline Dion a-t-elle annoncé 10 concerts à l'automne 2026 à Paris ?",
+      "options": [
+        "À l'Accor Arena",
+        "Au Stade de France",
+        "À Paris La Défense Arena",
+        "À l'Olympia"
+      ],
+      "correct": 2,
+      "explication": "La chanteuse québécoise Céline Dion a annoncé 10 concerts à l’automne à Paris La Défense Arena.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Quel est l'objectif de la France concernant la décarbonation des transports terrestres à l'horizon 2050, selon la Stratégie nationale bas-carbone (SNBC2) ?",
+      "options": [
+        "Une réduction de près d'un tiers des émissions de gaz à effet de serre",
+        "Une décarbonation complète",
+        "Une augmentation de l'investissement dans les carburants fossiles",
+        "Un gel des objectifs de réduction des émissions"
+      ],
+      "correct": 1,
+      "explication": "Inscrite dans la Stratégie nationale bas-carbone (SNBC2), la France vise [...] la décarbonation complète des transports terrestres à horizon 2050.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quel est le poids annuel de la filière automobile dans le PIB français, selon la publicité de Renault Group ?",
+      "options": [
+        "Moins de 10 milliards d'euros",
+        "Plus de 800 milliards d'euros",
+        "31,2 milliards d'euros",
+        "Environ 1 milliard d'euros"
+      ],
+      "correct": 2,
+      "explication": "31,2 milliards d’euros par an, c’est le poids de la filière automobile dans le PIB français.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Dans les faits, qui est principalement visé par la loi israélienne instaurant la peine de mort pour les auteurs d'attaques meurtrières contre des Israéliens ?",
+      "options": [
+        "Les citoyens israéliens",
+        "Les membres du Parlement israélien",
+        "Les Palestiniens",
+        "Les casques bleus de l'ONU"
+      ],
+      "correct": 2,
+      "explication": "Mais dans les faits, cette loi ne vise quasiment que les Palestiniens.",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}
