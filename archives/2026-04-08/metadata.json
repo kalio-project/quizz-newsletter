@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Cessez-le-feu en Iran : ce qu’il faut savoir",
+  "date": "08/04/2026",
+  "img": "archives/2026-04-08/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quelle est la durée du cessez-le-feu temporaire entre les États-Unis et l'Iran mentionné dans les infos en bref ?",
+      "options": [
+        "1 semaine",
+        "2 semaines",
+        "1 mois",
+        "Une durée indéterminée"
+      ],
+      "correct": 1,
+      "explication": "Le texte indique un cessez-le-feu temporaire de 2 semaines, pendant lequel le détroit d'Ormuz devrait rouvrir.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "De quel pays Cécile Kohler et Jacques Paris, les otages français libérés, étaient-ils détenus ?",
+      "options": [
+        "Le Pakistan",
+        "Le Liban",
+        "L'Iran",
+        "Oman"
+      ],
+      "correct": 2,
+      "explication": "Cécile Kohler et Jacques Paris étaient 2 otages français détenus en Iran depuis plus de 3 ans.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Combien de signatures la pétition appelant à voter contre la 'loi Yadan' a-t-elle recueillies ?",
+      "options": [
+        "Moins de 100 000 signatures",
+        "Environ 250 000 signatures",
+        "Plus de 500 000 signatures",
+        "Près d'un million de signatures"
+      ],
+      "correct": 2,
+      "explication": "Une pétition appelant à voter contre la 'loi Yadan' a recueilli plus de 500 000 signatures.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Selon une enquête de l'ONU, qu'est-ce qui a causé la mort de 3 Casques bleus indonésiens au sud du Liban fin mars ?",
+      "options": [
+        "Un accident de la route",
+        "Une attaque terroriste locale",
+        "Un tir israélien et un engin du Hezbollah",
+        "Une maladie contagieuse"
+      ],
+      "correct": 2,
+      "explication": "L'enquête de l'ONU a révélé qu'un tir israélien et un engin du Hezbollah ont tué fin mars 3 Casques bleus indonésiens.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est le principal facteur cité pour la baisse prévue du nombre d'élèves dans les établissements scolaires français d'ici 2035 ?",
+      "options": [
+        "L'émigration de familles avec enfants",
+        "La diminution des investissements dans l'éducation",
+        "Le nombre de naissances, en baisse depuis 2010",
+        "L'augmentation des cours à domicile"
+      ],
+      "correct": 2,
+      "explication": "La France pourrait perdre près de 1,7 million d’élèves d’ici 2035, en cause : le nombre de naissances, en baisse depuis 2010.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Que vise la proposition de loi adoptée par le Parlement européen concernant les compagnies aériennes low cost au sein de l'UE ?",
+      "options": [
+        "L'interdiction des vols courts",
+        "La limitation des émissions de CO2 par passager",
+        "L'imposition de la gratuité des bagages cabine",
+        "L'augmentation des taxes sur les billets d'avion"
+      ],
+      "correct": 2,
+      "explication": "Le Parlement européen a adopté une proposition de loi visant à imposer la gratuité des bagages cabine aux compagnies aériennes low cost.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quel est l'âge minimum proposé par le Premier ministre grec pour accéder aux réseaux sociaux en Europe ?",
+      "options": [
+        "13 ans",
+        "14 ans",
+        "15 ans",
+        "16 ans"
+      ],
+      "correct": 2,
+      "explication": "Le Premier ministre grec a proposé de fixer à 15 ans l’âge minimum pour accéder aux réseaux sociaux en Europe.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quel est l'objectif principal du programme de recherche de 47 millions d'euros consacré à la santé animale en France ?",
+      "options": [
+        "Augmenter la production de viande et de lait",
+        "Développer de nouvelles races d'animaux domestiques",
+        "Anticiper l'émergence des épizooties et limiter leur impact",
+        "Réduire le coût des soins vétérinaires pour les éleveurs"
+      ],
+      "correct": 2,
+      "explication": "L’objectif du programme est d'anticiper l'émergence des épizooties et limiter leur impact sur les élevages.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quel événement historique majeur a eu lieu le 8 avril 1962, selon la rubrique 'Flashback' ?",
+      "options": [
+        "La signature du traité de Rome",
+        "Le début de la construction du mur de Berlin",
+        "L'approbation par référendum des accords d'Évian, mettant fin à la guerre d'Algérie",
+        "Le premier pas de l'homme sur la Lune"
+      ],
+      "correct": 2,
+      "explication": "Le 8 avril 1962, les Français approuvaient à 90% par référendum les accords d'Évian, mettant fin à la guerre d'Algérie.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel a été l'impact immédiat de l'annonce du cessez-le-feu entre les États-Unis et l'Iran sur les prix du pétrole ?",
+      "options": [
+        "Ils ont fortement augmenté",
+        "Ils sont restés stables",
+        "Ils ont rapidement chuté",
+        "Ils ont fluctué de manière imprévisible"
+      ],
+      "correct": 2,
+      "explication": "L'annonce du cessez-le-feu a rassuré les marchés, entraînant une chute rapide des prix du pétrole.",
+      "theme": "ÉCONOMIE"
+    }
+  ]
+}
