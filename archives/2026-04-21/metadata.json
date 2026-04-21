@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Le nucléaire iranien au cœur des tensions",
+  "date": "21/04/2026",
+  "img": "archives/2026-04-21/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Selon l'étude conjointe de l'ONU, l'Union européenne et la Banque mondiale, quel montant sera nécessaire pour reconstruire la bande de Gaza d'ici 2036 ?",
+      "options": [
+        "Moins de 30 milliards d'€",
+        "Entre 30 et 50 milliards d'€",
+        "Plus de 60 milliards d'€",
+        "Environ 20 milliards d'€"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique que plus de 60 milliards d’€ seront nécessaires pour reconstruire la bande de Gaza d’ici 2036, selon une nouvelle étude de l’ONU, de l’Union européenne et de la Banque mondiale.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle agence policière européenne a localisé 45 enfants ukrainiens déplacés de force vers la Russie, la Biélorussie ou des territoires occupés par la Russie ?",
+      "options": [
+        "Interpol",
+        "Europol",
+        "Frontex",
+        "Eurojust"
+      ],
+      "correct": 1,
+      "explication": "Le texte mentionne qu'Europol, l’agence policière européenne, a localisé 45 enfants ukrainiens déplacés de force.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel site français, utilisé pour faire ses papiers d'identité, a été visé par une attaque informatique le 15 avril ?",
+      "options": [
+        "FranceConnect",
+        "ANTS",
+        "Impots.gouv.fr",
+        "Service-public.fr"
+      ],
+      "correct": 1,
+      "explication": "Le texte indique que le site ANTS, utilisé pour faire ses papiers d’identité, a été visé par une attaque informatique le 15 avril.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Combien d'armes blanches ont été saisies en un an lors de contrôles dans les établissements scolaires en France, selon le ministre de l’Éducation nationale Édouard Geffray ?",
+      "options": [
+        "Moins de 500",
+        "Entre 500 et 700",
+        "Plus de 800",
+        "Environ 1000"
+      ],
+      "correct": 2,
+      "explication": "Le texte précise que plus de 800 armes blanches, dont des couteaux et cutters, ont été saisies en un an.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Selon l'ONU, combien de migrants sont morts ou portés disparus sur les routes migratoires en 2025 ?",
+      "options": [
+        "Environ 7 900",
+        "Environ 9 200",
+        "Environ 1 700",
+        "Plus de 80 000"
+      ],
+      "correct": 0,
+      "explication": "Le texte mentionne qu'environ 7 900 migrants sont morts ou portés disparus sur les routes migratoires en 2025, selon l’ONU.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelles associations ont assigné la France en justice pour son inaction face au risque d’extinction des oiseaux marins ?",
+      "options": [
+        "WWF et Greenpeace",
+        "LPO et France Nature Environnement",
+        "ClientEarth, Sea Shepherd France et Défense des Milieux Aquatiques",
+        "BirdLife International et Surfrider Foundation"
+      ],
+      "correct": 2,
+      "explication": "Le texte nomme les associations ClientEarth, Sea Shepherd France et Défense des Milieux Aquatiques comme ayant assigné la France en justice.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Quelle est la proportion de titres mis en ligne chaque jour sur Deezer qui sont générés par intelligence artificielle ?",
+      "options": [
+        "Moins de 10%",
+        "Entre 10% et 25%",
+        "Près de la moitié",
+        "Plus de 75%"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique que près de la moitié des titres mis en ligne chaque jour sur Deezer sont générés par intelligence artificielle.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "À quel pourcentage d'enrichissement l'uranium est-il considéré comme permettant de fabriquer une arme atomique, selon le décryptage ?",
+      "options": [
+        "3-5 %",
+        "Entre 10 et 20 %",
+        "60 %",
+        "90 %"
+      ],
+      "correct": 3,
+      "explication": "Le texte précise que l’uranium enrichi à 3–5 % est utilisé pour le nucléaire civil, mais à 90 %, il permet de fabriquer une arme atomique.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel événement majeur concernant le programme nucléaire iranien est survenu en 2018, selon le texte ?",
+      "options": [
+        "La signature d'un nouvel accord avec les États-Unis",
+        "Le retrait de Donald Trump de l'accord de 2015",
+        "La découverte de nouveaux sites d'enrichissement non déclarés",
+        "Le démantèlement complet du programme nucléaire iranien"
+      ],
+      "correct": 1,
+      "explication": "Le texte rappelle qu'en 2018, Trump s’est retiré de l'accord de 2015, estimant le texte insuffisant.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle bonne nouvelle est mentionnée à la fin du texte concernant les énergies ?",
+      "options": [
+        "Le coût de l'énergie fossile a diminué",
+        "Les énergies renouvelables ont dépassé le nucléaire en production",
+        "Les énergies renouvelables ont produit plus d’électricité que le charbon en 2025",
+        "Une nouvelle source d'énergie illimitée a été découverte"
+      ],
+      "correct": 2,
+      "explication": "La section 'Bonne nouvelle' indique que les énergies renouvelables ont produit plus d’électricité que le charbon en 2025.",
+      "theme": "ENVIRONNEMENT"
+    }
+  ]
+}
