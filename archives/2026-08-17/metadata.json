@@ -1,0 +1,127 @@
+{
+  "titre": "🚨 Trump veut proclamer le détroit d’Ormuz “territoire des Etats-Unis”",
+  "date": "17/08/2026",
+  "img": "archives/2026-08-17/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Qui a déclaré vouloir faire du détroit d’Ormuz un “territoire des États-Unis” après la guerre, selon l'actualité mentionnée ?",
+      "options": [
+        "Joe Biden",
+        "Donald Trump",
+        "Le vice-ministre des Affaires étrangères iranien",
+        "Un porte-parole d'Oman"
+      ],
+      "correct": 1,
+      "explication": "Ces mots sont ceux de Donald Trump qui affirme toujours que le détroit d'Ormuz est sous contrôle américain et a déclaré vendredi dernier vouloir en faire un territoire des États-Unis.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Avant la guerre, quelle proportion de la production mondiale de pétrole brut transitait par le détroit d'Ormuz ?",
+      "options": [
+        "Environ 1/10",
+        "Environ 1/5",
+        "Environ 1/3",
+        "Environ la moitié"
+      ],
+      "correct": 1,
+      "explication": "Avant la guerre, environ 1/5 de la production mondiale de pétrole brut transitait par le détroit d'Ormuz.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle est l'innovation majeure concernant la route maritime du Nord en Arctique, mentionnée pour la première fois ?",
+      "options": [
+        "L'ouverture d'un nouveau canal transarctique",
+        "Le premier passage d'un navire de croisière touristique",
+        "L'instauration d'une liaison porte-conteneurs hebdomadaire",
+        "La construction d'un port permanent en Arctique"
+      ],
+      "correct": 2,
+      "explication": "Pour la première fois, un porte-conteneurs va emprunter chaque semaine la route maritime du Nord en Arctique.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quels sont les deux principaux avantages de la route maritime du Nord par rapport à la route habituelle via le Canal de Suez, selon le texte ?",
+      "options": [
+        "Moins de piraterie et plus d'arrêts de ravitaillement",
+        "Moins de péages et plus de ports disponibles",
+        "Trajet deux fois plus court et évite le Moyen-Orient en guerre",
+        "Meilleures conditions météorologiques et coûts de carburant réduits"
+      ],
+      "correct": 2,
+      "explication": "Ce trajet est deux fois plus court que le chemin habituel et permet aussi d’éviter le Moyen-Orient, qui est actuellement marqué par la guerre en Iran.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelles sont les conditions de vie des marins à bord du porte-avions américain Abraham-Lincoln qui suscitent de vives inquiétudes ?",
+      "options": [
+        "Manque de formation et équipements obsolètes",
+        "Problèmes de plomberie qui rendent douches et toilettes inutilisables, et nourriture rationnée",
+        "Absence de connexion internet et de loisirs",
+        "Surcharge de travail due au manque de personnel qualifié"
+      ],
+      "correct": 1,
+      "explication": "Les familles évoquent des journées interminables, une nourriture rationnée, des problèmes de plomberie qui rendent inutilisables des toilettes ou des douches.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle est la particularité de la 17e épidémie d'Ebola en République démocratique du Congo, d'après le texte ?",
+      "options": [
+        "Elle est la première à être entièrement contrôlée par un vaccin",
+        "Elle est la plus meurtrière jamais enregistrée dans le pays",
+        "Elle ne touche que les régions côtières du pays",
+        "Elle est en déclin rapide grâce à des traitements expérimentaux"
+      ],
+      "correct": 1,
+      "explication": "La 17e épidémie d’Ebola en République démocratique du Congo est devenue la plus meurtrière jamais enregistrée dans le pays.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quelles mesures principales le Premier ministre Sébastien Lecornu a-t-il annoncées en Gironde après les incendies ?",
+      "options": [
+        "La création d'une nouvelle force d'intervention nationale",
+        "Une aide de 12 millions d’€ pour la Gironde et les Landes et l'accélération de la délivrance des permis de construire",
+        "Un moratoire sur toute nouvelle construction dans les zones sinistrées",
+        "La mise en place de nouvelles taxes pour financer la reconstruction"
+      ],
+      "correct": 1,
+      "explication": "Le Premier ministre Sébastien Lecornu a annoncé 12 millions d’€ promis pour la Gironde et les Landes, et la possibilité de délivrer les permis de construire sous un mois pour accélérer les reconstructions.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Selon l'Unef, de combien le coût de la vie étudiante a-t-il augmenté entre 2017 et 2026 ?",
+      "options": [
+        "10%",
+        "25%",
+        "35%",
+        "50%"
+      ],
+      "correct": 2,
+      "explication": "Être étudiant en 2026 coûte 35 % plus cher qu’en 2017, selon l’Unef.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quel est le record atteint par le nouveau film Spider-Man: Brand New Day en seulement 3 semaines d'exploitation ?",
+      "options": [
+        "Devenir le film le plus rapide à atteindre 1 milliard de dollars de recettes",
+        "Devenir le 1er film d'animation à dépasser les 2 milliards de dollars",
+        "Devenir le 8e film de l'histoire à atteindre 2 milliards de dollars de recettes mondiales et le 2e plus rapide",
+        "Devenir le film avec le plus grand nombre d'entrées en France"
+      ],
+      "correct": 2,
+      "explication": "Le film a franchi ce dimanche la barre des 2 milliards de $ de recettes mondiales, devenant ainsi le 8e film de l’histoire à atteindre ce cap et le 2e plus rapide.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Selon l'agence britannique UKMTO, combien d'incidents ayant causé des dommages à des navires ont été signalés dans le détroit d'Ormuz ou à proximité depuis le début de la guerre ?",
+      "options": [
+        "Moins de 10",
+        "Environ 25",
+        "Au moins 54",
+        "Plus de 100"
+      ],
+      "correct": 2,
+      "explication": "Selon l’agence britannique UKMTO, au moins 54 incidents ayant causé des dommages à des navires ont été signalés dans le détroit ou à proximité depuis le début de la guerre.",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}
