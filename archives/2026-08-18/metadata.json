@@ -1,0 +1,127 @@
+{
+  "titre": "🚨 La Chine inaugure une route commerciale en Arctique",
+  "date": "18/08/2026",
+  "img": "archives/2026-08-18/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Comment est également appelée la nouvelle route commerciale reliant l'Asie et l'Europe en passant par l'océan Arctique, inaugurée par la Chine ?",
+      "options": [
+        "La Voie du Dragon",
+        "La Route polaire de la soie",
+        "La Route de la Soie des Glaces",
+        "Le Passage du Nord-Est"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique que cette voie maritime est aussi appelée la 'Route de la Soie des Glaces'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est l'avantage principal de la nouvelle route commerciale arctique comparée aux routes traditionnelles passant par le canal de Suez ?",
+      "options": [
+        "Un coût de transport réduit de 50%",
+        "Un voyage plus sûr grâce à l'absence de piraterie",
+        "Un trajet environ deux fois plus court",
+        "Une capacité de charge des navires doublée"
+      ],
+      "correct": 2,
+      "explication": "Le texte mentionne que le principal avantage est mathématique : environ 20 jours, contre 40 jours par les routes traditionnelles.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quel ministère français a été victime d'un piratage massif ce lundi, attribué aux cybercriminels ZeroBytes ?",
+      "options": [
+        "Le ministère de la Santé",
+        "Le ministère de l'Éducation nationale",
+        "Le ministère de l'Intérieur",
+        "Le ministère de l'Économie et des Finances"
+      ],
+      "correct": 1,
+      "explication": "Le texte indique que 'Le ministère de l’Éducation nationale a été victime ce lundi d’un piratage massif, attribué aux cybercriminels ZeroBytes'.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quelles informations, entre autres, ont été dérobées lors de la cyberattaque des ZeroBytes contre le site 'impots.gouv.fr' en juin dernier ?",
+      "options": [
+        "Les données bancaires complètes",
+        "Les antécédents médicaux",
+        "Le revenu fiscal et le taux de prélèvement à la source",
+        "Les identifiants de connexion aux services publics"
+      ],
+      "correct": 2,
+      "explication": "Parmi les informations dérobées : les noms et prénoms, adresse, numéro de téléphone, le revenu fiscal et le taux de prélèvement à la source.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Selon Météo-France, quel événement météorologique a pris fin ce mardi, marquant la première fois depuis le 28 juillet qu'aucun département n'était en vigilance orange le concernant ?",
+      "options": [
+        "Les fortes pluies",
+        "La canicule",
+        "Les orages violents",
+        "Les vents violents"
+      ],
+      "correct": 1,
+      "explication": "Le texte mentionne que 'plus aucun département en France n'est en vigilance orange 'canicule''.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Dans quel village de l'est de l'Ukraine une frappe de missiles russes a-t-elle causé au moins 10 morts et 20 blessés ?",
+      "options": [
+        "Marioupol",
+        "Bakhmout",
+        "Petchenihy",
+        "Lviv"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique que 'Au moins 10 personnes sont mortes et 20 autres ont été blessées dans une frappe de missiles russes sur le village de Petchenihy, dans l’est de l’Ukraine'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Qui est devenue ce mardi la 2e femme européenne à réaliser une sortie extravéhiculaire dans l’espace, en mission dans la Station spatiale internationale ?",
+      "options": [
+        "Claudie Haigneré",
+        "Samantha Cristoforetti",
+        "Sophie Adenot",
+        "Anne-Laure Le Bris"
+      ],
+      "correct": 2,
+      "explication": "Le texte précise que 'La Française Sophie Adenot... est devenue ce mardi la 2e femme européenne à réaliser une sortie extravéhiculaire dans l’espace'.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quelle substance est suspectée d'être la cause de la mort inexpliquée d'au moins 16 éléphants au Kenya, potentiellement issue de pesticides ?",
+      "options": [
+        "L'arsenic",
+        "La strychnine",
+        "Le cyanure",
+        "Le plomb"
+      ],
+      "correct": 2,
+      "explication": "Le Service kényan de la vie sauvage a indiqué fin juillet avoir découvert une forte concentration de cyanure dans l'organisme des cadavres.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quel pays contrôle la majeure partie de la nouvelle route commerciale arctique, la rendant ainsi un enjeu géopolitique majeur ?",
+      "options": [
+        "Le Canada",
+        "Les États-Unis",
+        "La Russie",
+        "Le Danemark"
+      ],
+      "correct": 2,
+      "explication": "Le texte affirme que 'La Russie contrôle la majeure partie de la route, puisqu’elle longe largement ses eaux territoriales'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel pays a accusé Israël d'avoir mené de nouvelles frappes contre la base aérienne d'Abou Douhour, dans le nord-ouest de la Syrie ?",
+      "options": [
+        "La France",
+        "Les États-Unis",
+        "Le Royaume-Uni",
+        "La Turquie"
+      ],
+      "correct": 1,
+      "explication": "Le texte stipule que 'Les États-Unis ont accusé Israël d'avoir mené de nouvelles frappes contre la base aérienne d'Abou Douhour'.",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}
