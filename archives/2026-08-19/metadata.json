@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Piratage du site des impôts et de l’Éducation nationale : ce qu’il faut retenir",
+  "date": "19/08/2026",
+  "img": "archives/2026-08-19/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quel groupe a revendiqué le piratage du site des impôts et de l'Éducation nationale en France ?",
+      "options": [
+        "Anonymous",
+        "ZeroBytes",
+        "CyberTitans",
+        "The Dark Web Collective"
+      ],
+      "correct": 1,
+      "explication": "Le groupe ZeroBytes affirme être derrière ces attaques et dit vendre une base de données volée, comme mentionné dans la rubrique 'Décryptage'.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Selon le texte, quel est l'un des risques majeurs liés au vol des données de la DGFiP (Direction générale des Finances publiques) ?",
+      "options": [
+        "Un accès direct aux comptes bancaires des personnes concernées",
+        "La généralisation de l'authentification multifacteur",
+        "Des fraudes très ciblées, notamment via le 'phishing'",
+        "La fermeture définitive des services en ligne des impôts"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique que ces informations peuvent surtout servir à des fraudes très ciblées. Avec les données volées, un escroc peut rendre 'un phishing' beaucoup plus crédible.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quelle loi l'administration Trump souhaite-t-elle abroger aux États-Unis, concernant l'environnement ?",
+      "options": [
+        "Une loi protégeant les espèces en voie de disparition depuis 1973",
+        "Une loi encadrant la chasse sur les terres fédérales",
+        "Une loi protégeant environ 18 millions d’hectares de forêts publiques sauvages depuis 2001",
+        "Une loi limitant les émissions de CO2 des industries"
+      ],
+      "correct": 2,
+      "explication": "L’administration Trump veut abroger une loi qui protège depuis 2001 environ 18 millions d’hectares de forêts publiques sauvages.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Pourquoi, selon le Premier ministre israélien Benyamin Netanyahou, Israël a-t-il bombardé un aéroport militaire en Syrie ?",
+      "options": [
+        "Pour soutenir le gouvernement syrien actuel",
+        "Pour empêcher la Syrie d’autoriser le déploiement de troupes turques dans la région",
+        "Pour détruire des stocks d'armes chimiques syriens",
+        "En réponse à une attaque directe syrienne contre le territoire israélien"
+      ],
+      "correct": 1,
+      "explication": "Israël affirme que ces bombardements avaient pour but d’empêcher la Syrie d’autoriser le déploiement de troupes turques dans la région.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel ancien ministre ukrainien a réclamé la tenue de nouvelles élections malgré la guerre ?",
+      "options": [
+        "Volodymyr Zelensky",
+        "Oleksiy Reznikov",
+        "Mykhaïlo Fedorov",
+        "Dmytro Kuleba"
+      ],
+      "correct": 2,
+      "explication": "L'ancien ministre de la Défense ukrainien Mykhaïlo Fedorov a réclamé la tenue de nouvelles élections.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quelle loi a été officiellement promulguée par Emmanuel Macron ce mercredi ?",
+      "options": [
+        "La loi sur la réforme des retraites",
+        "La loi sur l'immigration",
+        "La loi sur l’aide à mourir",
+        "La loi sur la sécurité intérieure"
+      ],
+      "correct": 2,
+      "explication": "La loi sur l’aide à mourir a officiellement été promulguée par Emmanuel Macron ce mercredi.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quelle est l'une des principales accusations portées contre Meta (Facebook, Instagram) aux États-Unis ?",
+      "options": [
+        "D'avoir permis la diffusion de fausses nouvelles politiques",
+        "D'avoir espionné des dirigeants d'entreprises rivales",
+        "D'avoir 'appâté' les enfants et 'trompé' le public sur l'impact de ses applications sur les adolescents",
+        "D'avoir vendu des données personnelles à des gouvernements étrangers"
+      ],
+      "correct": 2,
+      "explication": "Meta est accusée aux États-Unis d'avoir 'appâté' les enfants et 'trompé' le public, ainsi que d'avoir menti sur l’impact de ses applications sur les adolescents et d’avoir conçu certaines fonctionnalités pour les retenir.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Qui est la première astronaute française à avoir effectué une sortie dans l'espace, mentionnée dans le texte ?",
+      "options": [
+        "Claudie Haigneré",
+        "Samantha Cristoforetti",
+        "Sophie Adenot",
+        "Anne McClain"
+      ],
+      "correct": 2,
+      "explication": "L’astronaute française Sophie Adenot a fait sa 1re sortie dans l’espace ce mardi 18 août.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quel est l'un des arguments avancés par la ministre de l’Agriculture des États-Unis pour l'abrogation de la loi sur la protection des forêts sauvages ?",
+      "options": [
+        "Faciliter l'exploitation minière dans ces zones",
+        "Permettre l'urbanisation de ces forêts pour le logement",
+        "Réaliser des travaux pour améliorer la santé des forêts et réduire le risque d’incendie",
+        "Transformer ces forêts en terres agricoles productives"
+      ],
+      "correct": 2,
+      "explication": "La ministre de l’Agriculture des États-Unis, Brooke Rollins, estime que les règles actuelles empêchent les services forestiers de réaliser certains travaux nécessaires, notamment selon elle “les traitements qui améliorent la santé des forêts” et “réduisent le risque d’incendie\".",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quelle est l'une des 'failles de sécurité' pointées du doigt pour expliquer les piratages des systèmes publics en France ?",
+      "options": [
+        "Un manque de personnel qualifié en cybersécurité",
+        "L'utilisation exclusive de logiciels étrangers non sécurisés",
+        "La 'dette technique' de la France et le manque de généralisation de l'authentification multifacteur",
+        "Des attaques provenant exclusivement de groupes terroristes"
+      ],
+      "correct": 2,
+      "explication": "Certains experts pointent notamment la 'dette technique' de la France et soulignent que l’authentification multifacteur n’est pas encore généralisée dans les ministères.",
+      "theme": "TECH / SCIENCE"
+    }
+  ]
+}
