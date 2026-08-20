@@ -1,0 +1,127 @@
+{
+  "titre": "🚨GTA 6 victime d’un hack : les hackers font du chantage",
+  "date": "20/08/2026",
+  "img": "archives/2026-08-20/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quel groupe affirme être à l'origine de la fuite des vidéos de GTA 6 et formule des exigences ?",
+      "options": [
+        "Rockstar Games",
+        "Netflix",
+        "Cyberleek",
+        "Stop Killing Games"
+      ],
+      "correct": 2,
+      "explication": "Selon le texte, Cyberleek est le groupe qui affirme être derrière la fuite des images de GTA 6 et a formulé plusieurs exigences.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quelle est l'une des principales revendications de Cyberleek concernant l'industrie du jeu vidéo ?",
+      "options": [
+        "L'augmentation des prix des jeux",
+        "L'interdiction des précommandes numériques",
+        "L'ajout de plus de personnages féminins",
+        "La sortie anticipée de tous les nouveaux jeux"
+      ],
+      "correct": 1,
+      "explication": "Cyberleek réclame notamment 'l'interdiction des précommandes numériques' et la mise en place d'un 'état de secours hors ligne' pour les jeux solo.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Qu'est-ce que l'armée israélienne a récemment reconnu concernant la mort de Hind Rajab, la fillette palestinienne de 5 ans ?",
+      "options": [
+        "Qu'elle a été tuée par une frappe aérienne",
+        "Que ses soldats ont ouvert le feu sur sa voiture",
+        "Qu'elle est décédée de causes naturelles",
+        "Qu'elle n'était pas présente dans la zone"
+      ],
+      "correct": 1,
+      "explication": "L'armée israélienne reconnaît que ses soldats ont ouvert le feu sur la voiture de Hind Rajab.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel dirigeant Donald Trump a-t-il annoncé vouloir rencontrer avant la fin de l'année ?",
+      "options": [
+        "Le président chinois Xi Jinping",
+        "Le dirigeant nord-coréen Kim Jong-un",
+        "Le président russe Vladimir Poutine",
+        "Le Premier ministre britannique Rishi Sunak"
+      ],
+      "correct": 1,
+      "explication": "Donald Trump a annoncé ce mercredi qu’il comptait rencontrer le dirigeant nord-coréen Kim Jong-un avant la fin de l’année.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Combien de personnes supplémentaires sont décédées en France pendant les fortes chaleurs par rapport à la normale ?",
+      "options": [
+        "Environ 1 243",
+        "Environ 5 764",
+        "Environ 7 300",
+        "Environ 300"
+      ],
+      "correct": 2,
+      "explication": "Environ 7 300 personnes supplémentaires sont décédées en France pendant les fortes chaleurs, comparé à la normale.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quelle tranche d'âge a été la plus touchée par les décès en excès liés aux fortes chaleurs en France ?",
+      "options": [
+        "Les moins de 18 ans",
+        "Les 18-45 ans",
+        "Les 46-75 ans",
+        "Les plus de 75 ans"
+      ],
+      "correct": 3,
+      "explication": "Près de trois quarts de ces décès concernent les plus de 75 ans.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Pour quel chef d'accusation Patrick Bruel a-t-il été visé par une nouvelle plainte, la 31e selon l'avocate des plaignantes ?",
+      "options": [
+        "Harcèlement moral",
+        "Diffamation",
+        "Tentative de viol",
+        "Abus de confiance"
+      ],
+      "correct": 2,
+      "explication": "Patrick Bruel a été visé par une nouvelle plainte pour tentative de viol.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Selon la fédération Familles de France, comment le coût des fournitures scolaires a-t-il évolué cette année pour un élève de sixième ?",
+      "options": [
+        "Il a augmenté de 30 euros",
+        "Il a diminué de 30 euros",
+        "Il est resté stable",
+        "Il a diminué de 10 euros"
+      ],
+      "correct": 1,
+      "explication": "Pour un élève entrant en sixième, une famille devra payer environ 181 euros, contre 211 euros l’an dernier, soit une baisse de 30 euros.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Qu'est-ce qui n'est PAS inclus dans le calcul du coût des fournitures scolaires par Familles de France ?",
+      "options": [
+        "Les stylos",
+        "Les cahiers",
+        "Les nouveaux vêtements",
+        "Les manuels scolaires"
+      ],
+      "correct": 2,
+      "explication": "Cette somme concerne uniquement les fournitures scolaires, et ne prend pas en compte l’achat de nouveaux vêtements, le coût de la cantine, des transports ou encore de l’assurance scolaire.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Rockstar Games a-t-il confirmé l'authenticité des vidéos volées de GTA 6 circulant sur les réseaux sociaux ?",
+      "options": [
+        "Oui, immédiatement après la fuite",
+        "Oui, mais seulement une partie des vidéos",
+        "Non, pas pour l'instant",
+        "Ils ont confirmé qu'elles étaient toutes fausses"
+      ],
+      "correct": 2,
+      "explication": "Rockstar n’a pour l’instant pas confirmé leur authenticité.",
+      "theme": "TECH / SCIENCE"
+    }
+  ]
+}
