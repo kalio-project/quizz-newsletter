@@ -1,0 +1,127 @@
+{
+  "titre": "🚨OpenAI (ChatGPT) annonce ralentir le rythme",
+  "date": "21/08/2026",
+  "img": "archives/2026-08-21/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quelle est la raison principale invoquée par Sam Altman, PDG d'OpenAI, pour justifier le ralentissement du développement de certains modèles d'IA ?",
+      "options": [
+        "Une pénurie de puces électroniques nécessaires à l'entraînement des modèles.",
+        "Le besoin de renforcer la sécurité des modèles face aux risques croissants, notamment les cyberattaques autonomes.",
+        "Une nouvelle stratégie d'entreprise visant à se diversifier dans d'autres secteurs technologiques.",
+        "Des pressions gouvernementales pour réduire la concurrence sur le marché de l'IA."
+      ],
+      "correct": 2,
+      "explication": "L'article indique que Sam Altman a déclaré que les risques devenaient plus difficiles à anticiper et qu'OpenAI souhaitait renforcer la sécurité de ses modèles, craignant notamment la capacité d'Astra à mener des cyberattaques autonomes.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Selon le média américain Axios, que font secrètement les États-Unis depuis plusieurs semaines dans le détroit d'Ormuz ?",
+      "options": [
+        "Ils mènent des exercices militaires conjoints avec l'Arabie Saoudite.",
+        "Ils organisent le passage nocturne d'une dizaine de pétroliers en coupant leurs systèmes de communication.",
+        "Ils déploient un nouveau système de surveillance sous-marine pour contrer la piraterie.",
+        "Ils négocient secrètement un accord pétrolier avec l'Iran."
+      ],
+      "correct": 2,
+      "explication": "L'article mentionne que les États-Unis organiseraient 'en secret, le passage d’une dizaine de pétroliers chaque nuit, par le détroit d’Ormuz', et que ces pétroliers coupent leurs systèmes de communication.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est le problème majeur rencontré récemment en France concernant les préservatifs ?",
+      "options": [
+        "Une rupture de stock généralisée dans les pharmacies.",
+        "La découverte de matériaux toxiques dans leur composition.",
+        "La vente de dizaines de milliers de préservatifs 'non conformes' sous plusieurs marques.",
+        "L'obligation de présenter une ordonnance médicale pour en acheter."
+      ],
+      "correct": 3,
+      "explication": "Le texte indique que 'Des dizaines de milliers de préservatifs “non conformes” ont été vendus en France ces derniers mois.'",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quelles sont les principales conséquences prévues par le Met Office concernant un phénomène El Niño potentiellement le plus intense depuis un siècle ?",
+      "options": [
+        "Des hivers plus doux et humides en Europe du Sud.",
+        "Des sécheresses drastiques en Amérique du Sud et dans l'ouest du Pacifique, avec un risque accru de tempêtes en Europe du Nord-Ouest.",
+        "Une augmentation de l'activité volcanique mondiale.",
+        "Une diminution des températures moyennes globales due à une forte nébulosité."
+      ],
+      "correct": 2,
+      "explication": "L'agence prévoit 'des sécheresses drastiques en Amérique du Sud et dans l'ouest du Pacifique notamment' et 'un risque accru de tempêtes et de fortes précipitations sur toute l'Europe du Nord-Ouest.'",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quels quatre pays européens ont émis une déclaration commune appelant Israël à cesser l'expansion des colonies en Cisjordanie occupée ?",
+      "options": [
+        "L'Espagne, le Portugal, la Belgique et l'Irlande.",
+        "L'Allemagne, la France, le Royaume-Uni et l'Italie.",
+        "La Suède, la Finlande, le Danemark et la Norvège.",
+        "Les Pays-Bas, la Pologne, la Tchéquie et la Hongrie."
+      ],
+      "correct": 2,
+      "explication": "La France, l’Italie, le Royaume-Uni et l’Allemagne appellent Israël à « mettre fin à l’expansion des colonies » en Cisjordanie occupée.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel drame s'est produit en République centrafricaine, causant la mort d'au moins 100 personnes ce mardi ?",
+      "options": [
+        "L'effondrement d'un pont routier majeur.",
+        "Une inondation due à de fortes pluies.",
+        "Un éboulement dans une mine d'or artisanale.",
+        "Un accident d'avion militaire."
+      ],
+      "correct": 3,
+      "explication": "Au moins 100 personnes seraient mortes lors d’un éboulement dans une mine d’or artisanale en République centrafricaine.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle place occupe la France en tant qu'exportateur mondial d'armes, et quel a été le montant de ses commandes en 2025 ?",
+      "options": [
+        "1ère place avec 30 milliards d'euros.",
+        "2ème place avec 21,2 milliards d'euros.",
+        "3ème place avec 15 milliards d'euros.",
+        "4ème place avec 10 milliards d'euros."
+      ],
+      "correct": 2,
+      "explication": "Avec 21,2 milliards d’euros de commandes, la France conserve sa deuxième place d'exportateur mondial d'armes.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quel est le principal risque 'cyber critique' qu'OpenAI attribue à son modèle Astra, justifiant une pause dans son développement ?",
+      "options": [
+        "Sa capacité à générer des contenus illégaux sans surveillance.",
+        "Sa capacité à se connecter à Internet et à modifier des sites web.",
+        "Sa capacité à mener de manière autonome des cyberattaques très avancées et à identifier des failles inconnues.",
+        "Sa tendance à diffuser des informations erronées à grande échelle."
+      ],
+      "correct": 3,
+      "explication": "OpenAI estime qu’Astra pourrait se rapprocher de son seuil cyber 'critique'. L’entreprise affirme ne plus pouvoir exclure que le modèle soit capable de mener de manière largement autonome des cyberattaques très avancées. Cela signifie notamment qu’il pourrait être capable d’identifier seul des failles encore inconnues dans certains systèmes informatiques.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Où se situait l'épicentre du séisme de magnitude 6,7 qui a secoué plusieurs régions du sud du Pérou ce jeudi ?",
+      "options": [
+        "À proximité immédiate de la ville d'Arequipa.",
+        "À environ 800 kilomètres au sud de la capitale, Lima.",
+        "Dans l'océan Pacifique, au large des côtes chiliennes.",
+        "Près de la frontière bolivienne, dans les Andes."
+      ],
+      "correct": 2,
+      "explication": "L'épicentre du séisme est situé à environ 800 kilomètres au sud de la capitale, Lima.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quel impact plus large la décision d'OpenAI de ralentir le développement de l'IA pourrait-elle avoir sur l'industrie ?",
+      "options": [
+        "Encourager une course encore plus rapide entre les concurrents.",
+        "Créer un précédent où la sécurité est privilégiée, poussant d'autres acteurs à ralentir également.",
+        "Provoquer un exode des chercheurs en IA vers d'autres pays.",
+        "Mener à une interdiction totale du développement d'IA avancées."
+      ],
+      "correct": 2,
+      "explication": "L'article souligne que 'elle pourrait créer un précédent. Si OpenAI accepte de ralentir lorsque les protections ne suivent plus, d’autres acteurs pourraient être poussés à faire de même.'",
+      "theme": "TECH / SCIENCE"
+    }
+  ]
+}
