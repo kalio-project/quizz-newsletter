@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Israël accélère sa colonisation en Cisjordanie",
+  "date": "24/08/2026",
+  "img": "archives/2026-08-24/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quel pays européen a annoncé son retrait de l'Eurovision 2027, citant le manque de neutralité du concours ?",
+      "options": [
+        "La France",
+        "L'Allemagne",
+        "Les Pays-Bas",
+        "Le Royaume-Uni"
+      ],
+      "correct": 2,
+      "explication": "Les Pays-Bas ne participeront pas à l’Eurovision 2027, estimant que le concours n’est 'plus neutre' et dénonçant la participation d’un pays 'toujours engagé dans un conflit militaire à grande échelle'.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Combien d'aide supplémentaire l'Union européenne a-t-elle annoncée pour renforcer la défense de l'Ukraine ?",
+      "options": [
+        "3,1 milliards d'€",
+        "6,1 milliards d'€",
+        "9,1 milliards d'€",
+        "12,1 milliards d'€"
+      ],
+      "correct": 1,
+      "explication": "L’Union européenne a annoncé 6,1 milliards d’€ supplémentaires pour aider l’Ukraine à renforcer sa défense aérienne, ses missiles et ses munitions.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Qui a officiellement annoncé sa candidature à l'élection présidentielle française de 2027 ?",
+      "options": [
+        "Jean-Luc Mélenchon",
+        "Raphaël Glucksmann",
+        "Éric Ciotti",
+        "Marine Le Pen"
+      ],
+      "correct": 1,
+      "explication": "Raphaël Glucksmann a officiellement annoncé sa candidature à l'élection présidentielle de 2027 et souhaite participer à la primaire avec le Parti socialiste.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Pour quelle raison Jacques Moretti, le patron du bar 'Le Constellation', a-t-il été placé en détention provisoire ?",
+      "options": [
+        "Incendie criminel",
+        "Détournement de fonds",
+        "Violences conjugales",
+        "Fraude fiscale"
+      ],
+      "correct": 2,
+      "explication": "Jacques Moretti a été placé en détention provisoire pour violences conjugales, ayant été interpellé dans la nuit du 11 au 12 août.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Selon le droit international, comment sont considérées les colonies israéliennes dans les territoires palestiniens occupés ?",
+      "options": [
+        "Légales",
+        "Illégales",
+        "Temporaires",
+        "Nécessaires à la sécurité"
+      ],
+      "correct": 1,
+      "explication": "Selon le droit international, les colonies israéliennes dans les territoires palestiniens occupés sont illégales.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle est la principale crainte de l'ONU concernant le développement du 'projet E1' en Cisjordanie ?",
+      "options": [
+        "Une augmentation du chômage palestinien",
+        "Une rupture des relations diplomatiques avec l'Égypte",
+        "Une coupure de la Cisjordanie en deux",
+        "Une pénurie d'eau potable"
+      ],
+      "correct": 2,
+      "explication": "L’ONU estime que le développement de cette colonie pourrait couper la Cisjordanie en deux, isolant le nord et le sud du territoire, et compliquant la création d’un État palestinien viable.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est l'objectif principal du plan 'Vision 2030' lancé par Mohammed ben Salmane en Arabie saoudite ?",
+      "options": [
+        "Renforcer la puissance militaire du pays",
+        "Accroître la dépendance aux hydrocarbures",
+        "Diversifier l'économie et réduire la dépendance au pétrole",
+        "Devenir une puissance spatiale mondiale"
+      ],
+      "correct": 2,
+      "explication": "La 'Vision 2030' est le plan lancé en 2016 par Mohammed ben Salmane pour transformer l’économie saoudienne et réduire sa dépendance au pétrole.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Pourquoi Léa Salamé se met-elle en retrait du JT de France 2 ?",
+      "options": [
+        "Pour se consacrer à d'autres projets télévisuels",
+        "Pour éviter tout conflit d'intérêts suite à l'annonce de son compagnon",
+        "Pour prendre des vacances prolongées",
+        "Elle a été remplacée par Jean-Baptiste Marteau"
+      ],
+      "correct": 1,
+      "explication": "Léa Salamé se met en retrait du JT de France 2 pour éviter tout conflit d’intérêts suite à l'annonce de candidature de son compagnon, Raphaël Glucksmann.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quelle catastrophe a causé la mort d'une trentaine de personnes en Guinée ce dimanche ?",
+      "options": [
+        "Un tremblement de terre",
+        "L'effondrement d'une décharge d'ordures",
+        "Une inondation majeure",
+        "Un accident de transport en commun"
+      ],
+      "correct": 1,
+      "explication": "Une trentaine de personnes sont mortes... après l’effondrement d’une décharge d’ordures sur des habitations, dans la banlieue de Conakry.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Qui était Philippe Bouvard, décédé récemment à 96 ans ?",
+      "options": [
+        "Un homme politique français",
+        "Un célèbre chef étoilé",
+        "Un historien de renom",
+        "Une figure historique de RTL et animateur des 'Grosses Têtes'"
+      ],
+      "correct": 3,
+      "explication": "Philippe Bouvard, figure historique de RTL et premier animateur des 'Grosses Têtes' en 1977, est mort à l’âge de 96 ans.",
+      "theme": "CULTURE"
+    }
+  ]
+}
