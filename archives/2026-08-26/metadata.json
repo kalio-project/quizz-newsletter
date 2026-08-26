@@ -1,0 +1,127 @@
+{
+  "titre": "🚨\"Robots tueurs\" : l’ONU s’alarme",
+  "date": "26/08/2026",
+  "img": "archives/2026-08-26/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quelle est l'une des principales préoccupations exprimées par l'ONU et la Croix-Rouge concernant les 'robots tueurs'?",
+      "options": [
+        "Leur utilisation exclusive dans l'espace",
+        "La capacité d'armes à cibler des humains de façon autonome",
+        "Leur production trop lente pour les besoins actuels",
+        "Le manque de financement pour leur développement"
+      ],
+      "correct": 1,
+      "explication": "L'ONU et la Croix-Rouge s'alarment du risque que des armes soient capables de prendre des humains pour cible de façon autonome, franchissant une 'ligne rouge morale'.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quel est le statut actuel des négociations internationales concernant les systèmes d'armes létales autonomes, selon le texte?",
+      "options": [
+        "Un traité international contraignant a été adopté interdisant leur usage",
+        "Un accord global de réglementation très stricte a été mis en place",
+        "Les États négocient au sein de l'ONU, mais aucun traité contraignant n'a été adopté",
+        "Toutes les recherches et développements dans ce domaine ont été gelés"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique que 'Depuis plusieurs années, les États négocient au sein de l’ONU sur la question des armes létales autonomes. Mais aucun traité international contraignant n’a encore été adopté.'",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle est la cause principale de l'épidémie de rougeole aux États-Unis, qualifiée de la plus grave depuis des décennies?",
+      "options": [
+        "L'apparition d'une nouvelle souche de virus plus virulente",
+        "Une baisse des taux de vaccination dans le pays",
+        "Une contamination massive via l'importation de produits étrangers",
+        "Un diagnostic incorrect des cas par les autorités sanitaires"
+      ],
+      "correct": 1,
+      "explication": "La maladie revient aux États-Unis 'à cause d’une forme de retour en arrière qui a lieu depuis plusieurs années dans le pays avec des taux de vaccination en baisse selon les scientifiques'.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quels deux pays d'Amérique centrale se sont déclarés en état d'alerte élevé ce mardi en raison d'El Niño?",
+      "options": [
+        "Le Mexique et le Guatemala",
+        "Le Costa Rica et le Nicaragua",
+        "Le Panama et le Salvador",
+        "Le Honduras et le Belize"
+      ],
+      "correct": 2,
+      "explication": "Le Panama et le Salvador se sont déclarés en état d’alerte élevé ce mardi en raison d’El Niño.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quelle conséquence économique concrète d'El Niño est mentionnée pour le Panama?",
+      "options": [
+        "Une augmentation des prix du pétrole",
+        "Une réduction du trafic du canal de Panama en raison d'un manque d'eau",
+        "La fermeture de toutes les entreprises touristiques",
+        "Une interdiction d'exportation de produits agricoles"
+      ],
+      "correct": 1,
+      "explication": "La semaine dernière, le Panama avait déjà annoncé réduire le trafic du canal du Panama, par lequel 5 % du commerce mondial transite, à cause d’un manque d’eau.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Où des inondations massives ont-elles fait au moins 160 morts et laissé de nombreuses personnes disparues, y compris des étrangers, selon les autorités?",
+      "options": [
+        "En Chine et en Corée du Sud",
+        "Au Vietnam et au Laos",
+        "Au Népal et au Tibet",
+        "En Thaïlande et au Cambodge"
+      ],
+      "correct": 2,
+      "explication": "Au Népal et au Tibet, des inondations massives font au moins 160 morts, selon le dernier bilan des autorités. Selon le ministère du tourisme népalais, 403 personnes, dont 341 étrangers, n’ont pas été retrouvées.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Qui a attaqué des journalistes de l'Agence France Presse en Cisjordanie, selon les premiers témoignages?",
+      "options": [
+        "Des soldats israéliens",
+        "Des colons israéliens",
+        "Des militants palestiniens",
+        "Des forces de sécurité internationales"
+      ],
+      "correct": 1,
+      "explication": "Des colons israéliens ont attaqué ce mardi des journalistes de l’Agence France Presse, en Cisjordanie.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est l'objectif de l'assemblée citoyenne lancée par l'ingénieur et expert Jean-Marc Jancovici?",
+      "options": [
+        "Désigner le prochain chef d'un parti politique",
+        "Débattre des mesures économiques pour 2027",
+        "Donner de la voix aux citoyens sur le réchauffement climatique",
+        "Organiser des compétitions sportives nationales"
+      ],
+      "correct": 2,
+      "explication": "Jean-Marc Jancovici a lancé ce mercredi une assemblée citoyenne pour 'donner de la voix aux citoyens' sur le réchauffement climatique en 2027.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quand est prévue la primaire pour désigner le candidat du Parti socialiste et de Place Publique à la présidentielle de 2027?",
+      "options": [
+        "En juillet et août",
+        "En septembre",
+        "En octobre",
+        "En novembre"
+      ],
+      "correct": 2,
+      "explication": "Elle se tiendra en deux tours, les 9-10 et 16-17 octobre.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Pourquoi le zoo de Beauval a-t-il renoncé à accueillir les dauphins du Marineland d'Antibes?",
+      "options": [
+        "En raison de l'opposition farouche des associations de protection animale",
+        "À cause notamment du coût élevé du chantier",
+        "Le nombre de dauphins à transférer était trop important",
+        "La législation française interdit désormais tout transfert de cétacés"
+      ],
+      "correct": 1,
+      "explication": "Le zoo de Beauval renonce finalement à accueillir les dauphins du Marineland d’Antibes, à cause notamment du coût du chantier.",
+      "theme": "ENVIRONNEMENT"
+    }
+  ]
+}
