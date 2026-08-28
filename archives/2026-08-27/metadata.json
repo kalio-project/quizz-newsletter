@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Le chef de la CIA a rendu visite à Moscou",
+  "date": "27/08/2026",
+  "img": "archives/2026-08-27/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quel directeur des services de renseignement américains a effectué une visite surprise à Moscou cette semaine, la première du genre depuis le début de l'invasion russe à grande échelle ?",
+      "options": [
+        "William J. Burns",
+        "John Ratcliffe",
+        "David Petraeus",
+        "Mike Pompeo"
+      ],
+      "correct": 1,
+      "explication": "Le texte indique clairement que John Ratcliffe, directeur de la CIA, s'est rendu à Moscou cette semaine pour une visite surprise.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Selon des observateurs et des sources citées, quel était l'un des objectifs de la visite du chef de la CIA à Moscou ?",
+      "options": [
+        "Négocier un cessez-le-feu en Ukraine",
+        "Dissuader la Russie d'attaquer l'OTAN",
+        "Établir de nouvelles relations commerciales avec la Russie",
+        "Discuter de la coopération spatiale bilatérale"
+      ],
+      "correct": 1,
+      "explication": "Le texte mentionne que l'un des objectifs aurait été de 'dissuader la Russie d’attaquer l’OTAN', en particulier les pays baltes.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Combien de personnes sont décédées suite à la crue dévastatrice qui a touché le Népal et le Tibet ce mercredi ?",
+      "options": [
+        "Moins de 100",
+        "Environ 200",
+        "Au moins 359",
+        "Plus de 500"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique : 'Au moins 359 personnes sont mortes et plus de 1 000 personnes sont toujours portées disparues suite à une crue dévastatrice'.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quelle entreprise a accepté de verser près de 17 milliards de dollars pour éviter un procès et une sanction historique aux États-Unis ?",
+      "options": [
+        "Google",
+        "Apple",
+        "Meta",
+        "Amazon"
+      ],
+      "correct": 2,
+      "explication": "Le texte affirme que 'Meta, l’entreprise qui possède Facebook Instagram et WhatsApp, a accepté de verser près de 17 milliards de dollars' pour s’éviter un procès.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Combien de personnes sont mortes lors de l'incident où un automobiliste a volontairement foncé sur des piétons à Caen ?",
+      "options": [
+        "1 personne",
+        "2 personnes",
+        "5 personnes",
+        "10 personnes"
+      ],
+      "correct": 1,
+      "explication": "Le texte précise : '2 personnes sont mortes et 9 autres blessées à Caen, dans le Calvados, après qu'un automobiliste aurait volontairement foncé sur des piétons'.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Selon l'Unicef et la Fédération des acteurs de la solidarité, combien d'enfants dorment toujours dans la rue en France ?",
+      "options": [
+        "Environ 1 000",
+        "Plus de 1 500",
+        "Plus de 2 300",
+        "Environ 3 000"
+      ],
+      "correct": 2,
+      "explication": "Le texte rapporte : 'Plus de 2 300 enfants, dont 514 âgés de moins de 3 ans, dorment toujours dans la rue en France, selon l’Unicef'.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quelle est la cause de l'arrêt d'un réacteur de la centrale nucléaire de Gravelines, la plus grande d'Europe occidentale ?",
+      "options": [
+        "Une panne électrique majeure",
+        "Une attaque informatique",
+        "Une invasion de méduses",
+        "Un problème de maintenance non résolu"
+      ],
+      "correct": 2,
+      "explication": "Le texte mentionne : 'Une invasion de méduses met à l’arrêt un réacteur de la centrale nucléaire de Gravelines'.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quelle est la particularité des éclosions de crocodiles du Nil survenues dans la Drôme ?",
+      "options": [
+        "Elles ont été assistées par des experts locaux",
+        "Elles ont été favorisées par des températures exceptionnellement basses",
+        "Elles sont le résultat d'une expérience scientifique",
+        "Elles ont eu lieu sans intervention humaine, une première"
+      ],
+      "correct": 3,
+      "explication": "Le texte dit : '10 œufs de crocodiles du Nil ont éclos sans intervention humaine dans la Drôme, une première qui inquiète.'",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Contre quel abattoir l'association L214 a-t-elle porté plainte pour maltraitance animale ce mercredi ?",
+      "options": [
+        "L'abattoir de Lyon",
+        "L'abattoir de Perpignan",
+        "L'abattoir de Nantes",
+        "L'abattoir de Marseille"
+      ],
+      "correct": 1,
+      "explication": "Le texte indique : 'L’association de défense des animaux L214 a porté plainte contre l’abattoir de Perpignan pour maltraitance animale'.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Quelle méthode de détention la Colombie envisage-t-elle pour les détenus les plus dangereux ?",
+      "options": [
+        "Construire des prisons souterraines",
+        "Les enfermer sur des navires en pleine mer",
+        "Les déporter vers d'autres pays",
+        "Mettre en place des centres de réhabilitation intensifs"
+      ],
+      "correct": 1,
+      "explication": "Le texte déclare : 'La Colombie veut enfermer les détenus les plus dangereux sur des navires en pleine mer'.",
+      "theme": "JUSTICE"
+    }
+  ]
+}
