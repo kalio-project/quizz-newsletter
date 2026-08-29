@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Une guerre commerciale entre le Canada et les USA est lancée",
+  "date": "28/08/2026",
+  "img": "archives/2026-08-28/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quelle nouvelle menace plane sur le Népal après l'immense coulée de boue ?",
+      "options": [
+        "Un tremblement de terre majeur",
+        "La rupture d'une vaste retenue d'eau",
+        "Une éruption volcanique imminente",
+        "Une nouvelle vague de froid extrême"
+      ],
+      "correct": 1,
+      "explication": "Après la coulée de boue, une vaste retenue d'eau s'est formée et menace de rompre, faisant craindre une deuxième crue.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Qu'est-il arrivé à un soldat franco-colombien de la Légion étrangère française en Colombie ?",
+      "options": [
+        "Il a été blessé au combat",
+        "Il a été décoré pour bravoure",
+        "Il a été enlevé par un groupe rebelle",
+        "Il a disparu lors d'un exercice d'entraînement"
+      ],
+      "correct": 2,
+      "explication": "Un soldat franco-colombien a été enlevé par un groupe rebelle début août en Colombie.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Combien de départements français étaient placés en vigilance orange suite aux violents orages ce jeudi ?",
+      "options": [
+        "7 départements",
+        "22 départements",
+        "44 départements",
+        "77 départements"
+      ],
+      "correct": 2,
+      "explication": "Ce jeudi, 44 départements étaient placés en vigilance orange pour les violents orages.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quel incident a provoqué des tensions à Ceuta, ville espagnole enclavée dans le territoire marocain ?",
+      "options": [
+        "Un conflit de pêche avec le Maroc",
+        "Des manifestations anti-migrants ayant dégénéré en violence",
+        "Une crise politique locale",
+        "Une coupure d'eau généralisée"
+      ],
+      "correct": 1,
+      "explication": "Des tensions ont éclaté à Ceuta entre des manifestants anti-migrants et la police espagnole, après que les manifestants ont attaqué un campement de réfugiés.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Qui est appelé à monter sur le trône de Norvège après le décès du roi Harald V ?",
+      "options": [
+        "La reine Sonja",
+        "La princesse Märtha Louise",
+        "Le prince héritier Haakon",
+        "Le prince héritier Olav"
+      ],
+      "correct": 2,
+      "explication": "Le prince héritier Haakon, fils de Harald V, va monter sur le trône à l'âge de 53 ans.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Comment le président algérien Abdelmadjid Tebboune a-t-il réagi aux feux de forêt meurtriers dans le nord-est du pays ?",
+      "options": [
+        "Il a demandé une aide internationale d'urgence",
+        "Il a décrété 3 journées de deuil national",
+        "Il a mobilisé l'armée pour éteindre les feux",
+        "Il a annoncé un plan de reboisement massif"
+      ],
+      "correct": 1,
+      "explication": "Le président algérien Abdelmadjid Tebboune a décrété 3 journées de deuil national et l'annulation de toutes les festivités culturelles et compétitions sportives.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quel record environnemental a été atteint le 22 août, selon l’observatoire européen Copernicus ?",
+      "options": [
+        "La plus forte concentration de CO2 dans l'atmosphère",
+        "La température moyenne des eaux de surface des océans mondiaux a atteint un record absolu",
+        "La plus grande superficie de forêt détruite par des feux en une journée",
+        "Le niveau de la mer le plus bas jamais enregistré"
+      ],
+      "correct": 1,
+      "explication": "La température des eaux de surface des océans mondiaux a atteint 21,1°C en moyenne le 22 août, un record absolu.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quel était le taux d'inflation en France en août 2026, selon l’Insee ?",
+      "options": [
+        "0,9%",
+        "2,4%",
+        "5,5%",
+        "16,7%"
+      ],
+      "correct": 1,
+      "explication": "L'indice des prix à la consommation a augmenté de 2,4% sur 1 an en août 2026 en France.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quelle action symbolique Donald Trump a-t-il entreprise en plein bras de fer commercial avec le Canada ?",
+      "options": [
+        "Il a ordonné la fermeture de l'ambassade américaine à Ottawa",
+        "Il a signé un décret visant à renommer le lac Ontario en 'lac Amérique'",
+        "Il a interdit les importations de tous produits canadiens",
+        "Il a exigé le retrait du Canada de l'OTAN"
+      ],
+      "correct": 1,
+      "explication": "Donald Trump a signé un décret visant à renommer le lac Ontario, situé à la frontière entre les deux pays, en 'lac Amérique'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel pourcentage des exportations canadiennes vers les États-Unis est concerné par les nouveaux droits de douane de 50% ?",
+      "options": [
+        "2,4%",
+        "5,5%",
+        "16,7%",
+        "20%"
+      ],
+      "correct": 1,
+      "explication": "Au total, environ 20 milliards de dollars de marchandises sont concernés sur un an, soit 5,5% des exportations canadiennes vers les États-Unis.",
+      "theme": "ÉCONOMIE"
+    }
+  ]
+}
