@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Ce qui change en septembre",
+  "date": "31/08/2026",
+  "img": "archives/2026-08-31/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quel leader politique a annoncé sa candidature à la primaire du PS et de Place publique pour l'élection présidentielle de 2027 ?",
+      "options": [
+        "Raphaël Glucksmann",
+        "Olivier Faure",
+        "Philippe Brun",
+        "Ségolène Royal"
+      ],
+      "correct": 1,
+      "explication": "Olivier Faure, le premier secrétaire du Parti socialiste, a annoncé dimanche être candidat à la présidentielle de 2027 et participera à la primaire du PS et de Place publique en octobre.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quelle île iranienne située dans le détroit d'Ormuz les États-Unis ont-ils bombardée ce dimanche, selon l'actualité ?",
+      "options": [
+        "Kish",
+        "Qeshm",
+        "Larak",
+        "Hengam"
+      ],
+      "correct": 2,
+      "explication": "Les États-Unis ont bombardé ce dimanche l’île iranienne de Larak, située dans le détroit d'Ormuz, après avoir observé des forces iraniennes préparer le lancement de roquettes.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel changement majeur concernant les téléphones portables est mis en place dans les lycées français à partir de septembre ?",
+      "options": [
+        "Ils sont autorisés uniquement pendant les pauses",
+        "Leur utilisation est limitée à des fins pédagogiques",
+        "Ils sont officiellement interdits dans tous les lycées",
+        "Les lycées peuvent choisir de les autoriser ou non"
+      ],
+      "correct": 2,
+      "explication": "À partir du 1er septembre, les téléphones portables seront officiellement interdits dans tous les lycées, l'interdiction étant désormais inscrite dans la loi.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Quelle est la principale modification apportée aux allocations chômage concernant les ruptures conventionnelles ?",
+      "options": [
+        "Leur durée est augmentée pour tous",
+        "Elles sont désormais soumises à une condition de revenu minimum",
+        "Leur durée est réduite pour les moins de 55 ans et plus",
+        "Elles sont remplacées par un nouveau dispositif"
+      ],
+      "correct": 2,
+      "explication": "La durée des allocations chômage sera désormais réduite lorsqu'un employeur et le salarié décident ensemble de mettre fin au contrat dans le cadre d’une rupture conventionnelle.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quelle nouvelle mesure environnementale est appliquée dès le 1er septembre concernant les rejets de PFAS ?",
+      "options": [
+        "Interdiction totale de leur utilisation",
+        "Subvention pour les entreprises qui les éliminent",
+        "Obligation de payer une redevance pour les rejets dans l'eau",
+        "Limitation de leur production uniquement"
+      ],
+      "correct": 2,
+      "explication": "Dès le 1er septembre, les industriels qui rejettent des PFAS dans l’eau devront payer une redevance de 100 € pour 100 grammes de PFAS rejetés.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quel est le nom de la nouvelle tournée d'Angèle annoncée pour mars 2027 ?",
+      "options": [
+        "Le Tour des Rêves",
+        "L'Instinct Tour",
+        "Le Monde d'Angèle",
+        "Chansons Tour"
+      ],
+      "correct": 1,
+      "explication": "Angèle a annoncé sa nouvelle tournée, l’Instinct Tour, avec 23 dates à travers la France, l’Europe, les États-Unis et le Canada, à partir de mars 2027.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Quelle mesure le parti d’extrême-droite (RN) souhaite-t-il appliquer aux femmes portant le voile dans l’espace public en cas d’élection de Marine Le Pen ?",
+      "options": [
+        "Une amende",
+        "Une interdiction totale",
+        "Une obligation de le porter uniquement dans les lieux de culte",
+        "Aucune mesure spécifique"
+      ],
+      "correct": 0,
+      "explication": "En cas d’élection de Marine Le Pen, le parti d’extrême-droite souhaite sanctionner d’une amende les femmes qui portent le voile dans l’espace public.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quel a été le résultat du référendum islandais concernant les négociations d'adhésion à l'Union européenne ?",
+      "options": [
+        "Une acceptation majoritaire",
+        "Un rejet majoritaire",
+        "Une égalité parfaite des votes",
+        "Le résultat n'a pas été précisé"
+      ],
+      "correct": 1,
+      "explication": "L’Islande a rejeté par référendum une reprise des négociations d'adhésion à l'Union européenne, avec 52,8% des électeurs islandais ayant répondu 'non'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle est la nouvelle règle concernant la durée maximale des arrêts de travail prescrits par un médecin ?",
+      "options": [
+        "Ils peuvent durer indéfiniment sans justification",
+        "Ils sont limités à une semaine par an",
+        "Un médecin ne peut plus prescrire plus d’un mois d’arrêt en une seule fois",
+        "Ils ne sont plus remboursés par la sécurité sociale"
+      ],
+      "correct": 2,
+      "explication": "Un médecin ne pourra plus prescrire plus d’un mois d’arrêt en une seule fois. Il pourra ensuite le prolonger jusqu’à trois mois au total.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Selon les experts, quelle pourrait être la cause de la crue dévastatrice du 26 août au Népal et au Tibet ?",
+      "options": [
+        "Des pluies torrentielles exceptionnelles",
+        "Un tremblement de terre",
+        "L'effondrement d'un glacier dans l’Himalaya",
+        "Une rupture de barrage volontaire"
+      ],
+      "correct": 2,
+      "explication": "Selon des experts, la catastrophe pourrait avoir été provoquée par l’effondrement d’un glacier dans l’Himalaya.",
+      "theme": "ENVIRONNEMENT"
+    }
+  ]
+}
