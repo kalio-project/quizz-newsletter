@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Le meurtre de Tupac enfin élucidé ?",
+  "date": "01/09/2026",
+  "img": "archives/2026-09-01/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Qui a été identifié comme l'orchestrateur du meurtre du rappeur Tupac Shakur ?",
+      "options": [
+        "Orlando Anderson",
+        "P. Diddy",
+        "Duane Davis",
+        "Biggie"
+      ],
+      "correct": 2,
+      "explication": "Duane Davis a été condamné pour avoir orchestré le meurtre de Tupac Shakur.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Quelles sont les principales raisons de la pénurie de bouteilles d'eau minérale en Tunisie ?",
+      "options": [
+        "Une augmentation du tourisme et des exportations",
+        "Une canicule, des coupures d'électricité et une défiance envers l'eau du robinet",
+        "Une baisse drastique de la production et une surconsommation",
+        "Un conflit avec les pays voisins pour l'accès aux sources d'eau"
+      ],
+      "correct": 1,
+      "explication": "La pénurie est due à la canicule, aux coupures d'électricité perturbant la production et la distribution, et à la défiance d'une partie de la population envers l'eau du robinet.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Selon le président colombien, combien de guérilleros ont été tués lors de bombardements récents dans le pays ?",
+      "options": [
+        "Moins de 10",
+        "Environ 20",
+        "Plus de 50",
+        "Une centaine"
+      ],
+      "correct": 1,
+      "explication": "Le président colombien a affirmé ce lundi que 20 guérilleros ont été tués dans le pays dans des bombardements.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Pour quelle raison l'Union Européenne va-t-elle suspendre les importations de volaille et de bœuf en provenance du Brésil ?",
+      "options": [
+        "Le Brésil a refusé de ratifier un accord commercial",
+        "Le Brésil n'a pas apporté assez de garanties sur le respect des règles d'utilisation des antibiotiques",
+        "Le Brésil a augmenté ses taxes à l'exportation",
+        "Une épidémie de grippe aviaire a été détectée au Brésil"
+      ],
+      "correct": 1,
+      "explication": "La Commission européenne reproche au Brésil de ne pas avoir apporté assez de garanties sur le respect de ses règles concernant l’utilisation des antibiotiques dans les élevages.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Que l'administration Trump envisagerait-elle de faire avec une partie du parc national de Yosemite ?",
+      "options": [
+        "Y construire une nouvelle centrale hydroélectrique",
+        "La céder à un promoteur immobilier privé pour un complexe hôtelier et commercial",
+        "L'ouvrir à l'exploitation minière",
+        "La transformer en zone de conservation pour espèces menacées"
+      ],
+      "correct": 1,
+      "explication": "L’administration Trump envisagerait de céder une partie du parc national de Yosemite, en Californie, à un promoteur immobilier privé, afin d'y construire une route privée pour desservir un futur complexe hôtelier et commercial.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelles régions de France sont principalement concernées par le nouveau pic de chaleur attendu entre jeudi et dimanche ?",
+      "options": [
+        "La Bretagne et la Normandie",
+        "Le Grand Est et les Hauts-de-France",
+        "Le Languedoc, l’Aquitaine, le Midi toulousain et la vallée du Rhône",
+        "La région PACA et la Corse"
+      ],
+      "correct": 2,
+      "explication": "Le Languedoc, l’Aquitaine, le Midi toulousain et la vallée du Rhône seront concernés par le nouveau pic de chaleur.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quel est le jalon historique que la Chine a atteint concernant sa capacité de production d'énergie solaire ?",
+      "options": [
+        "Elle est devenue le premier pays à utiliser uniquement de l'énergie solaire",
+        "Sa capacité de production d'énergie solaire a dépassé celle des centrales nucléaires",
+        "Sa capacité de production d'énergie solaire a dépassé pour la 1re fois celle des centrales à charbon",
+        "Elle a inventé un nouveau type de panneau solaire ultra-performant"
+      ],
+      "correct": 2,
+      "explication": "En Chine, la capacité de production d’énergie solaire a dépassé pour la 1re fois celle des centrales à charbon.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Comment le député RN Julien Odoul a-t-il défendu Patrick Bruel face aux accusations ?",
+      "options": [
+        "Il a nié toutes les accusations sans fondement",
+        "Il a rappelé la présomption d'innocence et évoqué des femmes 'manipulatrices'",
+        "Il a demandé l'ouverture d'une enquête parlementaire",
+        "Il a suggéré que Patrick Bruel était victime d'un complot politique"
+      ],
+      "correct": 1,
+      "explication": "Julien Odoul a défendu Patrick Bruel sur CNews, évoquant l’existence de femmes “manipulatrices” et “malveillantes” et rappelant qu'il devait être considéré comme innocent tant que la justice ne s’était pas prononcée.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quel a été l'un des rôles politiques majeurs d'Édouard Balladur en France ?",
+      "options": [
+        "Président de la République",
+        "Ministre de la Santé",
+        "Premier ministre",
+        "Président de l'Assemblée Nationale"
+      ],
+      "correct": 2,
+      "explication": "Édouard Balladur, figure majeure de la droite française, a notamment été Premier ministre de 1993 à 1995.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Quel exploit a réalisé l'astronaute française Sophie Adenot lors de ses récentes sorties dans l'espace ?",
+      "options": [
+        "Elle a découvert une nouvelle planète",
+        "Elle est devenue la première Française à sortir dans l'espace",
+        "Elle a piloté un nouveau type de vaisseau spatial",
+        "Elle a établi un record de durée de séjour dans l'espace"
+      ],
+      "correct": 1,
+      "explication": "Le 18 août, Sophie Adenot est devenue la première Française à sortir dans l’espace.",
+      "theme": "TECH / SCIENCE"
+    }
+  ]
+}
