@@ -1,0 +1,127 @@
+{
+  "titre": "🚨Les États-Unis bombardent de nouveau l’Iran",
+  "date": "02/09/2026",
+  "img": "archives/2026-09-02/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Selon le “Décryptage”, quel est l'un des objectifs initiaux des États-Unis dans le conflit avec l'Iran, outre la prévention du développement d'une arme nucléaire ?",
+      "options": [
+        "Rendre l'Iran dépendant économiquement de l'Occident.",
+        "Faire chuter le régime islamique.",
+        "Établir une base militaire permanente sur le territoire iranien.",
+        "Négocier un accord de paix global avec les pays voisins."
+      ],
+      "correct": 1,
+      "explication": "Le 'Décryptage' indique que les États-Unis affirmaient vouloir 'faire chuter le régime islamique' en Iran, en plus de vouloir rendre le pays incapable de développer une arme nucléaire.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "D'après la Fédération des associations générales étudiantes, quel est le coût moyen estimé pour la rentrée et la vie courante d'un étudiant non boursier vivant seul en 2026 ?",
+      "options": [
+        "2 585 €",
+        "2 990 €",
+        "3 240 €",
+        "3 895 €"
+      ],
+      "correct": 2,
+      "explication": "Le texte mentionne que 'En 2026, il faut en moyenne 3 240 € pour faire face aux dépenses de rentrée et de vie courante pour un étudiant non boursier qui vit seul'.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Quel est l'incident pour lequel l'Allemagne a tenu la Russie pour responsable, entraînant des mesures de rétorsion ?",
+      "options": [
+        "Une cyberattaque majeure contre les infrastructures gouvernementales.",
+        "La découverte d'un drone chargé d'explosifs dans un aéroport allemand.",
+        "Le piratage de données sensibles de l'armée allemande.",
+        "L'espionnage de hauts responsables politiques allemands."
+      ],
+      "correct": 1,
+      "explication": "Le texte indique : 'L’Allemagne a tenu la Russie pour responsable... du drone chargé d’explosifs découvert dans un aéroport allemand le 4 août'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Pourquoi la judokate Léa Fontaine a-t-elle déposé plainte ce mardi ?",
+      "options": [
+        "Pour contester une décision arbitrale lors du Grand Chelem de Lausanne.",
+        "Suite à des accusations de dopage infondées.",
+        "Après avoir reçu de nombreuses attaques sur son physique sur les réseaux sociaux.",
+        "Pour obtenir un dédommagement suite à une blessure en compétition."
+      ],
+      "correct": 2,
+      "explication": "Le texte précise : 'La judokate Léa Fontaine a déposé plainte ce mardi après avoir reçu récemment de nombreuses attaques sur son physique sur les réseaux sociaux.'",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Depuis quelle date le jeu vidéo thérapeutique 'Poppins' est-il remboursé par l'Assurance maladie en France ?",
+      "options": [
+        "1er janvier",
+        "1er juillet",
+        "1er septembre",
+        "1er novembre"
+      ],
+      "correct": 2,
+      "explication": "La section 'Bonne nouvelle' indique que 'Poppins', 'est remboursé depuis le 1er septembre par l’Assurance maladie'.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quel archipel du Pacifique a saisi la Cour internationale de justice pour un différend territorial avec la France ?",
+      "options": [
+        "La Nouvelle-Calédonie",
+        "Les îles Fidji",
+        "Le Vanuatu",
+        "La Polynésie française"
+      ],
+      "correct": 2,
+      "explication": "Le texte stipule : 'Le Vanuatu, un archipel du Pacifique, a saisi la Cour internationale de justice au sujet des îles Matthew et Hunter, qu’il se dispute avec la France.'",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Pour quelle raison Patrick Bruel a-t-il annoncé l'annulation de sa tournée de 35 concerts ?",
+      "options": [
+        "Des problèmes de santé l'empêchant de monter sur scène.",
+        "Des désaccords financiers avec les organisateurs de la tournée.",
+        "Les conditions n'étant plus réunies pour que les concerts restent des 'moments de musique et de partage', sur fond d'accusations et de mises en examen.",
+        "Un manque de ventes de billets ne justifiant pas le maintien de la tournée."
+      ],
+      "correct": 2,
+      "explication": "Le texte précise : 'Selon lui, les conditions n'étaient plus réunies pour que ces concerts restent “des moments de musique et de partage”', et ajoute qu'il est 'mis en cause par une trentaine de femmes, et a été mis en examen dans 4 dossiers'.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Selon le 'Décryptage' sur le conflit Iran/États-Unis, quel passage stratégique est devenu un enjeu central ?",
+      "options": [
+        "Le canal de Suez",
+        "Le détroit de Bab el-Mandeb",
+        "Le détroit d'Ormuz",
+        "Le détroit de Gibraltar"
+      ],
+      "correct": 2,
+      "explication": "Le texte indique que 'le détroit d’Ormuz, passage stratégique pour le commerce mondial et notamment le pétrole, est devenu un enjeu central du conflit.'",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Qu'est-ce qui a suscité de nombreuses critiques après sa publication par un ministre israélien ?",
+      "options": [
+        "Une déclaration politique controversée.",
+        "Une vidéo générée par intelligence artificielle (IA).",
+        "Un document secret divulgué accidentellement.",
+        "Un nouveau projet de loi jugé liberticide."
+      ],
+      "correct": 1,
+      "explication": "Le texte mentionne : 'Une vidéo générée par IA par un ministre israélien suscite de nombreuses critiques'.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quel événement a motivé la visite d'Emmanuel Macron à Londres ?",
+      "options": [
+        "Un sommet économique franco-britannique.",
+        "L'inauguration d'une nouvelle ambassade de France.",
+        "La célébration de l'anniversaire du couronnement du monarque britannique.",
+        "L'inauguration de l'exposition consacrée à la tapisserie de Bayeux."
+      ],
+      "correct": 3,
+      "explication": "Le texte affirme : 'Emmanuel Macron s’est rendu ce mercredi à Londres, au Royaume-Uni, pour l’inauguration de l’exposition consacrée à la tapisserie de Bayeux au British Museum.'",
+      "theme": "CULTURE"
+    }
+  ]
+}
