@@ -706,5 +706,17 @@
     "titre": "🚨Les États-Unis bombardent de nouveau l’Iran",
     "date": "02/09/2026",
     "img": "archives/2026-09-02/images/img_0.jpg"
+  },
+  {
+    "folder": "archives/2026-09-03",
+    "titre": "🚨 L'actuel El Niño pourrait être le plus puissant depuis 40 ans",
+    "date": "03/09/2026",
+    "img": "archives/2026-09-03/images/img_0.jpg"
+  },
+  {
+    "folder": "archives/2026-09-04",
+    "titre": "🚨OpenAI lance une nouvelle IA surpuissante",
+    "date": "04/09/2026",
+    "img": "archives/2026-09-04/images/img_0.jpg"
   }
 ]

@@ -1,0 +1,127 @@
+{
+  "titre": "🚨 L'actuel El Niño pourrait être le plus puissant depuis 40 ans",
+  "date": "03/09/2026",
+  "img": "archives/2026-09-03/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quel record climatique la France a-t-elle établi durant l'été 2026 ?",
+      "options": [
+        "L'été le plus froid jamais enregistré.",
+        "Le plus grand nombre de jours de pluie consécutifs.",
+        "L'été le plus chaud jamais enregistré depuis 1900.",
+        "La plus faible consommation d'énergie estivale."
+      ],
+      "correct": 2,
+      "explication": "L'été 2026 a été 'le plus chaud jamais enregistré' en France depuis le début des mesures en 1900, avec 53 jours de vague de chaleur, un nombre inédit.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quelle mesure l'Algérie prévoit-elle de prendre contre les 'barons de la drogue et les trafiquants' ?",
+      "options": [
+        "Les expulser du pays.",
+        "Les envoyer dans une prison de haute sécurité aménagée dans le désert de Tanezrouft.",
+        "Les soumettre à des programmes de réhabilitation obligatoires.",
+        "Renforcer les contrôles aux frontières sans détention systématique."
+      ],
+      "correct": 1,
+      "explication": "L'Algérie prévoit d'envoyer les 'barons de la drogue et les trafiquants' dans une prison de haute sécurité aménagée dans une ancienne caserne du désert de Tanezrouft.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Quelle est la position de l'administration Donald Trump concernant l'utilisation des archives du 'New York Times' par OpenAI ?",
+      "options": [
+        "Elle a soutenu le droit du New York Times à réclamer des droits d'auteur.",
+        "Elle a défendu le droit d'OpenAI à utiliser les archives sans verser de droits d'auteur.",
+        "Elle a appelé à une médiation entre les deux parties pour trouver un accord.",
+        "Elle est restée neutre sur la question, attendant un verdict judiciaire."
+      ],
+      "correct": 1,
+      "explication": "L'administration de Donald Trump a défendu le droit d'OpenAI à utiliser les archives du 'New York Times' sans verser de droits d'auteur.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quel pourcentage des annonces de location dépasse les plafonds légaux dans les villes françaises soumises à l'encadrement des loyers, selon la Fondation pour le logement ?",
+      "options": [
+        "25%",
+        "32%",
+        "37%",
+        "46%"
+      ],
+      "correct": 2,
+      "explication": "37% des annonces de location dépassent les plafonds légaux dans les villes soumises à l'encadrement des loyers, contre 32% l'an dernier. À Paris, ce chiffre atteint 46%.",
+      "theme": "ÉCONOMIE"
+    },
+    {
+      "q": "Selon l'ONU, quel est le sort de l'objectif de l'Accord de Paris de limiter le réchauffement à +1,5 °C d'ici la fin du XXIe siècle ?",
+      "options": [
+        "Il sera atteint d'ici 2050 grâce à de nouveaux engagements.",
+        "Il ne sera pas atteint, le seuil devrait être franchi d'ici 2030.",
+        "L'ONU n'a pas encore communiqué de prévisions à ce sujet.",
+        "Il est en bonne voie d'être atteint avec les mesures actuelles."
+      ],
+      "correct": 1,
+      "explication": "L’objectif de l’Accord de Paris de limiter le réchauffement à +1,5 °C d’ici la fin du XXIe siècle par rapport à 1850 ne sera pas atteint, selon l’ONU. Ce seuil devrait être franchi d’ici 2030.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quel record les cinémas français ont-ils atteint durant les mois de juillet et août de cet été ?",
+      "options": [
+        "Le plus faible nombre d'entrées jamais enregistré.",
+        "Un record d'entrées depuis 2011, avec plus de 37 millions.",
+        "Un record d'entrées pour le mois d'août seulement depuis 1990.",
+        "Le plus grand nombre de films sortis simultanément."
+      ],
+      "correct": 1,
+      "explication": "Les cinémas ont enregistré plus de 37 millions d’entrées cet été, en juillet et en août, un record depuis 2011. Le mois d’août a attiré près de 20 millions de spectateurs, un record depuis le début des mesures en 1980.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Quelle est la situation actuelle des réalisateurs français Gaël Mocaër et Sebastian Perez Pezzani, détenus au Togo ?",
+      "options": [
+        "Ils sont toujours détenus sans perspective de libération immédiate.",
+        "Ils ont été condamnés à une peine de prison ferme.",
+        "Ils ont été autorisés à quitter le pays, et leur collaborateur togolais a été libéré provisoirement.",
+        "Ils ont demandé l'asile politique au Togo."
+      ],
+      "correct": 2,
+      "explication": "Les réalisateurs français Gaël Mocaër et Sebastian Perez Pezzani, arrêtés fin juillet au Togo et détenus depuis, ont été autorisés ce jeudi à quitter le pays, selon le gouvernement. Leur collaborateur togolais Fred Vedomey a également été libéré provisoirement.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelle est la prévision concernant l'intensité et la durée de l'actuel phénomène El Niño ?",
+      "options": [
+        "Il devrait s'affaiblir rapidement et se terminer avant la fin de l'année 2026.",
+        "Il pourrait être le plus puissant depuis 40 ans, se maintenir jusqu'en février 2027 et culminer fin 2026.",
+        "Son intensité est incertaine et sa durée reste indéterminée.",
+        "Il n'aura que des conséquences mineures sur le climat mondial."
+      ],
+      "correct": 1,
+      "explication": "L’actuel El Niño pourrait être le plus puissant depuis 40 ans. L’ONU affirme qu’il existe une 'probabilité exceptionnellement élevée (près de 100 %)' qu’El Niño se maintienne jusqu’en février 2027 et qu'il atteigne 'une très forte intensité' avant son apogée vers la fin de l’année 2026.",
+      "theme": "ENVIRONNEMENT"
+    },
+    {
+      "q": "Quelle suggestion controversée Donald Trump a-t-il faite concernant le détroit d'Ormuz ?",
+      "options": [
+        "De le fermer complètement au trafic maritime international.",
+        "De le renommer le 'détroit Trump'.",
+        "D'y établir une nouvelle base militaire américaine.",
+        "De le placer sous le contrôle direct des Nations Unies."
+      ],
+      "correct": 1,
+      "explication": "Donald Trump a fait la suggestion de renommer le détroit d’Ormuz, le 'détroit Trump', bien qu'il ait ensuite assuré ne pas être sérieux.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quelles actions militaires récentes ont été menées entre l'Iran et les États-Unis, selon le texte ?",
+      "options": [
+        "L'Iran a bombardé des bases américaines au Koweït, et les États-Unis ont mené des frappes contre l'Iran.",
+        "Seuls les États-Unis ont mené des frappes aériennes contre l'Iran.",
+        "Seul l'Iran a bombardé des installations américaines au Koweït.",
+        "Des négociations de paix ont été entamées après des menaces mutuelles."
+      ],
+      "correct": 0,
+      "explication": "L’Iran a bombardé ce jeudi des bases militaires américaines au Koweït. Les États-Unis ont mené 2 vagues de frappes contre l’Iran, dimanche et mardi soir.",
+      "theme": "INTERNATIONAL"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "titre": "🚨OpenAI lance une nouvelle IA surpuissante",
+  "date": "04/09/2026",
+  "img": "archives/2026-09-04/images/img_0.jpg",
+  "questions": [
+    {
+      "q": "Quel est le montant annoncé pour soutenir l'agriculture française face aux conséquences des canicules et de la sécheresse ?",
+      "options": [
+        "Environ 500 millions d'euros",
+        "Plus d'un milliard d'euros",
+        "Moins de 100 millions d'euros",
+        "Près de 10 milliards d'euros"
+      ],
+      "correct": 1,
+      "explication": "La ministre de l'Agriculture, Annie Genevard, a annoncé le déblocage de plus d'un milliard d'euros pour soutenir l'agriculture française.",
+      "theme": "POLITIQUE FR"
+    },
+    {
+      "q": "Pour quel motif une quinzaine de familles ont-elles déposé plainte contre le maire de Paris et son prédécesseur ?",
+      "options": [
+        "Détournement de fonds publics",
+        "Mise en danger délibérée d'autrui",
+        "Négligence dans la gestion des infrastructures",
+        "Non-respect des règles de sécurité sanitaires"
+      ],
+      "correct": 1,
+      "explication": "Les familles ont déposé plainte pour 'mise en danger délibérée d'autrui' suite au scandale du périscolaire à Paris.",
+      "theme": "JUSTICE"
+    },
+    {
+      "q": "Quelle condition a été posée par la France pour l'autorisation des essais de voitures autonomes Tesla sur ses routes ?",
+      "options": [
+        "Les essais sont uniquement autorisés de nuit",
+        "Les voitures doivent être équipées de caméras extérieures mais avec un conducteur à bord",
+        "Les essais sont limités aux zones rurales et non urbaines",
+        "Les voitures doivent circuler sans passagers à bord"
+      ],
+      "correct": 1,
+      "explication": "La France a autorisé les essais de voitures autonomes Tesla, à condition qu'elles soient équipées de caméras extérieures et qu'un conducteur soit à bord.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Quel acteur a démenti l'autorisation pour la création d'un parc Dragon Ball en France, contrairement à une annonce politique ?",
+      "options": [
+        "La Ville de Paris",
+        "Le gouvernement saoudien",
+        "Toei Animation",
+        "Valérie Pécresse"
+      ],
+      "correct": 2,
+      "explication": "Toei Animation, qui détient une partie des droits liés à Dragon Ball Z, a affirmé n'avoir jamais autorisé la création d'un tel parc.",
+      "theme": "CULTURE"
+    },
+    {
+      "q": "Quel est le montant record de la cagnotte récolté lors du ZEvent en 2025 ?",
+      "options": [
+        "532 000 €",
+        "100 000 €",
+        "Plus de 16 millions d'euros",
+        "50 000 €"
+      ],
+      "correct": 2,
+      "explication": "En 2025, plus de 16 millions d’euros avaient été récoltés en 3 jours, ce qui constitue le record du ZEvent.",
+      "theme": "SOCIÉTÉ"
+    },
+    {
+      "q": "Grâce à quel type de greffe un homme de 66 ans a-t-il pu vivre 271 jours sans dialyse ?",
+      "options": [
+        "Un rein artificiel implantable",
+        "Un rein de babouin génétiquement modifié",
+        "Un rein de porc génétiquement modifié",
+        "Un rein humain issu d'un don anonyme"
+      ],
+      "correct": 2,
+      "explication": "L'homme a pu vivre sans dialyse grâce à un rein de porc génétiquement modifié, ce qui est la plus longue durée documentée pour ce type de greffe.",
+      "theme": "SANTÉ"
+    },
+    {
+      "q": "Quelle est l'une des capacités principales de GPT-6 Astra, le nouveau modèle d'IA d'OpenAI, mise en avant par l'entreprise ?",
+      "options": [
+        "La capacité à générer des articles de presse sans erreurs factuelles",
+        "Le contrôle direct d'un ordinateur pour effectuer des tâches de manière autonome",
+        "La prédiction des mouvements boursiers avec une précision de 90%",
+        "La conception de nouveaux vaccins en quelques heures"
+      ],
+      "correct": 1,
+      "explication": "OpenAI affirme qu'Astra peut contrôler directement un ordinateur et effectuer des tâches de manière autonome, comme modifier une page Word ou créer un jeu vidéo.",
+      "theme": "TECH / SCIENCE"
+    },
+    {
+      "q": "Qui a annoncé vouloir demander à l'Europe de rembourser l'aide militaire fournie à l'Ukraine par les États-Unis ?",
+      "options": [
+        "Joe Biden",
+        "Le Secrétaire général de l'OTAN",
+        "Donald Trump",
+        "Emmanuel Macron"
+      ],
+      "correct": 2,
+      "explication": "Le président des États-Unis Donald Trump a annoncé sur son réseau Truth Social vouloir réclamer à l'Europe le remboursement de cette aide.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est le nom du jeu vidéo controversé, publié par la Maison Blanche, qui a pour but d'expulser des migrants ?",
+      "options": [
+        "Border Patrol Challenge",
+        "Rio Run",
+        "Wall Defender",
+        "Migrant Dash"
+      ],
+      "correct": 1,
+      "explication": "Le jeu vidéo, qui reprend le principe de Snake et met en scène un conseiller de Donald Trump sur l'immigration, est baptisé 'Rio Run'.",
+      "theme": "INTERNATIONAL"
+    },
+    {
+      "q": "Quel est le montant estimé des pertes pour les agriculteurs français cet été suite aux canicules et à la sécheresse ?",
+      "options": [
+        "Moins d'un milliard d'euros",
+        "Entre 5 et 10 milliards d'euros",
+        "Environ 2 milliards d'euros",
+        "Plus de 15 milliards d'euros"
+      ],
+      "correct": 1,
+      "explication": "Selon le gouvernement, les canicules et la sécheresse de cet été ont entraîné entre 5 et 10 milliards d’euros de pertes pour les agriculteurs.",
+      "theme": "ENVIRONNEMENT"
+    }
+  ]
+}
